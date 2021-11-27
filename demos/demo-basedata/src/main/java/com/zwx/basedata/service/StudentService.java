@@ -26,6 +26,7 @@ public interface StudentService {
     * 根据条件查询学生信息
     * */
     List<StudentBean> findStudentCondition(StudentEntity studentEntity);
+
     /*
     * 添加学生信息
     * */

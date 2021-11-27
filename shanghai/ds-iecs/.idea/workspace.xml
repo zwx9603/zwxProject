@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="0cc4ce60-7c2c-4584-bd8c-325f65fd84e9" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/ds_iecs-accept/ds_iecs-accept.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ds_iecs-accept/ds_iecs-accept.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ds_iecs-agent/ds_iecs-agent.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ds_iecs-agent/ds_iecs-agent.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ds_iecs-base-ext/ds_iecs-base-ext.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ds_iecs-base-ext/ds_iecs-base-ext.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ds_iecs-base/ds_iecs-base.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ds_iecs-base/ds_iecs-base.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ds_iecs-basedata/ds_iecs-basedata.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ds_iecs-basedata/ds_iecs-basedata.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ds_iecs-distribute/ds_iecs-distribute.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ds_iecs-distribute/ds_iecs-distribute.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ds_iecs-garage/ds_iecs-garage.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ds_iecs-garage/ds_iecs-garage.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ds_iecs-integrate/ds_iecs-integrate.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ds_iecs-integrate/ds_iecs-integrate.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ds_iecs-integrate/src/main/java/com/dscomm/iecs/integrate/service/impl/IncidentReportServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/ds_iecs-integrate/src/main/java/com/dscomm/iecs/integrate/service/impl/IncidentReportServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ds_iecs-intelligent/ds_iecs-intelligent.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ds_iecs-intelligent/ds_iecs-intelligent.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ds_iecs-keydata/ds_iecs-keydata.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ds_iecs-keydata/ds_iecs-keydata.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ds_iecs-notify/ds_iecs-notify.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ds_iecs-notify/ds_iecs-notify.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ds_iecs-schedule/ds_iecs-schedule.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ds_iecs-schedule/ds_iecs-schedule.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ds_iecs-schedule/src/main/java/com/dscomm/iecs/schedule/tasks/hangzhou/PushDhTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/ds_iecs-schedule/src/main/java/com/dscomm/iecs/schedule/tasks/hangzhou/PushDhTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ds_iecs-web-accept/ds_iecs-web-accept.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ds_iecs-web-accept/ds_iecs-web-accept.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ds_iecs-web-distribute/ds_iecs-web-distribute.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ds_iecs-web-distribute/ds_iecs-web-distribute.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ds_iecs-web-integrate/ds_iecs-web-integrate.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ds_iecs-web-integrate/ds_iecs-web-integrate.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ds_iecs-web-schedule/ds_iecs-web-schedule.iml" beforeDir="false" afterPath="$PROJECT_DIR$/ds_iecs-web-schedule/ds_iecs-web-schedule.iml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="localRepository" value="D:\soft\maven\repository" />
+        <option name="mavenHome" value="$PROJECT_DIR$/../../../maven/apache-maven-3.6.3" />
+        <option name="userSettingsFile" value="D:\soft\maven\apache-maven-3.6.3\conf\settings(bj).xml" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="1xchHsH0tNeLl2cHgm2fcadyEEq" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../ds_iecs-shanghai" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.30476192" />
+    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Tomcat 8.5.55" type="#com.intellij.j2ee.web.tomcat.TomcatRunConfigurationFactory" factoryName="Local" APPLICATION_SERVER_NAME="Tomcat 8.5.55" ALTERNATIVE_JRE_ENABLED="false" nameIsGenerated="true">
+      <option name="UPDATING_POLICY" value="restart-server" />
+      <deployment>
+        <artifact name="ds_iecs-web-accept:war">
+          <settings>
+            <option name="CONTEXT_PATH" value="/ds-iecs-web" />
+          </settings>
+        </artifact>
+      </deployment>
+      <server-settings>
+        <option name="BASE_DIRECTORY_NAME" value="Unnamed_ds_iecs_2" />
+      </server-settings>
+      <predefined_log_file enabled="true" id="Tomcat" />
+      <predefined_log_file enabled="true" id="Tomcat Catalina" />
+      <predefined_log_file id="Tomcat Manager" />
+      <predefined_log_file id="Tomcat Host Manager" />
+      <predefined_log_file id="Tomcat Localhost Access" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="54705" />
+      </RunnerSettings>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Cover">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Debug">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <ConfigurationWrapper VM_VAR="JAVA_OPTS" RunnerId="Run">
+        <option name="USE_ENV_VARIABLES" value="true" />
+        <STARTUP>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </STARTUP>
+        <SHUTDOWN>
+          <option name="USE_DEFAULT" value="true" />
+          <option name="SCRIPT" value="" />
+          <option name="VM_PARAMETERS" value="" />
+          <option name="PROGRAM_PARAMETERS" value="" />
+        </SHUTDOWN>
+      </ConfigurationWrapper>
+      <method v="2">
+        <option name="Make" enabled="true" />
+        <option name="BuildArtifacts" enabled="true">
+          <artifact name="ds_iecs-web-accept:war" />
+        </option>
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration" cleanupOnStartRun="true">
+    <configuration>C:\Users\17803829936\AppData\Roaming\Subversion</configuration>
+    <supportedVersion>125</supportedVersion>
+  </component>
+  <component name="SvnFileUrlMappingImpl">
+    <option name="myMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\soft\ideaprogram\shanghai\ds-iecs" />
+          <option name="myCopyRoot" value="D:\soft\ideaprogram\shanghai\ds-iecs" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+    <option name="myMoreRealMappingRoots">
+      <list>
+        <SvnCopyRootSimple>
+          <option name="myVcsRoot" value="D:\soft\ideaprogram\shanghai\ds-iecs" />
+          <option name="myCopyRoot" value="D:\soft\ideaprogram\shanghai\ds-iecs" />
+        </SvnCopyRootSimple>
+      </list>
+    </option>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0cc4ce60-7c2c-4584-bd8c-325f65fd84e9" name="Default Changelist" comment="" />
+      <created>1628508760263</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1628508760263</updated>
+      <workItem from="1628508768022" duration="5549000" />
+      <workItem from="1628559725005" duration="4727000" />
+      <workItem from="1628664075623" duration="2421000" />
+      <workItem from="1630660203443" duration="685000" />
+      <workItem from="1630661490756" duration="534000" />
+      <workItem from="1630914066646" duration="65000" />
+      <workItem from="1632099599321" duration="1351000" />
+      <workItem from="1632529793655" duration="10930000" />
+      <workItem from="1633829010254" duration="2769000" />
+      <workItem from="1633864388421" duration="711000" />
+      <workItem from="1633944736755" duration="554000" />
+      <workItem from="1634003624332" duration="598000" />
+      <workItem from="1634087340210" duration="594000" />
+      <workItem from="1634227092271" duration="1219000" />
+      <workItem from="1634716340772" duration="1414000" />
+      <workItem from="1635058678216" duration="1000" />
+      <workItem from="1635593032300" duration="20000" />
+      <workItem from="1635854379446" duration="395000" />
+      <workItem from="1636163840852" duration="632000" />
+      <workItem from="1636636979939" duration="613000" />
+      <workItem from="1636639312031" duration="718000" />
+      <workItem from="1636720723173" duration="1896000" />
+      <workItem from="1636783695782" duration="5000" />
+      <workItem from="1637134180505" duration="897000" />
+      <workItem from="1637497925760" duration="462000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="212" y="74" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1630660421518">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="212" y="74" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1630660421518" />
+    <state x="479" y="57" width="869" height="724" key="#com.intellij.j2ee.appServerIntegrations.ApplicationServersConfigurable" timestamp="1630660387031">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="479" y="57" width="869" height="724" key="#com.intellij.j2ee.appServerIntegrations.ApplicationServersConfigurable/0.0.1536.824@0.0.1536.824" timestamp="1630660387031" />
+    <state x="537" y="110" key="FileChooserDialogImpl" timestamp="1630660889642">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="537" y="110" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1630660889642" />
+    <state x="259" y="0" key="SettingsEditor" timestamp="1630661536106">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="259" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1630661536106" />
+    <state x="167" y="100" width="1327" height="532" key="find.popup" timestamp="1636639401561">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="167" y="100" width="1327" height="532" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1636639401561" />
+  </component>
+</project>

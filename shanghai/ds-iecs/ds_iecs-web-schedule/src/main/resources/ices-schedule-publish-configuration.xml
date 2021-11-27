@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<project>
+  <info> 
+    <name content="产品名称">ds-schedule-web</name>
+    <version content="产品版本号">1.1.0.11.15</version>
+    <code content="产品编码">ds-schedule-web</code>
+	<appid content="产品发布编码默认:产品名称.app.id">dsicesschedulewebserver.app.id</appid>
+  </info>
+
+  <install-info>
+    <linuxpath content="linuxpath">/opt/apache-tomcat-8.5.51-schedule/webapps/</linuxpath>
+    <windowspath content="windowspath">d:/dssystem/apache-tomcat-8.5.51-schedule/webapps/</windowspath>
+  </install-info>
+
+  <cfg-files> 
+    <file name="changeability" type="properties">
+
+      <!-- 数据库配置 -->
+      <dbNeedDecryption content="数据库配置信息是否加密">false</dbNeedDecryption>
+      <db.driver content="数据库驱动">org.postgresql.Driver</db.driver>
+      <db.url content="数据库路径">jdbc:postgresql://41.253.39.184:8110/dsdb?currentSchema=iecs_hangzhou</db.url>
+      <db.user content="数据库账号">iecs_hangzhou</db.user>
+      <db.password content="数据库密码">iecs_hangzhou</db.password>
+      <db.initialSize content="数据库初始连接数">10</db.initialSize>
+      <db.maxSize content="数据库最大连接数">100</db.maxSize>
+      <db.maxIdleTime content="数据库最大空闲时间">3000</db.maxIdleTime>
+      <db.validationQuery content="数据库是否正常检查SQL语句">select 1</db.validationQuery>
+
+
+
+    </file>
+
+    <file name="tomcat" type="properties">
+      <port content="Tomcat access port">8480</port>
+      <serverport content="Shutdown port for Tomcat listening">8482</serverport>
+    </file>
+
+  </cfg-files> 
+</project>

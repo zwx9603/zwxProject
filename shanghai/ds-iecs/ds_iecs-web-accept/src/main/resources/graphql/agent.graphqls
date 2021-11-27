@@ -1,0 +1,267 @@
+##基础数据 input  type 管理
+input AuditAgentSleepParam {
+    #申请者坐席号
+    agentNum: String
+    #申请者账号
+    account: String
+    #审核结果
+    auditResult: String
+    #申请原因编码
+    reasonCode: String
+    #申请原因
+    reason: String
+}
+
+
+## 坐席分组 信息
+type GroupAgentBean{
+    groupId   :  String   ##分组维度Id
+    groupName   :  String   ##分组维度名称
+    groupNum    :  Int   ##分组维度排序
+    list : [AgentBean]
+}
+
+# 坐席
+type AgentBean{
+    id: String  ## 坐席ID
+    agentNumber: String  ## 台号
+    extensionNumber: String  ## 分机号
+    emerPhone: String  ## 应急电话号码
+    organizationCode : String  # 所属单位
+    organizationName : String  # 所属单位名称
+    organizationOrderNum : Int  # 所属单位排序
+    ip: String  # IP
+    loginAcd: String    # 登陆ACD
+    extensionType: String    # 分机模式
+    agentType: String    # 坐席类型
+    skillLevel: String    # 技能级别
+    loginState: Int    # 登陆状态
+    loginNum: String    #登陆工号
+    order: String    #排序字段
+    agentState: BasicEnumNumberBean   # 坐席状态
+    agentOperateState: BasicEnumNumberBean    # 坐席操作状态
+    agentPhoneType: BasicEnumNumberBean    # 坐席话务类型
+    agentPhoneState: BasicEnumNumberBean    # 坐席话务状态
+    accessBean : AccessBean ##访问信息
+    loginTime  : Long   ##登录时间
+    onlineSign  : Int   ##在线标志  0 不在线 1 在线
+    personBean: AgentPersonBean   # 坐席人员信息
+    violateInfo: ViolationBO    #坐席违规信息
+    phone: String    # 坐席电话
+    remarks: String    # 备注
+    jdlx21: Int    ## 21节点类型
+    room: String    ## 房间号
+    dccode: String    ##dc编码
+    dcpassword: String   ##dc密码
+    latesttime: String   ##最新时间
+    icpip: String   ##icpip
+    speakerid: String   ##扬声器id
+    wluserid: String   ##wl用户id
+    wluserpassword: String   ##wl用户密码
+    wlserverinfo: String   ##wl服务详情
+    talkinggroup: String   ## 讨论组
+    wldeviceid: String   ##wl设备id
+    wlconferenceid: String   ##wl会议id
+    elteproxymode: Int   ##宽带代理模式
+    meetingMark: String    #是否会议
+    remotePhone: String    #对端电话
+}
+
+#坐席人员信息
+type AgentPersonBean {
+     # 人员id
+    userId: String
+    # 人员代码
+    userCode: String
+    # 系统账号
+    account: String
+    # 人员姓名
+    userName: String
+    # 所属机构id
+    personOrgId: String
+    # 所属机构代码
+    personOrgCode: String
+    # 所属机构名称
+    personOrgName: String
+    # 人员角色 接警员 处警 接警班长 处警班长 技防接警员 高级处警员 高级班长 接处合一
+    personRole: [BasicEnumNumberBean]
+}
+
+#坐席违规信息
+type ViolationBO {
+    #违规编码
+    code: String
+    #违规名称
+    name: String
+    #违规时间
+    violateTime: Long
+    #处置描述
+    handleDescription: String
+}
+
+## 访问信息
+type  AccessBean{
+    clientIp : String   ##访问ip
+    systemName  :  String  ##系统名称
+    lastAccessTime  : Long ##上次访问时间
+    agentNum  : String ## 坐席台号
+}
+
+
+# 枚举输出
+type BasicEnumNumberBean {
+    # type(例:agent_type_calltaking)
+    type: String
+    # code(例:1)
+    code: Int
+    # name(例:"接警")
+    name: String
+}
+
+# acd组
+type AcdBean {
+    # 序号
+    number: String
+    # acd
+    acd: String
+    # 描述
+    describe: String
+    # 警种
+    policeType: String
+    # 话务类型
+    callType: String
+    # 报警号码
+    alarmNumber: String
+    # 时间戳
+    sjc: Long
+    # 字典项id
+    id: String
+    #单位编号
+    orgCode: String
+}
+
+# 用户acd
+type UserAcdBean {
+    # 流水号
+    id: String
+    # 用户工号
+    userId: String
+    # acd
+    acd: String
+    # 技能级别
+    skillLevel: Int
+    # 时间戳
+    sjc: Long
+}
+# 坐席acd
+type AgentAcdBean {
+    # 流水号
+    id: String
+    # 坐席台号
+    agentNumber: String
+    # acd
+    acd: String
+    # 技能级别
+    skillLevel: Int
+    # 时间戳
+    sjc: Long
+}
+
+##机构坐席信息
+type OrganizationAgentBean{
+    organizationId : String   ##所属单位
+    organizationCode :  String   ##所属单位代码
+    organizationName :  String   ##所属单位名称
+    organizationParentId :  String   ## 上级机构ID
+    organizationParentCode :  String   ## 上级机构代码
+    organizationParentName   :  String   ##所属单位名称
+    contactPerson :   String  ## 单位联系人
+    contactPhone : String   ## 单位联系电话
+    agentBeanList : [AgentBean] ## 坐席信息
+    onlineAgentBeanList : [AgentBean] ## 坐席信息
+}
+
+
+##上下岗记录
+type LogRecordBean{
+  personName : String   ##人员姓名
+  personNumber : String   ##人员工号
+   loginTime : Long    ## 登录时间
+  logoutTime  : Long    ##退出时间
+  duration  : Long     ## 登录时间
+}
+
+## 登录用户信息
+type UserInfo{
+    account    :    String   ##用户账号
+     userId   :    String   ##用户ID
+     userCode   :    String   ##用户编号
+      userName  :    String   ##用户名称
+     personId   :    String   ##人员ID
+     personCode   :    String   ##人员Code
+     personName   :    String   ##人员姓名
+    policeNum    :    String   ##警号 消防人员id
+    policeType    :    String   ##警种
+    orgId    :    String   ##单位ID
+    orgType    :    String   ##单位类别
+    orgNature    :    String   ##单位性质
+    orgCode    :    String   ##单位Code
+     orgName   :    String   ##单位名称
+      orgFullName  :    String   ##单位全称
+     orgFullKeyId   :    String   ##单位全ID
+    orgOrderNum    :    Int     ##机构排序
+     orgParentId   :    String   ##上级单位ID
+     orgParentName   :    String   ##上级单位ID
+     agentId   :    String   ##坐席ID
+     agentNum   :    String   ##坐席号
+    agentOrder    :    String   ##坐席序号，用于排序
+     agentRoom   :    String   ##坐席room
+     deskphone   :    String   ##坐席分机号
+    acdGroupNumber    :    String   ##acd组号
+    clientIp    :    String   ##机器IP
+     areaCode   :    String   ##行政区划
+     belongSystem   :    String   ##所属系统，冗余字段，用于标记第三方系统
+    fileExplain    :    String   ##文件说明
+     scopeType   :    Int    ##机构是否为根机构  0根机构 1非根机构
+    needAuthenticate    :    Boolean    ##是否需要分权分域
+     icpType   :    String    ##用户icpType类型   0接处警( 接警台 ) 需要认证坐席与账号 1接处警( 受理台 )需要账号 2 实战指挥  3 移动端imei   9 无认证账号
+  onlineSign : Int ## 是否在线 0 不在 1 在线
+  userRole   : [BasicEnumNumberBean]     ##人员角色(接处警角色)
+  businessRoles    :    [RoleBean]  ##业务(警种)角色
+    latesttime:Long ##最后登录时间
+ }
+
+###业务(警种)角色
+ type RoleBean{
+    roleId  :   String   ##角色主键
+    roleCode   :   String   ##角色编码
+    roleName   :   String   ##角色名称
+ }
+
+## 用户分组 信息
+type GroupUserInfo{
+    groupId   :  String   ##分组维度Id
+    groupName   :  String   ##分组维度名称
+    groupNum    :  Int   ##分组维度排序
+    list : [UserInfo]
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

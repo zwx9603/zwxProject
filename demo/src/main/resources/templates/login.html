@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+</head>
+<body>
+<div align="center" style="position: relative">
+    <br>
+        <h2>登录界面</h2>
+    <br>
+    <form id="login" method="get" action="">
+        用户名: <input type="text" name="username" placeholder="请输入用户名" required/><br><br>
+        密 码: <input type="text" name="password" placeholder="请输入密码" required/><br><br>
+        <input type="button" value="登录" onclick="window.location.href='LoginController/login1'">
+        <input type="button" value="注册" onclick="window.location.href='register.jsp'">
+    </form>
+</div>
+</body>
+<style>
+    body{
+        background-image: url("../static/picture/天空.jpg");
+        background-repeat:repeat;
+        background-size: 100%;
+    }
+</style>
+</html>

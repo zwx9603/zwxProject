@@ -1,0 +1,999 @@
+##基础数据 input  type 管理
+
+
+##分页查询参数
+input PaginationInputInfo{
+    page : Int   ##页码
+    size : Int   ##页码条数
+    total : Int   ##总数
+}
+
+##ids参数
+input IdsInputInfo{
+    ids : [String]   ##主键集合
+}
+
+
+##分页查询结果
+type Pagination{
+    page : Int   ##页码
+    size : Int   ##页码条数
+    total : Int   ##总数
+}
+
+#字典bean
+type DictionaryBean {
+    id : String    ##主键
+    typeCode : String  ##字典类型编码
+    typeDesc : String  ##字典类型描述
+    code : String  ##字典编码
+    name : String  ##字典名称
+    pinyinHeader : String  ##字典名称拼音头
+    desc : String  ## 描述
+    orderNum  : Int  ##顺序 ( 排序 )
+    parentCode : String  ##上级编码
+    incidentTypeCode : String   ##案件类型编码
+    ##与外部系统 存在差异时  对应信息（ 编码  名称 ）
+    convertCode : String  ## 对应编码
+    convertName : String  ##对应名称
+    remarks : String  ## 备注
+    parentId : String  ##父主键
+    children : [ DictionaryBean ]   ##子字典
+}
+
+#字典bean
+type DictionaryKeyBean {
+    key : String    ##字典关键字
+    dictionaryBeanList : [DictionaryBean]   ##子字典
+}
+
+
+##车辆查询参数
+input EquipmentVehicleQueryInputInfo{
+    scopeSquadronId : String    ##查询范围辖区Id 必填
+    scopeType : Int     ##查询范围辖区类型 0只查询机构本身 1递归查询
+    keyword : String    ##模糊匹配关键字（车辆名称 车辆简称 车牌号）
+    vehicleTypeCodes : [String]    ##车辆类型编码集合
+    vehicleStatusCodes : [String]    ##车辆状态编码集合
+    whetherPage : Boolean     ##是否分页查询 默认分页
+    pagination : PaginationInputInfo      ##分页条件
+    nature : Int  ##机构性质 -1 查询全部  0 总队 1 支队 2 大队 3救援站（中队） 默认 -1
+
+
+}
+
+##车辆分页
+type PaginationVehicleBean{
+    pagination : Pagination    ##分页
+    list : [EquipmentVehicleBean]    ##数据集合
+}
+
+##车辆信息bea
+type EquipmentVehicleBean{
+    id : String    ##主键
+    vehicleCode : String   ##车辆编号
+    vehicleName : String  ## 装备名称 车辆名称
+    vehicleShortName : String  ## 车辆简称
+    vehicleTypeCode : String  ## 装备类型代码 车辆类型代码
+    vehicleTypeName : String  ## 装备类型代码 车辆类型名称
+    vehicleLevelCode : String  ## 车辆等级代码
+    vehicleLevelName : String  ## 车辆等级名称
+    organizationId : String  ## 所属消防机构ID
+    organizationName : String  ## 所属消防机构名称
+    brigadeOrganizationId : String  ## 所属大队 消防机构ID
+    brigadeOrganizationName : String  ## 所属大队 消防机构名称
+    vehicleStatusCode : String  ## 车辆状态代码 ( 车辆状态代码_灭火 )
+    vehicleStatusName : String  ## 车辆状态名称 ( 车辆状态代码_灭火 )
+    vehicleNumber : String  ## 车牌号码
+    gpsNumber : String  ## GPS编号
+    locationNumber : String ##定位编号
+    radioCallSign : String  ## 电台呼号
+    waterCarrier : Float  ##载水量
+    carrierBubble : Float  ##载泡量
+    maxFlow : Float  ##最大流量
+    minFlow : Float  ##最小流量
+    maxLiftingHeight : Float  ##最大举升高度
+    liftingWeight  : Float  ##起吊重量
+    passengersNum : Float  ##载人数量
+    traction : Float  ##牵引力
+    heightLimit : Float  ##车辆限高
+    maxSmokeDischarge : Float  ##最大排烟量
+    incidentNumber : String  ## 案件编号
+    whetherAssembling : Int  ##是否装配
+    whetherDetachment : Int  ##是否跨支队
+    whetherCorps : Int  ##是否跨总队
+    singleEquipmentCode : String  ## 单件装备编码
+    equipmentCode : String  ## 装备编码
+    superEquipmentCode : String  ## 上级装备编码
+    singleEquipmentStautsCode : String  ## 单件装备状况代码
+    specificationsNumber : String  ## 规格型号
+    assetNumber : String   ## 资产编号
+    referencePrice : String   ## 参考价
+    trademark : String  ## 商标
+    color : String  ## 颜色
+    colorName : String  ## 颜色名称
+    countryCode : String  ## 国别代码
+    manufacturerCode : String  ## 生产厂家代码
+    manufacturerName : String  ## 生产厂家名称
+    agent : String   ## 进口装备国内代理商
+    afterService : String   ## 售后服务
+    contacts : String  ## 责任人
+    contactsId : String  ## 责任人ID
+    contactsName : String  ## 责任人姓名
+    contactsPhone : String  ## 责任人联系电话
+    productionTime : Long  ## 出厂日期
+    equipTime : Long  ## 装备日期
+    scrapTime : Long  ## 报废日期
+    effectiveTime : Long  ## 有效期至
+    cumulativeTransportTime : Float  ## 累计运输时间
+    cumulativeUseFrequency : Int  ## 累计使用次数
+    maintenanceTime : Long  ## 本次保养日期
+    nextMaintenanceTime : Long  ## 下次保养日期
+    frameNo : String  ## 车架号
+    engineNumber : String  ## 发动机编号
+    batchNo : String  ## 批次号
+    measurementCode : String  ## 计量单位代码
+    measurementName : String  ## 计量单位名称
+    whetherTraining : Int  ## 是否用于训练
+    lockingStatus : Int  ## 锁定状态
+    checkResultStatus : String  ## 检查结果状态
+    remarks : String  ## 备注
+    handLiftPump : Float ##手抬泵
+    fireMonitorFlow : Float ##消防炮流量
+    pumpFlow : Float ##泵流量
+    foam : String  ## 车载泡沫
+    foamName : String ## 车载泡沫名称
+    equipment : String  ##车载器材
+    equipmentName : String ## 车载器材名称
+
+    equipmentVehicleLoadBeanList : [EquipmentVehicleLoadBean]  ##车辆 装载装备 列表
+    mappingGroupId : String  ## 车库号
+
+    vehicleOrderNum : Int ## 车辆排序 从车辆名称前两位获得
+
+    vehicleDesc : String   ##todo 字段 车辆性能指标_简要情况
+    vehicleIdentification : String    ##todo 字段 车辆标识 0 头车  1 指挥 2 尾车 可拓展 是否第一出动车辆_判断标识
+   locationId : String   ## todo 字段  定位设备id
+   locationSIMNumber : String   ##todo 字段     定位设备 SIM卡卡号
+   vehicleLocation  :  String  ##todo 字段 车辆位置
+   carrierBubbleA : Float   ## todo 字段 装载A类泡沫_容积 单位：升
+   carrierBubbleB : Float   ##todo 字段  装载B类泡沫_容积 单位：吨
+   vehicleNature: String #车辆性质代码 CLXZDM_ZZ(主战)CLXZDM_ZY（支援）
+   vehicleNatureName: String #车辆性质名称
+
+}
+
+##车辆拓展信息参数
+input EquipmentVehicleExpandInputInfo{
+    id : String    ##主键
+    vehicleName : String  ## 装备名称 车辆名称
+    vehicleTypeCode : String  ## 装备类型代码 车辆类型代码
+    vehicleStatusCode : String  ## 车辆状态代码 ( 车辆状态代码_灭火 )
+    vehicleNumber : String  ## 车牌号码
+    waterCarrier : Float  ##载水量
+    carrierBubble : Float  ##载泡量
+    maxLiftingHeight : Float  ##最大举升高度  举升高度
+    liftingWeight  : Float  ##起吊重量 吊机
+    passengersNum  : Float  ##载人数
+    traction : Float  ##牵引力 牵引
+    handLiftPump : Float ##手抬泵
+    fireMonitorFlow : Float ##消防炮流量
+    pumpFlow : Float ##泵流量
+    foam : String  ## 车载泡沫
+    equipment : String  ##车载器材
+    applyExplain :String ## 申请说明
+    status:Int ## 变更状态
+    whetherConsent :Int ## 是否同意
+    refuseReason:String ## 拒绝原因
+    auditId:String ## 审计ID
+}
+
+##机构查询参数
+input OrganizationQueryInputInfo{
+  squadronId : String    ##辖区id 必填
+  keyword : String    ##模糊查询关键字
+  whetherOnlySquadron : Boolean    ##是否只查询中队
+  returnType : Int    ##返回类型 0是列表结构 1是树形结构 默认列表结构
+}
+
+##机构bean
+type OrganizationBean{
+    id : String    ##主键
+    parentId    : String ##父机构id
+    children    : [OrganizationBean]   ##子机构集合
+    organizationCode : String  ## 机构代码
+    pinyinHeader  : String  ## 机构名称拼音头
+    organizationName : String  ## 机构名称
+    organizationShortName : String  ## 机构简称
+    organizationAddress : String  ## 机构地址
+    organizationDesc : String  ## 机构描述
+    organizationParentId : String  ## 上级机构ID
+    organizationParentCode : String  ## 上级机构编码
+    organizationCategoryCode : String  ## 机构类别
+    organizationCategoryName : String  ## 机构类别名称
+    organizationTypeCode : String  ## 机构类型代码
+    organizationTypeName : String  ## 机构类型名称
+    organizationNatureCode : String  ## 机构性质代码
+    organizationNatureName : String  ## 机构性质名称
+    districtCode : String  ## 行政区代码
+    districtName : String  ## 行政区名称
+    longitude : String  ## 经度
+    latitude : String  ## 纬度
+    height : String  ## 高度
+    dispatchPhone : String  ## 调度电话
+    mailCode : String  ## 邮政编码
+    faxNumber : String  ## 传真号码
+    contactPerson : String  ## 单位联系人
+    contactPersonName  :  String  ##todo 字段 单位联系人名称
+    contactPhone : String  ## 单位联系电话
+    organizationWeight : Int  ## 机构权重
+    organizationInsideId : String  ## 机构内部ID
+    organizationTree : String  ## 机构Tree
+    searchPath : String  ##查询码路径
+    relationId : String  ## 关联ID
+    precinctRelevanceId : String  ## 辖区管理ID
+    domainName : String  ## 所属域名
+    picture : String  ## 照片
+    symbolOfDutyUnit : Int  ## 执勤单位标志
+    precinctArea : String  ## 辖区面积
+    precinctRange : String  ## 辖区范围
+    organizationRepealStatus : String  ## 机构撤销状态
+    organizationRepealTime : Long  ## 机构撤销时间
+    remarks : String  ## 备注
+}
+
+
+##消防机构 地方非消防车辆信息
+type OrganizationLocalFullTimeUnitBean{
+    id : String    ##主键
+    organizationId : String  ## 所属消防机构ID
+    organizationName : String  ## 所属消防机构名称
+    equipmentSortCode : String  ## 装备分类编码
+    equipmentSortName : String  ## 装备分类名称
+    vehicleLevel : String  ## 车辆等级
+    specificationsNumber : String  ## 规格型号
+    vehicleNumber : String  ## 车牌号
+    whetherValid : String  ## 是否有效
+    equipmentStatus : String  ## 装备状态
+    equipmentTime : Long  ## 配备时间
+    synopsis : String  ## 简介
+    remarks : String  ## 备注
+}
+
+##车辆查询参数
+input EquipmentQueryInputInfo{
+   scopeSquadronId : String   ##查询范围辖区Id
+   scopeType : Int    ##查询范围辖区类型 0根机构 1非根机构
+   keyword : String   ##模糊匹配关键字（装备器材名称模糊）
+   equipmentTypeCodes : [String ]   ##装备器材类型编码集合
+   organizationIds : [String ]   ##装备器材所在机构编码集合
+   equipmentStatusCodes : [String ]   ##装备器材状态编码集合
+   whetherConsumptiveEquipment : Boolean    ##是否查询消耗性装备
+   whetherPage : Boolean     ##是否分页查询 默认分页
+   pagination : PaginationInputInfo    ##分页条件
+}
+
+##装备器材分页
+type PaginationEquipmentBean{
+    pagination : Pagination    ##分页
+    list : [EquipmentBean]    ##数据集合
+}
+
+##装备器材bean
+type EquipmentBean{
+    id : String    ##主键
+    warehouseId : String   ##仓库ID
+    warehouseName : String   ##仓库名称
+    locationId : String   ##货位ID
+    locationName : String   ##货位名称
+    equipmentCode : String   ##装备器材编码
+    equipmentName : String   ##装备器材名称
+    specificationsNumber : String  ## 规格型号
+    batchNo : String  ## 批次号
+    effectiveTime : Long  ## 有效期至
+    singleEquipmentId : String  ## 单件装备ID
+    singleEquipmentCode : String  ## 单件装备编码
+    vehicleNumber : String  ## 车牌号
+    equipmentStatusCode : String  ##装备状态代码
+    equipmentStatusName : String  ##装备状态名称
+    whetherFight : Int  ##是否可作战
+    whetherInCar : Int  ##是否上车
+    stockNum : Float  ##库存数量
+    collectingNum : Float  ##领用数量
+    loadNum : Float  ##装载数量
+    repairNum : Float  ##维修数量
+    onWayNum : Float  ##在途数量
+    measurementCode : String  ## 计量单位代码
+    measurementName : String  ## 计量单位名称
+    unitPrice : Float  ## 单价
+    sumMoney : Float   ## 金额
+    originalSubLedgerId : String  ## 原明细账ID
+    standingBookId : String  ## 台账记录ID
+    loadSingleEquipmentId : String  ## 装载单件装备ID
+    loadSingleEquipmentCode : String  ## 装载单件装备编码
+    maintenanceTime : Long  ## 保养时间
+    checkTime : Long  ## 检查时间
+    buildAccountTime : Long  ## 建账时间
+    organizationId : String  ## 所属消防机构ID
+    organizationName : String  ## 所属消防机构名称
+    remarks : String  ## 备注
+    equipmentTypeCode : String    ##装备器材类型代码
+    equipmentTypeName : String   ##装备器材类型名称
+    whetherConsumptiveEquipment : Int   ##是否消耗性装备
+
+
+   equipNum  :  Float  ##todo 字段 装备_数量
+   equipmentDesc : String   ## todo 字段 消防装备_简要情况
+   afterService : String    ##todo 字段  售后服务_单位名称
+   whetherAssembling : Int   ## todo 字段    是否装配_判断标识
+   whetherTraining : Int   ## todo 字段  是否用于训练_判断标识
+   weight : Float     ## todo 字段    重量 单位：千克
+   volume : Float    ## todo 字段   体积 单位：立方米
+   mainComponents : String     ## todo 字段   主要成分_简要情况
+   scopeApplication : String    ## todo 字段  适用范围_简要情况
+   equipmentPerformance : String    ## todo 字段   装备性能指标_简要情况
+   brandName : String    ## todo 字段    品牌_名称
+   manufacturerName : String   ## todo 字段    生产厂家名称
+   chargePerson : String   ## todo 字段    责任人
+   chargePersonName : String   ##  todo 字段   责任人姓名
+   chargePersonPhone : String   ## todo 字段    责任人联系电话
+   warehousingTime : Long   ##  todo 字段  装备入库_日期
+
+}
+
+##联系方式bean
+type ContactNumberBean{
+    contactObjectId : String  ##联系对象id
+    contactObjectName : String  ##联系对象名称
+    ##人员##
+    mobilePhone : String  ## 移动电话
+    homePhone : String  ## 家庭电话
+    officePhone : String  ## 办公电话
+    mobilePhoneTwo : String  ## 移动电话2
+    mobilePhoneThree : String  ## 移动电话3
+    internetEmail : String  ## 因特网电子邮箱
+    securityEmail : String  ## 公安网邮箱
+    shortNumber : String  ## 短号
+    ##单位##
+    dispatchPhone : String  ## 调度电话
+    mailCode : String  ## 邮政编码
+    faxNumber : String  ## 传真号码
+    contactPerson : String  ## 单位联系人
+    contactPhone : String  ## 单位联系电话
+    contactPhoneTwo : String  ## 单位联系电话2
+    contactPhoneThree : String  ## 单位联系电话3
+}
+
+##消防机构毗邻优先级bean
+type OrganizationAdjacentPriorityBean{
+   id : String    ##主键
+   chargeOrganizationId : String   ##主管单位代码
+   chargeOrganizationName : String   ##主管单位名称
+   adjacentOrganizationId : String   ##毗邻单位代码
+   adjacentOrganizationName : String   ##毗邻单位名称
+   priority : Float   ##优先级
+   adjacentLevel : String   ##毗邻级别
+   organizationId : String   ##消防机构代码
+   organizationName : String   ##消防机构名称
+   remarks : String ##备注
+}
+
+##系统配置集合保存修改参数
+input SystemConfigurationSaveListInputInfo{
+    systemConfigurationSaveInputInfos : [SystemConfigurationSaveInputInfo] ##系统配置保存参数
+}
+
+
+##系统配置保存修改参数
+input SystemConfigurationSaveInputInfo{
+    id : String    ##主键
+    configType : String   ##配置项
+    configDesc : String   ##配置描述
+    configValue : String   ##配置数值
+    remarks : String   ##备注
+    valid : Int ##是否启用 0不启用 1启用
+}
+
+
+##系统配置bean
+type SystemConfigurationBean{
+    id : String    ##主键
+    configType : String   ##配置项
+    configDesc : String   ##配置描述
+    configValue : String   ##配置数值
+    remarks : String   ##备注
+    valid : Int ##是否启用 0不启用 1启用
+}
+
+
+
+##车辆装备信息
+type EquipmentVehicleLoadBean{
+    id : String ## 主键
+    organizationId  :  String     ## 所属消防机构ID
+     organizationName :  String     ## 所属消防机构名称
+    vehicleId  :  String     ## 车辆id
+     vehicleCode :  String     ## 车辆编码
+     equipmentTypeCode :  String     ## 装备类型编码
+     equipmentTypeName :  String     ## 装备类型名称
+    equipmentCode  :  String     ## 装备编码
+    equipmentName  :  String     ## 装备名称
+    specificationsNumber  :  String       ## 规格型号
+    loadNum  :  String      ##装载数量
+    measurementCode  :  String     ## 计量单位代码
+     measurementName :  String     ## 计量单位名称
+     whetherConsumptiveEquipment : Int ##是否属于消耗器材 0 非消耗器材  1消耗器材
+}
+
+
+##人员信息
+type PersonBean{
+    id : String ## 主键
+    name  : String   ## 姓名
+    IDCard  : String   ## 身份证号
+    sexCode  : String   ## 性别代码
+    sexName  : String   ## 性别名称
+     authorizedOrganizationId : String   ## 编制所在机构
+     authorizedOrganizationName : String   ## 编制所在机构名称
+     actualOrganizationId : String   ## 实际所在机构
+    actualOrganizationName  : String   ## 实际所在机构名称
+     nationCode : String   ## 民族代码
+     nationName : String   ## 民族名称
+     nativePlaceCode : String   ## 籍贯代码
+     nativePlaceName : String   ## 籍贯名称
+    politicalStatusCode  : String   ## 政治面貌代码
+    politicalStatusName  : String   ## 政治面貌名称
+     partyTime : Long   ## 党团时间
+    dateBirth  : Long   ## 出生日期
+     educationCode : String   ## 学历代码
+     educationName : String   ## 学历名称
+    academicDegreeCode  : String   ## 学位代码
+    academicDegreeName  : String   ## 学位名称
+    professionCode  : String   ## 专业分类代码
+   professionName   : String   ## 专业分类名称
+     maritalStatusCode : String   ## 婚姻状况代码
+    maritalStatusName  : String   ## 婚姻状况名称
+    address  : String   ## 通讯地址
+     postalCode : String   ## 邮政编码
+     personCategoryCode : String   ## 人员类别代码
+     personCategoryName : String   ## 人员类别名称
+    reignStatusCode  : String   ## 在位情况代码
+    reignStatusName  : String   ## 在位情况名称
+    quartersCode  : String   ## 岗位代码
+    quartersName  : String   ## 岗位代码
+     dutiesCode : String   ## 职务代码
+    dutiesName  : String   ## 职务代码
+    credentialsType  : String   ## 证件类型
+    credentialsTypeName  : String   ## 证件类型名称
+    credentialsNumber  : String   ## 证件号码
+     rankCode   : String   ## todo 字段  职位代码
+    rankName   :  String   ## todo 字段   职位代码
+    policeRankCode  : String   ## 警衔代码
+    policeRankName  : String   ## 警衔名称
+     whetherExpert : Int   ## 是否专家
+    picture  : String   ## 照片
+    remarks  : String   ## 备注
+    personStatusCode  : String   ## 人员状况代码
+   personStatusName   : String   ## 人员状况名称
+    personOrderNum  : Int   ## 人员序号
+    personReignStatusCode  : String   ## 人员在位情况代码
+    personReignStatusName  : String   ## 人员在位情况名称
+    baseParentOrganizationId  : String   ## 原始上级机构ID
+   baseParentOrganizationName   : String   ## 原始上级机构名称
+    whetherLoad  : Int   ##是否装配
+}
+
+##车辆拓展信息查询参数
+input EquipmentVehicleExpandQueryInputInfo{
+  keyword : String    ##泡沫类型 车载设备关键字  模糊
+  maxNum1 :  Float    ##载液量 高值
+  minNum1 :  Float    ##载液量 低值
+ maxNum2  :  Float    ##泵流量 高值
+  minNum2 :  Float    ##泵流量 低值
+ maxNum3  :  Float    ##举升高度 高值
+  minNum3 :  Float    ##举升高度 低值
+ maxNum4  :  Float    ##消防炮流量 高值
+  minNum4 :  Float    ##消防炮流量 低值
+  maxNum5 :  Float    ##牵引力 高值
+ minNum5  :  Float    ##牵引力 低值
+ maxNum6  :  Float    ##吊机 高值
+ minNum6  :  Float    ##吊机 低值
+}
+
+
+##联勤保障单位 查询参数
+input UnitJointServiceQueryInputinfo{
+    keyword :   String   ##   关键字  模糊匹配 联勤保障单位名称/地址
+    districtCode :   String   ##    行政区代码
+    organizationId :   String   ## 机构id
+    whetherPage : Boolean     ##是否分页查询 默认分页
+    pagination : PaginationInputInfo    ##分页条件
+}
+## 联勤保障单位分页返回
+type PaginationUnitJointServiceBean{
+    pagination : Pagination
+    list : [UnitJointServiceBean]
+}
+##联勤保障单位bean
+type UnitJointServiceBean{
+    id : String ## 主键
+   unitName : String   ##单位名称
+   supportability : String   ##保障能力
+   mainSupportCategoryCode : String   ##主要保障类别代码
+  mainSupportCategoryName : String   ##主要保障类别名称
+   dutyPhone : String   ##应急值班电话
+  longitude : String   ## 经度
+  latitude : String   ## 纬度
+  height : String   ## 高度
+  relationId : String   ##关联ID
+  organizationId : String   ##维护消防机构ID
+  organizationName : String   ##维护消防机构名称
+  whetherInnerOrganization : String   ##是否为内部机构
+  innerOrganizationId : String   ##内部机构ID
+   outerOrganizationId : String   ##外部机构ID
+  hospitalLevelCode : String    ##医院等级代码
+   hospitalLevelName : String    ##医院等级名称
+  remarks : String   ##备注
+
+  unitAddress  : String ##todo 字段 单位地址
+  faxNumber  : String  ##todo 字段 传真号码
+  unitDesc  : String  ##todo 字段 单位_简要情况
+  supportDesc : String ##todo 字段 保障概述_简要情况
+  contactPerson  : String   ##todo 字段 联系人
+  contactPersonName  : String   ##todo 字段 联系人 姓名
+  contactPhone  : String  ##todo 字段 联系电话
+   districtCode : String  ##todo 字段 行政区代码
+  districtName  : String  ##todo 字段 行政区代码名称
+
+}
+##应急联动单位 查询参数
+input UnitEmergencyQueryInputinfo{
+    keyword :   String   ##   关键字  模糊匹配 联勤保障单位名称/地址
+    districtCode :   String   ##    行政区代码
+    organizationId :   String   ## 机构id
+    whetherPage : Boolean     ##是否分页查询 默认分页
+    pagination : PaginationInputInfo    ##分页条件
+}
+## 应急联动单位分页返回
+type PaginationUnitEmergencyBean{
+    pagination : Pagination
+    list : [UnitEmergencyBean]
+}
+##应急联动单位Bean
+type UnitEmergencyBean{
+    id : String ## 主键
+  districtCode : String   ##所属行政区代码
+  districtName : String   ##所属行政区名称
+  unitName : String   ##单位名称
+  unitAddress : String   ##单位地址
+  unitType : String   ##单位类型
+  unitTypeName : String   ##单位类型名称
+  emergencyContent : String   ##应急服务内容
+  contactPhone : String   ## 联系电话
+  faxNumber : String   ## 传真号码
+  organizationId : String   ##  机构id
+  organizationName : String   ##  机构名称
+  longitude : String   ## 经度
+  latitude : String   ## 纬度
+  height : String   ## 高度
+ gisRelationId  : String    ##GIS关联ID
+  picture : String   ## 照片
+  remarks : String   ## 备注
+
+unitDesc : String   ##todo 字段单位_简要情况
+contactPerson  :  String ##todo 字段  联系人
+contactPersonName :  String  ##todo 字段  联系人 姓名
+
+
+}
+
+#车辆状态审批记录Bean
+type VehicleStatusChangeCheckBean{
+    id  : String     ##车辆状态审批记录id
+    incidentId  : String   ##案件id
+    appliedTime  : Long   ## 申请时间
+    appliedOrganizationId  : String   ## 申请机构编号
+    appliedOrganizationName  : String   ## 申请机构名称
+    appliedVehicleId  : String    ##  申请车辆id
+    appliedVehicleName  : String    ##  申请车辆名称
+     appliedVehicleNumber : String    ##  申请车辆车牌号
+      appliedVehicleTypeCode   :    String  ##  申请车辆车牌号
+     appliedVehicleTypeName    :    String   ##  申请车辆车牌号
+    oldVehicleStatusCode  : String   ##申请前车辆状态代码
+    oldVehicleStatusName  : String   ##申请前车辆状态名称
+     vehicleStatusCode : String   ##申请变更车辆状态代码
+    vehicleStatusName  : String   ##申请变更车辆状态代名称
+   appliedChangeDesc   : String   ##申请变动描述
+   checkStatus   : Int   ##审批状态 0拒绝 1同意
+   checkTime   : Long   ##审批时间
+   checkDesc   : String   ##审批说明
+    checkOrganizationId  : String   ##审批机构
+   checkOrganizationName   : String   ##审批机构名称
+   checkPersonId   : String   ##审批用户编号
+    remarks  : String   ## 备注
+}
+
+
+#车辆状态审批记录 参数InputInfo
+input VehicleStatusChangeCheckSaveInputInfo{
+   id   : String  ##车辆状态审批记录id
+   changeSource   : String      ##申请来源 包含 PC or YD 默认PC
+   incidentId   : String   ##案件id
+   appliedOrganizationId   : String   ## 申请机构编号
+   appliedVehicleId   : String    ##  申请车辆id
+   vehicleStatusCode   : String   ##申请变更车辆状态代码
+    appliedChangeDesc  : String   ##申请变动描述
+    checkStatus  : Int   ##审批状态 0/1
+   checkDesc   : String   ##审批说明
+   remarks   : String   ## 备注
+}
+
+#重点单位保存信息
+input KeyUnitSaveInputInfo{
+   keyUnitId : String   ## 重点单位id
+   fireproofUnit : String  ##防火单位ID
+   unitName : String  ##单位名称
+   economicOwnership : String  ##经济所有制
+   unitFoundingTime : Long  ##单位成立时间
+   unitFireTypeCode:String ##单位火灾危害性分类与代码
+   unitClassCode :  String ##单位分类 01防火单位 02灭火单位
+   unitLevelCode : String  ##单位等级
+   unitCategoryCode : String  ##单位类别
+   unitTypeCode : String  ##单位类型
+   unitNatureCode : String  ##单位性质
+   unitDesc:String #单位_简要情况
+   districtCode : String  ##行政区域
+
+   legalPerson : String  ##法人代表
+   legalPersonName:String #法人代表姓名
+   legalPersonId : String  ##法人代表身份证
+   legalPersonPhone : String  ##法人电话
+   securityPerson : String  ##安全责任人
+   securityPersonName:String #消防安全责任人 姓名
+   securityPersonId : String  ##责任人身份证
+   securityPersonPhone : String  ##责任人电话
+   unitEmail : String  ##单位电子邮箱
+   securityManage : String  ##安全管理人
+   securityManageId : String  ##管理人身份证
+   securityManagePhone : String  ##管理人电话
+   securityManageName:String #消防安全管理人姓名
+   fireManager : String  ##专兼职消防管理人
+   fireManagerId : String  ##专兼职消防管理人身份证
+   fireManagerPhone : String  ##专兼职消防管理人电话
+   fireManagerName:String #字段专兼职消防管理人姓名
+
+   unitAddress : String  ##单位地址
+   unitPhone : String  ##单位电话
+   mailCode : String  ##单位邮政编码
+   fixedAssets : Float  ##固定资产
+   unitWorkers : Int  ##职工人数
+   constructionArea : Float  ##占地面积
+   builtUpArea : Float  ##建筑面积
+   unitPrincipalAttribute : String  ##单位主属性
+   unitAttribute : String  ##单位次属性
+   fireConDev : Int  ##自动消防设施情况 0无自动 1有自动
+   jurisdictionOrganizationId : String  ##消防管辖机构ID
+   longitude : String  ##经度
+   latitude : String  ##纬度
+   geographicalPosition : String  ##地理位置
+   buildNum : Int  ##建筑数量
+   operatorId : String  ##操作员ID
+   organizationId  : String  ##机构ID
+   remarks : String  ##备注
+   relationId : String  ## 关联id
+
+   fireEscapeDesc:String #消防通道或疏散通道_简要情况
+   internalFireFacilitiesDesc:String #内部消防设施_简要情况
+   firePreventionFacilitiesDesc:String #防火设施_简要情况
+   fireControlRoomDesc:String #消防控制室_简要情况
+
+   otherSystemUrl : String ##第三方重点单位信息 访问路径
+
+}
+
+##重点单位简单bean
+type KeyUnitSimpleBean {
+   id : String   ## 主键
+   keyUnitId : String   ## 重点单位id
+   fireproofUnit : String  ##防火单位ID
+   unitName : String  ##单位名称
+   pinyinHeader  : String  ## 单位名称拼音头
+   unitShortName : String  ##单位拼音简称
+   unitAddress : String  ##单位地址
+   unitPhone : String  ##单位电话
+   mailCode : String  ##单位邮政编码
+   unitClassCode :  String ##单位分类 01防火单位 02灭火单位
+   unitTypeCode :  String  ##单位类型
+   longitude : String  ##经度
+   latitude : String  ##纬度
+   geographicalPosition : String  ##地理位置
+    organizationId:String #管辖消防机构id
+}
+
+##重点单位bean
+type KeyUnitBean {
+   id : String   ## 主键
+   keyUnitId : String   ## 重点单位id
+   fireproofUnit : String  ##防火单位ID
+   unitName : String  ##单位名称
+   pinyinHeader  : String  ## 单位名称拼音头
+   unitShortName : String  ##单位拼音简称
+   economicOwnership : String  ##经济所有制
+   unitFoundingTime : Long  ##单位成立时间
+   unitClassCode :  String ##单位分类 01防火单位 02灭火单位
+   unitClassName :  String ##单位分类名称 01防火单位 02灭火单位
+   unitLevelCode : String  ##单位等级
+   unitLevelName : String  ##单位等级名称
+   unitCategoryCode : String  ##单位类别
+   unitCategoryName : String  ##单位类别名称
+   unitTypeCode : String  ##单位类型
+   unitTypeName : String  ##单位类型名称
+   unitNatureCode : String  ##单位性质
+   unitNatureName : String  ##单位性质名称
+   districtCode : String  ##行政区域
+   districtName : String  ##行政区域名称
+
+    legalPerson : String  ##法人代表
+     legalPersonName:String #法人代表姓名
+     legalPersonId : String  ##法人代表身份证
+     legalPersonPhone : String  ##法人电话
+     securityPerson : String  ##安全责任人
+     securityPersonName:String #消防安全责任人 姓名
+     securityPersonId : String  ##责任人身份证
+     securityPersonPhone : String  ##责任人电话
+     unitEmail : String  ##单位电子邮箱
+     securityManage : String  ##安全管理人
+     securityManageId : String  ##管理人身份证
+     securityManagePhone : String  ##管理人电话
+     securityManageName:String #消防安全管理人姓名
+     fireManager : String  ##专兼职消防管理人
+     fireManagerId : String  ##专兼职消防管理人身份证
+     fireManagerPhone : String  ##专兼职消防管理人电话
+     fireManagerName:String #字段专兼职消防管理人姓名
+
+   unitAddress : String  ##单位地址
+   unitPhone : String  ##单位电话
+   mailCode : String  ##单位邮政编码
+   fixedAssets : Float  ##固定资产
+   unitWorkers : Int  ##职工人数
+   constructionArea : Float  ##占地面积
+   builtUpArea : Float  ##建筑面积
+   unitPrincipalAttribute : String  ##单位主属性
+   unitAttribute : String  ##单位次属性
+   fireConDev : Int  ##自动消防设施情况 0无自动 1有自动
+   jurisdictionOrganizationId : String  ##消防管辖机构ID
+   jurisdictionOrganizationName : String  ##消防管辖机构名称
+   longitude : String  ##经度
+   latitude : String  ##纬度
+   geographicalPosition : String  ##地理位置
+   buildNum : Int  ##建筑数量
+   operatorId : String  ##操作员ID
+  organizationId  : String  ##机构ID
+  organizationName  : String  ##机构名称
+   remarks : String  ##备注
+   relationId : String  ## 关联id
+
+   fireEscapeDesc:String #消防通道或疏散通道_简要情况
+   internalFireFacilitiesDesc:String #内部消防设施_简要情况
+   firePreventionFacilitiesDesc:String #防火设施_简要情况
+   fireControlRoomDesc:String #消防控制室_简要情况
+
+   otherSystemUrl : String ##第三方重点单位信息 访问路径
+
+    keyUnitDangerousChemicalsBeans:[KeyUnitDangerousChemicalsBean]#危化品
+}
+
+
+#重点单位 危化品
+type  KeyUnitDangerousChemicalsBean{
+    id:String
+    keyUnitId:String  #重点单位id
+    dangerousChemicalsId: String   #危化品id
+    dangerousChemicalsIdCode: String   #危险化学品_通用唯一识别码
+    dangerousChemicalsStatusCode: String   #化学品状态类别代码
+    dangerousChemicalsStatusName: String   #化学品状态类别名称
+    dangerousChemicalsCategoryCode: String   #化学品危险性类别代码
+    dangerousChemicalsCategoryName: String   #化学品危险性类别名称
+    dangerousChemicalsTypeCode: String   #危险化学品分类与代码
+    dangerousChemicalsTypeName: String   #危险化学品分类名称
+    keyUnitDangerousChemicalsDesc: String   #重点单位 危化品 简要情况
+    keyUnitDangerousChemicalsNum: Int   #重点单位 危化品 数量
+    keyUnitDangerousChemicalsAddress: String   #重点单位 危化品 地址名称
+}
+
+
+##微型消防站
+input MiniatureStationSaveInputInfo {
+    id : String ## 微型消防站 主键
+    stationName :   String   ##    名称
+    stationAddress  :   String   ##     机构地址
+    districtCode :   String   ##    行政区代码
+    squadronOrganizationId :   String   ## 主管中队id
+    brigadeOrganizationId  :   String   ## 所属大队id
+    stationStatus :   String   ## 微站状态（ 0 正常   1停用    2其他）
+    stationDutyType :   String    ## 值班类型（ 0 7*24值班  1 非7*24值班 2 不值班）
+    stationDispatchStatus  :   String    ## 调配状态（ 0 不可调派  1可调派 ）
+    roadSection  :   String    ## 所属街道
+    stationType :   String    ## 微站类型
+    personNum  :   Int   ##    人数
+    stationEquipmentDesc :   String   ##  单位 装备_简要情况
+    dutyPhone  :   String   ## 值班_联系电话
+    contactPerson  :   String    ##   单位 负责人
+    contactPersonName :   String    ##  单位负责人名称
+    contactPersonPhone :   String   ## 单位负责人联系电话
+    longitude   :   String   ##  经度
+    latitude  :   String   ##  纬度
+}
+
+
+##微型消防站 查询参数
+input MiniatureStationQueryInputInfo {
+
+    keyword :   String   ##   关键字  模糊匹配 微站名称/地址
+    districtCode :   String   ##    行政区代码
+    organizationId :   String   ## 机构id
+    whetherPage : Boolean     ##是否分页查询 默认分页
+    pagination : PaginationInputInfo    ##分页条件
+}
+
+## 分页返回
+type PaginationMiniatureStationBean{
+    pagination : Pagination
+    list : [MiniatureStationBean]
+}
+
+
+##微型消防站
+type MiniatureStationBean{
+    id : String ## 微型消防站 主键
+    stationName :   String   ##    名称
+    pinyinHeader : String ## 拼音头
+    stationAddress  :   String   ##     机构地址
+    districtCode :   String   ##    行政区代码
+    districtName :   String   ##    行政区名称
+    squadronOrganizationId :   String   ## 主管中队id
+    squadronOrganizationName :   String   ## 主管中队名称
+    brigadeOrganizationId  :   String   ## 所属大队id
+    brigadeOrganizationName  :   String   ## 所属大队名称
+    stationStatus :   String   ## 微站状态（ 0 正常   1停用    2其他）
+    stationStatusName :   String   ## 微站状态名称（ 0 正常   1停用    2其他）
+    stationDutyType :   String    ## 值班类型（ 0 7*24值班  1 非7*24值班 2 不值班）
+    stationDutyTypeName :   String    ## 值班类型名称（ 0 7*24值班  1 非7*24值班 2 不值班）
+    stationDispatchStatus  :   String    ## 调配状态（ 0 不可调派  1可调派 ）
+    stationDispatchStatusName  :   String    ## 调配状态名称（ 0 不可调派  1可调派 ）
+    roadSection  :   String    ## 所属街道
+    stationType :   String    ## 微站类型
+    personNum  :   Int   ##    人数
+    stationEquipmentDesc :   String   ##  单位 装备_简要情况
+    dutyPhone  :   String   ## 值班_联系电话
+    contactPerson  :   String    ##   单位 负责人
+    contactPersonName :   String    ##  单位负责人名称
+    contactPersonPhone :   String   ## 单位负责人联系电话
+    longitude   :   String   ##  经度
+    latitude  :   String   ##  纬度
+}
+
+##范围信息
+type RegionBean{
+   id : String   ## 主键
+   regionName : String  ## 范围名称
+   longitude  : String ##  经度
+   latitude : String ##  纬度
+   regionRange : String ##  范围信息
+}
+
+
+#专家信息
+type ExpertBean{
+    id:String #主键id
+    IDCard   : String ##todo 字段 公民身份号码
+    expertName  : String ##专家姓名
+    expertSex   : String  ##专家性别
+    expertSexName   : String  ##专家性别
+    organizationId   : String ##所属机构
+    organizationName   : String ##机构名称
+    unitName  : String   ##单位名称
+    expertType   : String ##专家类型 主要分内部专家 社会专家两大类 0 社会专家 1 内部专家
+    whetherInnerExpert  : Int  ##todo 字段 是否队伍内部专家_判断标识
+    expertField   : String ##专家领域
+    expertFieldName   : String ##专家领域
+    nativePlace   : String ##籍贯
+    nativePlaceName  : String ##籍贯
+    dateBirth  : Long ##出生日期
+    duties   : String ##职务
+    education  : String ##学历
+    educationName   : String ##学历名称
+    address   : String ##通讯地址
+    postalCode  : String ##todo 字段 邮政编码
+    homePhone  : String ##家庭电话
+    mobilePhone   : String ##todo 字段 移动电话
+    officePhone  : String ##办公电话
+    nationCode  : String ##民族 社会专家为空 null
+    political  : String ##政治面貌 社会专家为空 null
+    personCategory  : String ##人员类别 社会专家为空 null
+    personReign   : String ##人员在位情况 社会专家为空 null
+    quarters   : String ##todo 字段 消防岗位类别代码
+    quartersName   : String ##岗位 社会专家为空 null 消防岗位类别名称
+    personStatus   : String ##人员状况 社会专家为空 null
+    picture   : String ## 照片
+    remarks  : String ## 备注
+    addressName   : String ##todo 字段 居住_地址名称
+    districtCode   : String ##todo 字段 行政区划代码
+    districtName  : String ##todo 字段 行政区划代码
+    person  : String ##人员状况 社会专家为空 null
+}
+
+
+#领导
+type LeaderBean{
+    type:String #类型（内部领导或外部领导）
+    duty:String #职位
+    unitName:String #所属单位名称
+    officeNumber:String #办公电话
+    mobliPhone:String #移动电话
+    leaderName:String #领导姓名
+    id:String
+}
+
+type VehiclePersonsBean{
+    id : String ## 主键
+    vehiclePersonId  : String ##车载人员id
+    vehicleId :   String   ##车辆ID
+    vehicleName :   String ##车辆名称
+    vehicleNumber  :   String   ##车牌号码
+    organizationId :   String   ## 消防机构编号
+    organizationName  :   String   ## 消防机构名称
+    personId :   String   ##人员ID
+    personName  :   String   ##人员姓名
+    personType  :   String   ##人员类型(角色)
+    personTypeName :   String   ##人员类型（角色）名称
+    driver  :   String ##驾驶员
+    correspondent  :   String ##通讯员
+    whetherCommander  :   Int    ##大类  1指挥员 2驾驶员 3通信员  4消防战士 默认指挥员
+    personNum   :   Int   ## 车载人员数 （ 包含指挥员 ） 默认 1
+    personPhone  :   String    ##人员联系方式
+    sorter  :   Int    ##排序
+    whetherParticipant  :    Int     ##是否车辆登记  0 未登记  1 已登记
+    participantId  :   String   ##人员参战id
+}
+
+input VehiclePersonsSaveInputInfo  {
+    vehiclePersonsList : [VehiclePersonsListSaveInputInfo]
+}
+input VehiclePersonsListSaveInputInfo{
+    vehiclePersonId  : String ##车载人员id
+    vehicleId  :   String ##车辆ID
+    personId  :   String ##指挥人员ID
+    personName  :   String ##指挥人员姓名
+    personType  :   String ##指挥人员类型(角色)
+    driver  :   String ##驾驶员
+    correspondent  :   String ##通讯员
+    whetherCommander  :   Int    ##大类  1指挥员 2驾驶员 3通信员  4消防战士 默认指挥员
+    personNum   :   Int   ## 车载人员数 （ 包含指挥员 ） 默认 1
+    sorter  :    Int ##排序
+}
+
+### 人员通讯录信息
+type PersonMailBean{
+   id : String ## 通讯录主键
+   personName   :   String   ## 姓名
+   personId   :   String   ## 人员ID
+   userId   :   String   ## 用户ID
+   mobilePhone   :   String   ## 移动电话
+   homePhone   :   String   ## 家庭电话
+   officePhone   :   String   ## 办公电话
+   mobilePhoneTwo   :   String   ## 移动电话2
+   mobilePhoneThree   :   String   ## 移动电话3
+   internetEmail   :   String   ## 因特网电子邮箱
+   securityEmail   :   String   ## 公安网邮箱
+   shortNumber   :   String   ## 短号
+   remarks   :   String   ## 备注
+}
+
+##值班汇总信息 更新值班人 值班联系电话
+input OnDutySummarySaveInputInfo{
+    id  :   String   ## 值班记录id
+    onDutyPersonId  :   String   ##值班人id
+    onDutyPersonName  :   String   ##值班人姓名
+    contactNumber :   String   ##联系电话
+}

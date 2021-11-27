@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-accept" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-accept/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-accept/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-agent" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-agent/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-agent/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-base" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-base-ext" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-base-ext/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-base/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-base/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-basedata" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-basedata/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-basedata/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-distribute" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-distribute/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-distribute/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-garage" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-garage/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-garage/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-hangzhou-tools" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-hangzhou-tools/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-hangzhou-tools/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-integrate" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-integrate/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-integrate/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-intelligent" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-intelligent/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-intelligent/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-keydata" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-keydata/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-keydata/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-notify" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-notify/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-notify/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-out" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-out/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-out/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-schedule" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-schedule/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-schedule/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-web-accept" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-web-accept/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-web-accept/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-web-distribute" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-web-distribute/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-web-distribute/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-web-integrate" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-web-integrate/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-web-integrate/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-web-schedule" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-web-schedule/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/ds_iecs-web-schedule/src/main/resources" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/resources" charset="UTF-8" />
+  </component>
+</project>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="ds_iecs-accept" />
+        <module name="ds_iecs-agent" />
+        <module name="ds_iecs-base" />
+        <module name="ds_iecs-base-ext" />
+        <module name="ds_iecs-basedata" />
+        <module name="ds_iecs-distribute" />
+        <module name="ds_iecs-garage" />
+        <module name="ds_iecs-hangzhou-tools" />
+        <module name="ds_iecs-integrate" />
+        <module name="ds_iecs-intelligent" />
+        <module name="ds_iecs-keydata" />
+        <module name="ds_iecs-notify" />
+        <module name="ds_iecs-out" />
+        <module name="ds_iecs-schedule" />
+        <module name="ds_iecs-web-accept" />
+        <module name="ds_iecs-web-distribute" />
+        <module name="ds_iecs-web-integrate" />
+        <module name="ds_iecs-web-schedule" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ds_iecs" target="1.8" />
+      <module name="ds_iecs-accept" target="1.8" />
+      <module name="ds_iecs-agent" target="1.8" />
+      <module name="ds_iecs-base" target="1.8" />
+      <module name="ds_iecs-base-ext" target="1.8" />
+      <module name="ds_iecs-basedata" target="1.8" />
+      <module name="ds_iecs-distribute" target="1.8" />
+      <module name="ds_iecs-garage" target="1.8" />
+      <module name="ds_iecs-hangzhou-tools" target="1.8" />
+      <module name="ds_iecs-integrate" target="1.8" />
+      <module name="ds_iecs-intelligent" target="1.8" />
+      <module name="ds_iecs-keydata" target="1.8" />
+      <module name="ds_iecs-notify" target="1.8" />
+      <module name="ds_iecs-out" target="1.8" />
+      <module name="ds_iecs-schedule" target="1.8" />
+      <module name="ds_iecs-web-accept" target="1.8" />
+      <module name="ds_iecs-web-distribute" target="1.8" />
+      <module name="ds_iecs-web-integrate" target="1.8" />
+      <module name="ds_iecs-web-schedule" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

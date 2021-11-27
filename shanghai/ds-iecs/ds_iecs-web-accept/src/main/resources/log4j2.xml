@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="off" packages="com.dscomm.comp.logs.appender.db.jdbc">
+	<Properties>
+		<Property name="baseDir">${sys:catalina.home}/logs/iecs</Property>
+	</Properties>
+
+
+	<Appenders>
+
+		<Console name="console" target="SYSTEM_OUT">
+			<PatternLayout charset="gbk"
+				pattern="%d{yyyy/MM/dd HH:mm:ss.SSS} [%thread] %-5level %logger{10}(%line) - %msg%exception{full}%n" />
+		</Console>
+
+
+        <!--自定义-->
+
+        <!--Info 级别日志输出-->
+
+		<RollingRandomAccessFile name="infoRollingRandomAccessFile"
+								 fileName="${baseDir}/info.log"
+                                 filePattern="${baseDir}/info-%d{yyyy-MM-dd}-%i.log">
+			<PatternLayout charset="UTF-8"
+						   pattern="%d{yyyy/MM/dd HH:mm:ss.SSS} [%thread] %-5level %logger{10}(%line) - %msg%exception{full}%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" />
+				<SizeBasedTriggeringPolicy size="100 M" />
+			</Policies>
+			<DefaultRolloverStrategy max="30">
+				<Delete basePath="${baseDir}/" maxDepth="1">
+					<IfFileName glob="*.log" />
+					<IfLastModified age="50d" />
+				</Delete>
+			</DefaultRolloverStrategy>
+		</RollingRandomAccessFile>
+
+
+        <!--Error 级别日志输出-->
+        <RollingRandomAccessFile name="errorRollingRandomAccessFile"
+                                 fileName="${baseDir}/error.log"
+                                 filePattern="${baseDir}/error-%d{yyyy-MM-dd}-%i.log">
+            <Filters>
+                <!-- <ThresholdFilter level="AUDIT" onMatch="DENY" onMismatch="NEUTRAL"/> -->
+                <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+
+            <PatternLayout charset="UTF-8"
+                           pattern="%d{yyyy/MM/dd HH:mm:ss.SSS} [%thread] %-5level %logger{10}(%line) - %msg%exception{full}%n" />
+            <Policies>
+                <!--日志文件大小-->
+                <!-- <TimeBasedTriggeringPolicy interval="4" /> -->
+                <SizeBasedTriggeringPolicy size="100M" />
+            </Policies>
+            <!--保存最大文件个数-->
+            <DefaultRolloverStrategy max="30">
+                <Delete basePath="${baseDir}/" maxDepth="1">
+                    <IfFileName glob="*.log" />
+                    <IfLastModified age="50d" />
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingRandomAccessFile>
+
+
+        <!--审计日志-->
+        <RollingRandomAccessFile name="auditRollingRandomAccessFile"
+                                 fileName="${baseDir}/audit.log"
+                                 filePattern="${baseDir}/audit-%d{MM-dd}-%i.log">
+            <PatternLayout charset="UTF-8"
+                           pattern="[%d{yyyy/MM/dd HH:mm:ssSSS}][AUDIT][IECS][火警受理]%m%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" />
+				<SizeBasedTriggeringPolicy size="100 M" />
+			</Policies>
+			<DefaultRolloverStrategy max="30">
+				<Delete basePath="${baseDir}/" maxDepth="1">
+					<IfFileName glob="*.log" />
+					<IfLastModified age="50d" />
+				</Delete>
+			</DefaultRolloverStrategy>
+        </RollingRandomAccessFile>
+		<!--记录主要接口访问记录-->
+		<RollingRandomAccessFile name="accessRecordRollingRandomAccessFile"
+								 fileName="${baseDir}/access.log"
+								 filePattern="${baseDir}/access-%d{yyyy-MM-dd}-%i.log">
+			<PatternLayout charset="UTF-8"
+						   pattern="%d{yyyy/MM/dd HH:mm:ss.SSS} [%thread] %-5level %logger{10}(%line) - %msg%exception{full}%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1" />
+				<SizeBasedTriggeringPolicy size="100 M" />
+			</Policies>
+			<DefaultRolloverStrategy max="30">
+				<Delete basePath="${baseDir}/" maxDepth="1">
+					<IfFileName glob="*.log" />
+					<IfLastModified age="50d" />
+				</Delete>
+			</DefaultRolloverStrategy>
+		</RollingRandomAccessFile>
+
+		<!--<Async name="async">
+
+			<AppenderRef ref="console" />
+			<AppenderRef ref="rollingRandomAccessFile" />
+
+		</Async>-->
+
+	</Appenders>
+	<Loggers>
+
+		<root level="error">
+			<appender-ref ref="console" />
+            <AppenderRef ref="errorRollingRandomAccessFile" />
+            <AppenderRef ref="infoRollingRandomAccessFile" />
+		</root>
+
+		<!-- 打印hibernate的info日志 -->
+		<!--<Logger name="org.hibernate" level="debug" additivity="false">-->
+			<!--<AppenderRef ref="infoRollingRandomAccessFile" />-->
+		<!--</Logger>-->
+
+		<!-- 打印sql语句 -->
+		<Logger name="org.hibernate.SQL" level="info" additivity="false">
+			<AppenderRef ref="infoRollingRandomAccessFile" />
+		</Logger>
+
+		<!-- 打印sql语句的参数绑定 -->
+		<!--<Logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="trace" additivity="false">-->
+			<!--<AppenderRef ref="rollingRandomAccessFile" />-->
+		<!--</Logger>-->
+		<!-- 打印访问记录 -->
+         <Logger name="com.dscomm.iecs.accept.utils.PrintAccessRecordUtils" level="info" additivity="false">
+            <AppenderRef ref="accessRecordRollingRandomAccessFile" />
+        </Logger>
+		<Logger name="com.dscomm.iecs.base.service.SubAuditService.SubAuditServiceImplSubAuditServiceImpl" level="info" additivity="false">
+			<AppenderRef ref="auditRollingRandomAccessFile"/>
+		</Logger>
+
+		<!-- 查询出来的结果集提取，如果嫌这个日志太多可以关掉
+        <Logger name="org.hibernate.type.descriptor.sql.BasicExtractor" level="trace" additivity="false">
+            <AppenderRef ref="rollingRandomAccessFile" />
+        </Logger> -->
+	</Loggers>
+
+</configuration>  

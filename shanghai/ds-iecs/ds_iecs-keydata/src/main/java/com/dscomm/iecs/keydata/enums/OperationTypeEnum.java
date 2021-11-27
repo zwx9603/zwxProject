@@ -1,0 +1,138 @@
+package com.dscomm.iecs.keydata.enums;
+
+import com.dscomm.iecs.base.enums.BasicEnumNumber;
+import org.mx.spring.utils.I18nMessageUtils;
+
+/**
+ * 描述 :  处置类型
+ */
+public enum OperationTypeEnum implements BasicEnumNumber {
+    // type(code,name)
+
+    OPERATIONTYPE_LOGIN(100, "登录"),
+    OPERATIONTYPE_LOGOUT(110, "登出"),
+    OPERATIONTYPE_SETBUSY(120, "置忙"),
+    OPERATIONTYPE_SETIDLE(121, "置闲"),
+    OPERATIONTYPE_SETDUTYON(122, "开班"),
+    OPERATIONTYPE_SETDUTYOFF(123, "关班"),
+    OPERATIONTYPE_TEMPORARYDEPARTURE(124, "暂离"),
+    OPERATIONTYPE_FORCEDEXIT(130, "强制退出"),
+    OPERATIONTYPE_CHERT_HEART_OVERTIME(131, "心跳检查超时"),
+
+
+    OPERATIONTYPE_ACCEPT(200, "接警"),
+    OPERATIONTYPE_ADDCASE(204, "立案"),
+    OPERATIONTYPE_UPDATECASE(205, "更新案件"),
+    OPERATIONTYPE_UPDATECASESTATUS(210, "更新案件状态"),
+
+    OPERATIONTYPE_HIERARCHICALDISPATCH(226, "等级调派"),
+    OPERATIONTYPE_PLANDISPATCH(227, "预案调派"),
+
+    OPERATIONTYPE_DISPATCH(230, "处警"),
+
+    OPERATIONTYPE_INSTRUCTION(231, "指令下达"),
+
+
+
+    OPERATIONTYPE_INCIDENT_MERGE(232, "警情合并"),
+    OPERATIONTYPE_INCIDENT_SPLIT(233, "警情拆分"),
+    OPERATIONTYPE_INCIDENT_REMOVE(234, "警情删除"),
+
+    OPERATIONTYPE_REINFORCEMENT_ASK(235, "请求增援"),
+
+
+    OPERATIONTYPE_LOGINFAIL(101, "登录失败"),
+    OPERATIONTYPE_USERLOCKED(102, "用户锁定"),
+    OPERATIONTYPE_AUTOUNLOCK(103, "用户解锁"),
+    OPERATIONTYPE_MODIFYPWD(104, "修改密码"),
+
+
+    OPERATIONTYPE_ADDINFO(205, "警情补充"),
+    OPERATIONTYPE_ASSOCIATECASE(206, "关联警情"),
+    OPERATIONTYPE_REPEATEDCALL(207, "重复报警"),
+    OPERATIONTYPE_CHANGELEVEL(208, "警情级别修改"),
+    OPERATIONTYPE_CHANGESTATE(209, "警情状态修改"),
+    OPERATIONTYPE_ACCEPTANDISPATCH(225, "接处警保存"),
+
+    OPERATIONTYPE_CANCELDISPATCH(240, "处警作废"),
+    OPERATIONTYPE_FEEDBACK(250, "处警反馈"),
+    OPERATIONTYPE_ARRIVALFEEDBACK(260, "到场反馈"),
+    OPERATIONTYPE_FIRESCENEFEEDBACK(270, "火场反馈"),
+    OPERATIONTYPE_ASKFORTAKEOVER(280, "请求接管"),
+    OPERATIONTYPE_AUDITFORTAKEOVER(281, "审核请求接管"),
+    OPERATIONTYPE_ACTIVETAKEOVER(290, "主动接管"),
+    OPERATIONTYPE_REJECTIONAPPLICATION(305, "退单申请"),
+    OPERATIONTYPE_CONFIRMREJECTION(320, "确认退单"),
+    OPERATIONTYPE_REFUSEREJECTION(330, "拒绝退单"),
+    OPERATIONTYPE_URGE(340, "催促"),
+    OPERATIONTYPE_INSERTBLACKLIST(350, "添加黑名单"),
+    OPERATIONTYPE_DELETEBLACKLIST(360, "删除黑名单"),
+    OPERATIONTYPE_INSERTREDLIST(370, "加入红名单"),
+    OPERATIONTYPE_DELETEREDLIST(380, "删除红名单"),
+    OPERATIONTYPE_CLOSECASE(390, "警情关闭"),
+    OPERATIONTYPE_REOPEN(400, "重新打开"),
+    OPERATIONTYPE_ADDPERSON(410, "添加人员"),
+    OPERATIONTYPE_MODIFYPERSON(420, "修改人员"),
+    OPERATIONTYPE_DELETEPERSON(430, "删除人员"),
+    OPERATIONTYPE_ADDUSER(440, "添加用户"),
+    OPERATIONTYPE_MODIFYUSER(450, "修改用户"),
+    OPERATIONTYPE_DELETEUSER(460, "删除用户"),
+    OPERATIONTYPE_SLEEP(470, "休眠"),
+    OPERATIONTYPE_APPLY_SLEEP(471, "申请休眠"),
+    OPERATIONTYPE_AUDIT_SLEEP(472, "审核休眠"),
+    OPERATIONTYPE_UNSLEEP(480, "解除休眠"),
+    OPERATIONTYPE_TRANSFER(490, "转警"),
+    OPERATIONTYPE_CHANGEAGENTSTATE(499, "坐席状态变更"),
+    OPERATIONTYPE_SENDSMS(500, "短信发送"),
+    OPERATIONTYPE_RECEIVESMS(510, "接收短信"),
+    OPERATIONTYPE_APPROVEBLACKLIST(550, "黑名单审批通过"),
+    OPERATIONTYPE_REJECTBLACKLIST(560, "黑名单审批不通过"),
+    OPERATIONTYPE_MODIFYBLACKLIST(570, "修改黑名单"),
+    OPERATIONTYPE_UPGRADE(610, "升级"),
+    OPERATIONTYPE_CASECLOSEREQUEST(620, "关闭案件请求"),
+    OPERATIONTYPE_CASECLOSEDENY(630, "拒绝案件关闭"),
+    OPERATIONTYPE_CASECLOSEACCEPT(640, "接收案件关闭"),
+    OPERATIONTYPE_ATTENTION(650, "警情关注"),
+    OPERATIONTYPE_UNFOLLOW(660, "取消关注"),
+    OPERATIONTYPE_SIGNTIMEOUT(901, "签收超时"),
+    OPERATIONTYPE_FEEDBACKTIMEOUT(902, "反馈超时"),
+    OPERATIONTYPE_ARRIVETIMEOUT(903, "到场超时"),
+    OPERATIONTYPE_DISPATCHTIMEOUT(904, "处警超时"),
+    OPERATIONTYPE_ADDTAG(905,"添加标签"),
+    OPERATIONTYPE_ADDTAGCORRESPOND(906,"添加标签映射"),
+    OPERATIONTYPE_MODIFYCASE(907, "警情修改"),
+    CLEAR_TIMEOUT_USER(915,"清退心跳超时用户"),
+
+
+    INCIDENTCIRCULATE(0,"警情接管"),//警情接管操作
+    INCIDENTCIRCULATEOK(1,"警情接管成功"),//警情接管成功
+
+    ;
+    private int code;
+    private String message;
+
+    OperationTypeEnum(int code, String message) {
+        this.code = code;
+        this.message = message;
+    }
+
+    OperationTypeEnum(String message) {
+        this.message = message;
+    }
+
+    @Override
+    public int getCode() {
+        return code;
+    }
+
+    @Override
+    public String getType() {
+        return super.name();
+    }
+
+    @Override
+    public String getName() {
+        return I18nMessageUtils.getI18nMessage(super.name(), message);
+    }
+}
+

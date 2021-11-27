@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<project>
+
+  <info> 
+    <name content="产品名称">ds-iecs-web</name>
+    <version content="产品版本号">1.1.0.13.101</version>
+    <code content="产品编码">ds-iecs-web</code>
+	<appid content="产品发布编码默认:产品名称.app.id">dsiecswebserver.app.id</appid>
+  </info>
+
+  <install-info>
+	<linuxpath content="linuxpath">/opt/apache-tomcat-8.5.51-iecs/webapps/</linuxpath>  
+	<windowspath content="windowspath">d:/dssystem/apache-tomcat-8.5.51-iecs/webapps/</windowspath>  
+  </install-info>
+
+  <cfg-files> 
+    <file name="changeability" type="properties">
+      <!-- 基本配置 信息 -->
+      <localIp content="本服务器ip地址">$IECS_WEB_IP$</localIp>
+      <system.code content="系统编码">HJSL</system.code>
+      <callOtherServerNeedToken content="是否机机认证">false</callOtherServerNeedToken>
+      <cacheKeyPrefix content="缓存关键后缀">cad</cacheKeyPrefix>
+      <authenticate.offsettime content="允许离线时间">10</authenticate.offsettime>
+      <authenticate.needEncrypte content="是否加密认证">false</authenticate.needEncrypte>
+      <authenticate.needValidateAccessTime content="认证是否检查访问在线时间">false</authenticate.needValidateAccessTime>
+      <sub.openSubAuthenticate content="是否开启第三方认证">false</sub.openSubAuthenticate>
+
+      <!-- 集群 通知节点配置 -->
+      <notifyOtherNodes content="是否集群节点 0单机节点 1集群节点">1</notifyOtherNodes>
+      <nodes content="节点ip:port地址,多节点逗号分隔">192.168.92.63:8280</nodes>
+
+      <!-- 数据库配置 -->
+      <dbNeedDecryption content="数据库配置信息是否加密">false</dbNeedDecryption>
+      <db.driver content="数据库驱动">org.postgresql.Driver</db.driver>
+      <db.url content="数据库路径">jdbc:postgresql://$DB_IP$:$DB_PORT$/dsdb?currentSchema=iecs</db.url>
+      <db.user content="数据库账号">iecs</db.user>
+      <db.password content="数据库密码">iecs</db.password>
+      <db.initialSize content="数据库初始连接数">10</db.initialSize>
+      <db.maxSize content="数据库最大连接数">100</db.maxSize>
+      <db.maxIdleTime content="数据库最大空闲时间">3000</db.maxIdleTime>
+      <db.validationQuery content="数据库是否正常检查SQL语句">select 1</db.validationQuery>
+
+      <!-- 其他服务 配置信息-->
+      <portalUrl content="门户请求服务基础路径配置">http://$DS_PORTAL_WEB$/ds-portal-web/v1/</portalUrl>
+      <fdfsUploadUrl content="fdfs上传文件服务路径">http://$DS_FILESTORAGE_WEB$/ds-filestorage-web/fastdfs/upload_file</fdfsUploadUrl>
+      <fdfsFilePathUrlEnable content="是否根据附件id查询附件路径">false</fdfsFilePathUrlEnable>
+      <fdfsFilePathUrl content="fdfs文件路径请求路径">http://$DS_FILESTORAGE_WEB$/ds-filestorage-web/v1/fastdfs/getFileInfo</fdfsFilePathUrl>
+      <libsPathUrl content="libs服务基础路径">http://$DS_LIIS_WEB$/ds-liis-web/v1/</libsPathUrl>
+
+      <!-- cas 认证配置 -->
+      <cas.isOpenCas content="是否启动cas认证服务">false</cas.isOpenCas>
+      <cas.casUrl content="cas服务路径">http://$DS_CAS_WEB$</cas.casUrl>
+      <serverUrl content="本服务路径ip:port">$IECS_WEB_IP$:$IECS_WEB_PORT$</serverUrl>
+      <cas.excludePaths content="cas忽略路径信息,多路径逗号分隔">/rest/iecs/v1.0/test/,/rest/iecs/v1.0/notifyOtherNodes,/rest/iecs/v1.0/outside,/rest/iecs/v1.0/mutation,/rest/iecs/v1.0/query,/rest/iecs/v1.0/brace</cas.excludePaths>
+      <appWebUrl content="认证跳转前端服务路径">http://$IECS_APP$</appWebUrl>
+
+      <!-- 消息通知服务  配置信息 -->
+      <websocket.enable content="是否启用webscoket">true</websocket.enable>
+      <websocket.server.ip content="websocket服务路径">ws://$DS_WEBMESSAGE$</websocket.server.ip>
+      <websocket.fromUser content="websocket服务发送者">HJSL</websocket.fromUser>
+      <websocket.system content="webscoket本服务系统编码">HJSL</websocket.system>
+      <websocket.xmlEnable content="webscoket消息格式是否为xml 默认json字符串">false</websocket.xmlEnable>
+
+      <!-- 移动通知服务  配置信息 -->
+      <mobileUrl.enable content="是否启用移动消息推送">true</mobileUrl.enable>
+      <mobileUrl content="移动消息推送路径">http://192.168.93.169:8080/DS_MIT_FIRE-WEB/rest/mit/fire/v1.0/notification</mobileUrl>
+
+      <!-- 第三方资源 配置 -->
+      <reportDataUrl.enable content="是否一体化上报">false</reportDataUrl.enable>
+      <reportDataUrl content="一体化上报路径">http://localhost:8380/ds-integrate-web</reportDataUrl>
+
+      <coc.enable content="是否推送coc">false</coc.enable>
+      <cocUrl content="coc路径信息">http://localhost:8380/dds-integrate-web</cocUrl>
+
+      <police.enable content="是否推送公安">false</police.enable>
+      <policeUrl content="推送公安路径">http://localhost:8380/ds-integrate-web</policeUrl>
+
+      <ttsSpeechToFileUrl content="tts播放文件生成服务器地址">http://127.0.0.1:9999</ttsSpeechToFileUrl>
+
+      <tasks.num content="task线程执行数">7</tasks.num>
+      <enableSmartRecommand content="是否开启智能推荐功能">true</enableSmartRecommand>
+      <gradeJudgeUrl content="智能推荐警情等级url">http://172.16.3.36:8774/xf/service-component/jqdj-classification</gradeJudgeUrl>
+      <powerTransferUrl content="智能推荐调派力量url">http://172.16.3.36:8775/xf/service-component/lldp-sch</powerTransferUrl>
+    </file>
+
+	<file name="tomcat" type="properties">
+       <port content="Tomcat access port">8280</port>
+      <serverport content="Shutdown port for Tomcat listening">8282</serverport>
+      <Xms content="JVM最小堆内存">2048m</Xms>
+      <Xmx content="JVM最大堆内存">4096m</Xmx>
+      <Xss content="线程内存大小">512k</Xss>
+    </file>
+
+  </cfg-files> 
+</project>

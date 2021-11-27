@@ -1,0 +1,1309 @@
+
+
+# 警情卷宗
+type IncidentDossierVO {
+    # 事件id
+    incidentId: String
+    # 警情详情
+    incidentInfo: IncidentInfoBO
+    # 受理记录信息
+    acceptList: [AcceptBo]
+    # 警情补充
+    incidentSupplement: [AcceptBo]
+    # 关联警情
+    relatedIncidentInfoList: [IncidentInfoBO]
+    # 处警单{...指令单{...反馈单}}列表
+    dispatchList: [DispatchBO]
+
+
+    # 资源
+    source: [String]
+    # 复打警情
+    repeatCallIncidentInfoList: [IncidentInfoBO]
+}
+
+# 警情信息输出
+type IncidentInfoBO {
+    # 事件单编号
+    id:  String
+    # 行政区划code
+    administrativeDivision:  String
+    # 行政区划name
+    administrativeDivisionName:  String
+    # 接警单位编号id
+    recAlarmOrgId:  String
+    # 接警单位代码code
+    recAlarmOrgCode:  String
+    # 接警单位名称name
+    recAlarmOrgName:  String
+    # 事发地址
+    address:  String
+    # 定位标志物
+    locateMark:  String
+    # 一案一码
+    caseCode:  String
+    # X坐标/经度
+    longitude:  String
+    # Y坐标/纬度
+    latitude:  String
+    # 首次报警时间
+    recAlarmTime:  Long
+    #报警电话
+    alarmPhone: String
+    # 报警人
+    alarmPersonName:  String
+    # 报警人联系电话
+    alarmPersonContact:  String
+    # 报警人联系地址
+    alarmPersonAddress:  String
+    # 辖区单位id
+    policeOfficeId:  String
+    # 辖区单位code
+    policeOfficeCode:  String
+    # 辖区单位name
+    policeOfficeName:  String
+    # 所属分局id
+    policeStationId:  String
+    # 所属分局code
+    policeStationCode:  String
+    # 所属分局name
+    policeStationName:  String
+    # 警种id
+    alarmType:  String
+    # 警种code
+    alarmTypeCode:  String
+    # 警种name
+    alarmTypeName:  String
+    # 处理类型id
+    dealType:  String
+    # 处理类型code
+    dealTypeCode:  String
+    # 处理类型name
+    dealTypeName:  String
+    # 警情级别code
+    level:  String
+    # 警情级别name
+    levelName:  String
+    #警情级别排序
+    levelOrder: Int
+    # 案由code
+    incidentType:  String
+    # 案由name
+    incidentTypeName:  String
+    # 父级案由code
+    incidentParentType:  String
+    # 父级案由name
+    incidentParentTypeName:  String
+    # 关联事件单编号
+    relatedIncidentId:  String
+    # 事件详情
+    content:  String
+    #报警内容
+    alarmContent: String
+    # 出警单位id
+    dealIncidentUnitId:  String
+    # 出警单位code
+    dealIncidentUnitCode:  String
+    # 出警单位name
+    dealIncidentUnitName:  String
+    # 处理结果
+    dealResult:  String
+    # 处理结果name
+    dealResultName:  String
+    # 事件处理情况
+    incidentDealDetail:  String
+    # 事件状态code
+    cadState:  Int
+    # 事件状态name
+    cadStateName:  String
+    # 首次受理结束时间
+    firstDealEndTime:  Long
+    # 报警人性别
+    alarmPersonSex:  String
+    # 事发地址分类id
+    addressType:  String
+    # 事发地址分类code
+    addressTypeCode:  String
+    # 事发地址分类name
+    addressTypeName:  String
+    # 首次受理单编号
+    firstDealId:  String
+    # 是否匿名 ( 0 不匿名: String1 匿名 )
+    isAnonymous:  Int
+    # 是否匿名name
+    isAnonymousName:  String
+    # 接警员工号
+    recAlarmPersonId:  String
+    # 接警员姓名
+    recAlarmPerson:  String
+    # 时间戳
+    lastedhandleTime:  Long
+    # 重点单位编号id
+    keyUnitNumber:  String
+    # 重点单位code
+    keyUnitCode:  String
+    # 重点单位name
+    keyUnitName:  String
+    # 报警方式code
+    alarmWay:  String
+    # 报警方式name
+    alarmWayName:  String
+    # 案件处置人
+    incidentOperator:  String
+    # 语音文件
+    voiceFile:  String
+    # 所属人员工号
+    belongPersonAccount:  String
+    # 所属人员姓名
+    belongPersonName:  String
+    # 警情升级状态code
+    incidentUpgradeStateCode:  Int
+    # 警情升级状态名称name
+    incidentUpgradeStateName:  String
+    # 是否关注（1关注，0不关注）
+    attention: Int
+    # 是否置顶（1置顶，0不置顶）
+    top: Int
+    # 排序字段
+    sortField: Int
+    # 警情关注人账号
+    attentionPersonAccount: [String]
+    # 坐标类型
+    coordinateType: String
+    # 报警人证件号
+    alarmPersonIdentityNumber: String
+    # 车牌号码
+    carNumber: String
+    # yjzt
+    yjzt: Int
+    # 来源
+    source: String
+    # 微信警单编号
+    wechatIncidentNumber: String
+    # 重大标志
+    largeSign: Int
+    # 微信号
+    wechatNumber: String
+    # 是否受害人（报警人是否是受害人:0不是;1是）
+    isVictim: Int
+    # 是否受害人name
+    isVictimName: String
+    # 钉办id
+    xdTaskId: String
+    # 钉办状态
+    xdTaskState: String
+    # 群组id
+    groupId: String
+    # 附件资料列表
+    attachmentList: [AttachmentBO]
+    # 录音信息列表
+    soundRecordList: [SoundRecordBO]
+    # 证据列表
+    evidenceList: [EvidenceBO]
+    # 110事件扩展
+    incidentExtend110: IncidentExtend110BO
+    # 119事件扩展
+    incidentExtend119: IncidentExtend119BO
+    # 120事件扩展
+    incidentExtend120: IncidentExtend120BO
+    # 122事件扩展
+    incidentExtend122: IncidentExtend122BO
+
+    #有效警标志 1有效 0无效
+    incidentMark: String
+    # 关注类型
+    attentionType: Int
+    # 取消关注类型
+    cancelAttentionType: Int
+
+    #是否预先介入 1 是 0 否
+    isPreAttentForce: Int
+    #补充信息
+    addInfo: String
+    #是否签收超时 1 是 0 否
+    isSignTimeOut: Int
+    # 是否到场超时 1 是 0 否
+    isArriveTimeOut: Int
+    # 是否反馈超时 1 是 0 否
+    isFeedBackTimeOut: Int
+    # 是否已反馈 1 是 0 否
+    isFeedBack: Int
+
+
+    #警情警情补充信息
+    addInfoRecords: [IncidentAddInfoBO]
+    # 辅助电话列表
+    auxiliaryPhoneBOS: [AuxiliaryInformationBO]
+    #泰州警综编号
+    jwptbh: String
+}
+# 受理单
+type AcceptBo{
+    # 受理单编号
+    id: String
+    # 行政区划
+    administrativeDivision: String
+    # 事件单编号
+    incidentId: String
+    # 处理类型
+    dealType: String
+    # 处理类型name
+    dealTypeName: String
+    # 接警开始时间
+    acceptStartTime: Long
+    # 接警单位
+    recAlarmOrgCode: String
+    # 接警单位编号id
+    recAlarmOrgId: String
+    # 接警单位名称name
+    recAlarmOrgName: String
+    # 接警员工号
+    recAlarmPersonId: String
+    # 接警员姓名
+    recAlarmPerson: String
+    # 接警台号
+    acceptAgentId: Int
+    # 接警台IP
+    acceptAgentIP: String
+    # 报警人姓名
+    alarmPersonName: String
+    # 报警人性别
+    alarmPersonSex: String
+    # 联系电话
+    alarmPersonContact: String
+    # 联系地址
+    alarmPersonAddress: String
+    # 事发地址
+    address: String
+    # 标志物
+    locateMark: String
+    # X坐标/经度
+    longitude: String
+    # Y坐标/维度
+    latitude: String
+    # 所属辖区code
+    policeOfficeCode: String
+    # 所属辖区id
+    policeOfficeId: String
+    # 所属辖区name
+    policeOfficeName: String
+    # 所属分局
+    policeStationCode: String
+    # 所属分局id
+    policeStationId: String
+    # 所属分局name
+    policeStationName: String
+    # 报警方式
+    alarmWay: String
+    # 报警方式name
+    alarmWayName: String
+    # 报警警种
+    alarmTypeFirst: String
+    # 报警方式name
+    alarmTypeFirstName: String
+    # 接警警种
+    alarmType: String
+    # 接警警种name
+    alarmTypeName: String
+    # 案由
+    incidentType: String
+    # 案由name
+    incidentTypeName: String
+    # 警情级别
+    level: String
+    # 警情级别name
+    levelName: String
+    # 报警内容
+    content: String
+    # 接警结束时间
+    acceptEndTime: Long
+    # 接警时长
+    acceptDuration: Long
+    # 受理状态
+    acceptStatus: Int
+    # 受理状态name
+    acceptStatusName: String
+    # 是否匿名
+    isAnonymous: Int
+    # 是否匿名name
+    isAnonymousName: String
+    #时间戳
+    lastedhandleTime: Long
+    # 坐标类型
+    coordinateType: String
+    # 报警人证件号
+    alarmPersonIdentityNumber: String
+    # 车牌号码
+    carNumber: String
+    # 微信警单编号
+    wechatIncidentNumber: String
+    # 微信号
+    wechatNumber: String
+    # 是否受害人（报警人是否是受害人:0不是;1是）
+    isVictim: Int
+    # 是否受害人name
+    isVictimName: String
+    # 110受理扩展
+    acceptExtend110BO: AcceptExtend110BO
+    # 119受理扩展
+    acceptExtend119BO: AcceptExtend119BO
+    # 120受理扩展
+    acceptExtend120BO: AcceptExtend120BO
+    # 122受理扩展
+    acceptExtend122BO: AcceptExtend122BO
+
+    # 坐席录音号
+    agentCallRecordNum:String
+    # 主叫号码
+    callingTelephone:String
+    # 被叫号码
+    calledTelephone:String
+    # 装机用户
+    callingTelephoneInstallationUser:String
+    # 装机地址
+    callingTelephoneInstallationAddress:String
+    # 呼入时间
+    callStartTime:Long
+    # 摘机时间
+    callPickUpTime:Long
+    # 话终时间
+    callEndTime:Long
+    # 振铃时长(单位秒)
+    ringTime:Int
+    # 通话时长(单位秒)
+    talkTime:Int
+}
+#110受理扩展
+type AcceptExtend110BO{
+    #受理单编号
+    id: String
+    #时间戳
+    lastedhandleTime: Long
+}
+#119受理扩展
+type AcceptExtend119BO{
+    #受理单编号
+    id: String
+    #建筑类型
+    buildingType: String
+    #建筑类型name
+    buildingTypeName: String
+    #起火部位
+    fireArea: String
+    #起火部位name
+    fireAreaName: String
+    #起火楼层
+    fireFloor: String
+    #燃烧物质
+    burningSubstances: String
+    #燃烧物质name
+    burningSubstancesName: String
+    #燃烧面积
+    burningArea: Int
+    #是否有化学危险品
+    chemistryDangerous: Int
+    #是否有化学危险品
+    chemistryDangerousName: String
+    #被困人员
+    trappedPersonsNumber: Int
+    #水源信息
+    waterSourceInfo: String
+    #周边信息
+    nearbyInfo: String
+    #中队信息
+    squadronInfo: String
+    #时间戳
+    lastedhandleTime: Long
+}
+#120受理扩展
+type AcceptExtend120BO{
+    #受理单编号
+    id: String
+    #时间戳
+    lastedhandleTime: Long
+}
+#122受理扩展
+type AcceptExtend122BO{
+    #受理单编号
+    id: String
+    #受伤人数
+    injuriesNumber: String
+    #死亡人数
+    deathNumber: Int
+    #肇事车牌类型
+    carCategory: String
+    #肇事车牌类型name
+    carCategoryName: String
+    #肇事车牌号
+    carNumber: String
+    #是否有化学危险品
+    chemistryDangerous: String
+    #是否有化学危险品name
+    chemistryDangerousName: String
+    #时间戳
+    lastedhandleTime: Long
+}
+# 附件输出
+type AttachmentBO {
+    # id
+    id: String
+    # 关联业务ID
+    relateBusinessId: String
+    # 关联业务类型（表名）. 事件核实历史记录 案事件信息 调派单 指令反馈单 领导批示
+    relateBusinessType: String
+    # 指挥实例id
+    commandInstanceId: String
+    # 事件单id
+    incidentId: String
+    # 处警单编号
+    dispatchId: String
+    # 反馈单编号
+    feedbackId: String
+    # 附件名称
+    attachmentName: String
+    # 附件扩展名
+    attachmentNameExtension: String
+    # 附件url全路径
+    url: String
+    # ftp服务器编号
+    ftpServerNumber: Long
+    # 附件资料来源. 10-图像监控 20-情报研判 30-现场上传 40-本地上传 50-领导终端
+    attachmentSource: String
+    # 附件资料来源name
+    attachmentSourceName: String
+    # 附件类型: 0:其他，1:音频 , 2:视频 ,3:图片,4:文档
+    attachmentType: String
+    # 附件类型name
+    attachmentTypeName: String
+    # 描述
+    describe: String
+    # 上传单位编码
+    uploadUnitCode: String
+    # 上传单位名称
+    uploadUnitName: String
+    # 上传人工号
+    uploadPersonCode: String
+    # 上传人姓名
+    uploadPersonName: String
+    # 上传时间
+    uploadTime: Long
+    # 附件收集人工号
+    attachmentCollectorCode: String
+    # 附件收集人姓名
+    attachmentCollectorName: String
+    # 收集时间
+    CollectTime: Long
+    # 打开方式
+    openMode: String
+    # 打开方式name
+    openModeName: String
+    # 时间戳
+    sjc: Long
+    # 有效性
+    validState: Int
+    # 有效性name
+    validStateName: String
+    # 扩展字段1
+    extendedField1: String
+    # 扩展字段2
+    extendedField2: String
+    # 上传系统(民警终端、领导终端、科所队、接警台、证据管理等)
+    uploadSystem: String
+    # 上传设备号(接处警台号，终端IMEI号等)
+    uploadDeviceNumber: String
+    # 附件编号
+    attachmentNumber: String
+}
+# 录音信息
+type SoundRecordBO {
+    # 录音号
+    recordNo: String
+    # 录音id
+    recordId: String
+    # 文件名
+    filename: String
+    # 坐席号
+    agentId: String
+    # 主叫号码
+    callerId: String
+    # 被叫号码
+    calledId: String
+    # 所有成员
+    numbers: String
+    # 开始时间
+    beginTime: Long
+    # remark
+    remark: String
+    # 呼叫类型（0报警，1接警回呼，2处警录音）
+    callRecordType: Int
+}
+# 证据输出
+type EvidenceBO {
+    # 流水号
+    id: String
+    # 证据编号
+    evidenceId: String
+    # 事件单编号
+    incidentId: String
+    # 处警单编号
+    dispatchId: String
+    # 反馈单编号
+    feedbackId: String
+    # 单位编号
+    orgCode: String
+    # 单位name
+    orgName: String
+    # 上级单位编号
+    orgParentCode: String
+    # 上级单位name
+    orgParentName: String
+    # 上传人工号
+    uploaderId: String
+    # 证据收集人工号
+    collectorId: String
+    # 上传时间
+    uploadTime: Long
+    # 上传日期
+    uploadDate: Long
+    # 文件地址
+    evidenceUrl: String
+    # 证据类型
+    evidenceType: Int
+    # 证据类型name
+    evidenceTypeName: String
+    # 证据名称
+    evidenceName: String
+    # 证据描述
+    evidenceDescription: String
+    # ftp服务器编号
+    ftpServerNumber: Long
+    # 文件扩展名
+    fileExtension: String
+    # 上传人姓名
+    uploaderName: String
+    # 证据收集人姓名
+    collectorName: String
+    # 打开方式
+    openMode: String
+    # 打开方式name
+    openModeName: String
+    # 通知流水号
+    informId: String
+    #缩略图
+    thumbnail: String
+}
+# 110事件扩展
+type IncidentExtend110BO {
+    # 事件单编号
+    id: String
+    # 时间戳
+    lastedhandleTime: Long
+}
+# 119事件扩展
+type IncidentExtend119BO {
+    # 事件单编号
+    id: String
+    # 出动时间
+    dispatchTime: Long
+    # 到场时间
+    arriveTime: Long
+    # 建筑类型
+    buildingType: String
+    # 建筑类型name
+    buildingTypeName: String
+    # 起火部位
+    fireArea: String
+    # 起火部位name
+    fireAreaName: String
+    # 起火楼层
+    fireFloor: String
+    # 燃烧物质
+    burningSubstances: String
+    # 燃烧物质name
+    burningSubstancesName: String
+    # 是否有化学危险品
+    chemistryDangerous: Int
+    # 是否有化学危险品name
+    chemistryDangerousName: String
+    # 被困人员
+    trappedPersonsNumber: Int
+    # 水源信息
+    waterSourceInfo: String
+    # 周边信息
+    nearbyInfo: String
+    # 中队信息
+    squadronInfo: String
+    # 当前火场状态
+    currentFireState: Int
+    # 当前火场状态name
+    currentFireStateName: String
+    # 火灾发生时间
+    fireOccurrenceTime: Long
+    # 火灾扑灭时间
+    fireExtinguishTime: Long
+    # 火灾原因
+    fireReason: String
+    # 火灾原因name
+    fireReasonName: String
+    # 火灾损失
+    fireLoss: Int
+    # 挽回经济损失
+    retrieveLoss: Int
+    # 过火面积
+    verfireArea: Int
+    # 中队受伤人数
+    squadronInjuresNumber: Int
+    # 中队死亡人数
+    squadronDeathNumber: Int
+    # 出动车次
+    dispatchTrainNumber: Int
+    # 出动人次
+    dispatchedPersonNumber: Int
+    # 轻伤人数
+    minorInjuriesNumber: Int
+    # 重伤人数
+    seriousInjuryNumber: Int
+    # 死亡人数
+    deathNumber: Int
+    # 救助人数
+    rescuedPersonsNumber: Int
+    # 时间戳
+    lastedhandleTime: Long
+}
+# 120事件扩展
+type IncidentExtend120BO {
+    # 事件编号
+    id: String
+    # 时间戳
+    lastedhandleTime: Long
+}
+# 122事件扩展
+type IncidentExtend122BO {
+    # 事件编号
+    id: String
+    # 肇事车牌类型
+    carCategory: String
+    # 肇事车牌类型name
+    carCategoryName: String
+    # 肇事车牌号
+    carNumber: String
+    # 是否有化学危险品
+    chemistryDangerous: Int
+    # 是否有化学危险品name
+    chemistryDangerousName: String
+    # 出动车次
+    dispatchTrainNumber: Int
+    # 出动人次
+    dispatchedPersonNumber: Int
+    # 轻伤人数
+    minorInjuriesNumber: Int
+    # 重伤人数
+    seriousInjuryNumber: Int
+    # 死亡人数
+    deathNumber: Int
+    # 时间戳
+    lastedhandleTime: Long
+}
+#警情补充记录
+type IncidentAddInfoBO {
+    # 受理单编号
+    acceptId: String
+    # 补充信息
+    addInfo: String
+    # 补充时间
+    addTime: Long
+    # 操作人工号
+    operatePersonCode: String
+    # 操作人姓名
+    operatePersonName: String
+}
+# 辅助信息
+type AuxiliaryInformationBO{
+    #流水号
+    id: String
+    #事件单编号
+    incidentId: String
+    #辅助类型 1:辅助电话
+    auxiliaryType: Int
+    #地址
+    address: String
+    #辅助联系电话
+    contactPhone: String
+    #扩展信息1
+    exInformation1: String
+    #扩展信息2
+    exInformation2: String
+    #扩展信息3
+    exInformation3: String
+    #保存时间
+    saveTime: Long
+    #时间戳
+    sjc: Long
+}
+# 处警单
+type DispatchBO{
+    # 处警单编号
+    id: String
+    # 行政区划
+    area: String
+    # 行政区划name
+    areaName: String
+    # 事件单编号
+    incidentId: String
+    # 处警类型（默认10）
+    dispatchType: String
+    # 处警类型name
+    dispatchTypeName: String
+    # 处警开始时间
+    dispatchStartTime: Long
+    # 处警单位code
+    dispatchOrgCode: String
+    # 处警单位name
+    dispatchOrgName: String
+    # 处警员工号
+    dispatchPersonAccount: String
+    # 处警员姓名
+    dispatchPersonName: String
+    # 处警员角色code
+    dispatchPersonRoleCode: String
+    # 处警员角色name
+    dispatchPersonRoleName: String
+    # 处警措施(调派单内容)
+    content: String
+    # 处警结束时间
+    dispatchEndTime: Long
+    # 等待处警时长
+    dispatchWaitTime: Int
+    # 处警时长
+    dispatchDuration: Int
+    # 处警单状态
+    dispatchState: Int
+    # 处警单状态name
+    dispatchStateName: String
+    # 处警台号
+    dispatchAgentNum: Int
+    # 时间戳
+    sjc: Long
+    # 来源
+    source: String
+    # 指令单
+    orderInfoList: [OrderInfoBO]
+    # 录音信息列表
+    soundRecordList: [SoundRecordBO]
+}
+# 指令单信息
+type OrderInfoBO {
+    # 指令单编号
+    id: String
+    # 事件单编号
+    incidentId: String
+    # 处警单编号
+    dispatchId: String
+    # 出警单位code
+    handleOrgCode: String
+    # 出警单位name
+    handleOrgName: String
+    # 指令下达时间
+    orderAssignTime: Long
+    # 指令到达时间
+    orderArriveTime: Long
+    # 指令接收时间
+    orderReceiveTime: Long
+    # 指令接收单位
+    orderReceiveOrgCode: String
+    # 指令接收单位name
+    orderReceiveOrgName: String
+    # 指令接收人工号
+    orderReceivePersonAccount: String
+    # 指令接收人姓名
+    orderReceivePersonName: String
+    # 出动时间
+    departTime: Long
+    # 到场时间
+    sceneArriveTime: Long
+    # 指令状态
+    orderState: Int
+    # 指令状态name
+    orderStateName: String
+    # 时间戳
+    sjc: Long
+    # 要求反馈时间
+    requiredFeedbackTime: Long
+    # 反馈超时标记
+    feedbackOvertimeStatus: Int
+    # 无需反馈标记
+    noNeedFeedbackStatus: Int
+    # 预案指令编号
+    modelInstructionId: String
+    # IMEI号
+    imei: String
+    # 反馈单
+    feedbackBOList: [FeedbackBO]
+    # 指令催促次数
+    orderUrgeTimes: Int
+    # 指令类型（1：单位，2：unit单元，3：终端）
+    orderType: Int
+    # 指令类型name
+    orderTypeName: String
+    # 单位指令单扩展
+    orderOrgExtend: OrderOrgExtendBO
+    # unit单元指令单扩展
+    orderUnitExtend: OrderUnitExtendBO
+    # 终端指令单扩展
+    orderTerminalExtend: OrderTerminalExtendBO
+    # 主责单位标记 0 否 1 是
+    mainResponsibleOrg: Int
+}
+# 单位指令单扩展
+type OrderOrgExtendBO {
+    # 行政区划
+    area: String
+    # 行政区划name
+    areaName: String
+    # 终端反馈标记
+    terminalFeedbackMark: Int
+}
+# unit单元指令单扩展
+type OrderUnitExtendBO {
+    # UNIT单元编号
+    unitNum: String
+    # UNIT单元name
+    unitName: String
+    # 指令单编号
+    orderId: String
+    # 简称---库里是时间戳类型---
+    jc: Long
+    # LTEID（签收LTEID）
+    receiverLteid: String
+    # 处置时间
+    operationTime: Long
+    # 是否被签收
+    isReceivedMark: Int
+    # 申请时间
+    applyTime: Long
+    # 申请人工号
+    applyPersonNum: String
+    # 申请人姓名
+    applyPersonName: String
+    # 审核单位
+    auditOrg: String
+    # 审核人工号
+    auditPersonNum: String
+    # 审核人姓名
+    auditPersonName: String
+    # 审核结果
+    auditResult: Int
+    # 审核结论
+    auditConclusion: String
+    # 作废类型
+    cancelReasonType: String
+    # 作废类型name
+    cancelReasonTypeName: String
+    # 作废原因
+    cancelReason: String
+    # 分类
+    cancelType: Int
+    # 分类name
+    cancelTypeName: String
+    # 解绑时间
+    unbundingTime: Long
+}
+# 终端指令单扩展
+type OrderTerminalExtendBO {
+    # 指令单编号
+    orderId: String
+    # UNIT调度指令单号
+    unitDispatchId: String
+    # 签收人员账号
+    receivePersonAccount: String
+    # 签收时间
+    receiveTime: Long
+    # 签收终端IMEI
+    receiveTeminalIMEI: String
+    # 签收LTEID
+    receiverLteid: String
+    # 处置时间
+    operationTime: Long
+    # 分类（退单还是作废）
+    cancelType: Int
+    # 分类name
+    cancelTypeName: String
+    # 申请时间
+    applyTime: Long
+    # 申请人工号
+    applyPersonNum: String
+    # 申请人姓名
+    applyPersonName: String
+    # 作废类型
+    cancelReasonType: String
+    # 作废类型name
+    cancelReasonTypeName: String
+    # 作废原因
+    cancelReason: String
+    # 审核单位
+    auditOrg: String
+    # 审核单位name
+    auditOrgName: String
+    # 审核人工号
+    auditPersonNum: String
+    # 审核人姓名
+    auditPersonName: String
+    # 来源
+    source: String
+    # 审核单位机构代码
+    auditOrgCode: String
+}
+# 反馈单
+type FeedbackBO{
+    # 反馈单编号
+    id: String
+    # 行政区划
+    area: String
+    # 行政区划name
+    areaName: String
+    # 事件单编号
+    incidentId: String
+    # 处警单编号
+    dispatchId: String
+    # 指令单编号
+    orderId: String
+    # 指令接收时间
+    orderReceiveTime: Long
+    # 反馈类型
+    feedbackType: String
+    # 反馈类型name
+    feedbackTypeName: String
+    # 反馈开始时间
+    feedbackStartTime: Long
+    # 反馈单位code
+    feedbackUnit: String
+    # 反馈单位id
+    feedbackUnitId: String
+    # 反馈单位name
+    feedbackUnitName: String
+    # 反馈台号
+    feedbackAgentNum: Int
+    # 反馈人工号
+    feedbackPersonAccount: String
+    # 反馈人姓名
+    feedbackPersonName: String
+    # 反馈填写单位
+    feedbackWriteUnit: String
+    # 反馈填写单位id
+    feedbackWriteUnitId: String
+    # 反馈填写单位name
+    feedbackWriteUnitName: String
+    # 反馈保存时间
+    feedbackSaveTime: Long
+    # 反馈时长
+    feedbackDuration: Int
+    # 反馈接收时间
+    feedbackReceiveTime: Long
+    # 反馈接收单位
+    feedbackReceiveUnit: String
+    # 反馈接收单位id
+    feedbackReceiveUnitId: String
+    # 反馈接收单位name
+    feedbackReceiveUnitName: String
+    # 反馈接收人工号
+    feedbackReceivePersonAccount: String
+    # 反馈接收人姓名
+    feedbackReceivePersonName: String
+    # 反馈接收台号
+    feedbackReceiveAgentNum: Int
+    # 反馈接收状态
+    feedbackReceiveState: Int
+    # 反馈接收状态name
+    feedbackReceiveStateName: String
+    # 终结标志
+    endMark: Int
+    # 终结标志name
+    endMarkName: String
+    # 审核标志
+    auditMark: Int
+    # 审核标志name
+    auditMarkName: String
+    # 处理类型
+    processType: String
+    # 处理类型name
+    processTypeName: String
+    # 关联事件单编号
+    relatedIncidentId: String
+    # 案由
+    incidentType: String
+    # 案由name
+    incidentTypeName: String
+    # 一级案由code
+    incidentParentType:  String
+    # 一级案由name
+    incidentParentTypeName:  String
+    # 警情级别
+    incidentLevel: String
+    # 警情级别name
+    incidentLevelName: String
+    # 身份证号
+    alarmIDCard: String
+    # 处理结果
+    processResult: String
+    # 处理结果name
+    processResultName: String
+    # 出警情况
+    policeDepartStatus: String
+    # 时间戳
+    sjc: Long
+    # 语音文件
+    voiceFile: String
+    # x坐标/经度
+    longitude: String
+    # y坐标/维度
+    latitude: String
+    # 来源
+    source: String
+    # 反馈单位机构代码
+    feedbackUnitCode: String
+    # 反馈填写单位机构代码
+    feedbackWriteUnitCode: String
+    # 反馈接收单位机构代码
+    feedbackReceiveUnitCode: String
+    # 证据列表
+    evidenceList: [EvidenceBO]
+    # 到场反馈扩展
+    feedbackExtendArriveBO: FeedbackExtendArriveBO
+    # 终端反馈扩展
+    feedbackExtendTerminalBO: FeedbackExtendTerminalBO
+    # 110反馈扩展
+    feedbackExtend110BO: FeedbackExtend110BO
+    # 119反馈扩展
+    feedbackExtend119BO: FeedbackExtend119BO
+    # 120反馈扩展
+    feedbackExtend120BO: FeedbackExtend120BO
+    # 122反馈扩展
+    feedbackExtend122BO: FeedbackExtend122BO
+
+}
+# 到场反馈扩展
+type FeedbackExtendArriveBO {
+    # 反馈单编号
+    id: String
+    # 出警人/反馈人type（1：单位，2：unit，3：人员）
+    responsePoliceType: String
+    # 出警人/反馈人id
+    responsePolice: String
+    # 反馈人name
+    feedbackArtifact: String
+    # 出动时间
+    startTime: Long
+    # 到场时间
+    arriveTime: Long
+    # 时间戳
+    updateTime: Long
+}
+# 终端反馈扩展
+type FeedbackExtendTerminalBO {
+    # 反馈单编号
+    id: String
+    # 出警人type（1：单位，2：unit，3：人员）
+    responsePoliceType: String
+    # 出警人id
+    responsePolice: String
+    # 出警人name
+    responsePersonName: String
+    # 出动时间
+    startTime: Long
+    # 到场时间
+    arriveTime: Long
+    # 事发地址分类
+    incidentAddressType: String
+    # 事发地址分类name
+    incidentAddressTypeName: String
+    # 一级事发地址分类
+    parentIncidentAddressType: String
+    # 一级地址分类name
+    parentIncidentAddressTypeName: String
+    # 出动车次
+    numberOfDispatchVehicle: Int
+    # 出动人次
+    numberOfDispatchPeople: Int
+    # 抓获人数
+    numberOfArrestPeople: Int
+    # 涉案人数
+    numberOfInvolvedPeople: Int
+    # 救助人数
+    numberOfRescuedPeople: Int
+    # 时间戳
+    updateTime: Long
+}
+# 110反馈扩展
+type FeedbackExtend110BO {
+    # 反馈单编号
+    id: String
+    # 出警人type（1：单位，2：unit，3：人员）
+    responsePoliceType: String
+    # 出警人id
+    responsePolice: String
+    # 出警人name
+    responsePersonName: String
+    # 出动时间
+    startTime: Long
+    # 到场时间
+    arriveTime: Long
+    # 事发地址分类
+    incidentAddressType: String
+    # 事发地址分类name
+    incidentAddressTypeName: String
+    # 一级事发地址分类
+    parentIncidentAddressType: String
+    # 一级地址分类name
+    parentIncidentAddressTypeName: String
+    # 出动车次
+    numberOfDispatchVehicle: Int
+    # 出动人次
+    numberOfDispatchPeople: Int
+    # 抓获人数
+    numberOfArrestPeople: Int
+    # 涉案人数
+    numberOfInvolvedPeople: Int
+    # 救助人数
+    numberOfRescuedPeople: Int
+    # 时间戳
+    updateTime: Long
+}
+# 119反馈扩展
+type FeedbackExtend119BO {
+    # 反馈单编号
+    id: String
+    # 出警人type（1：单位，2：unit，3：人员）
+    responsePoliceType: String
+    # 出警人id
+    responsePolice: String
+    # 出警人name
+    responsePersonName: String
+    # 出动时间
+    startTime: Long
+    # 到场时间
+    arriveTime: Long
+    # 事发地址分类
+    incidentAddressType: String
+    # 事发地址分类name
+    incidentAddressTypeName: String
+    # 一级事发地址分类
+    parentIncidentAddressType: String
+    # 一级地址分类name
+    parentIncidentAddressTypeName: String
+    # 火灾原因
+    fireReason: String
+    # 火灾原因name
+    fireReasonName: String
+    # 火灾发生时间
+    fireOccurrenceTime: Long
+    # 火灾扑灭时间
+    fireExtinguishTime: Long
+    # 建筑类型
+    buildingType: String
+    # 建筑类型name
+    buildingTypeName: String
+    # 起火部位
+    fireArea: String
+    # 起火部位name
+    fireAreaName: String
+    # 起火楼层
+    fireFloor: String
+    # 燃烧物质
+    burningSubstances: String
+    # 燃烧物质name
+    burningSubstancesName: String
+    # 过火面积
+    overFireArea: Int
+    # 火灾损失
+    fireLoss: Int
+    # 挽回经济损失
+    retrieveLoss: Int
+    # 中队受伤人数
+    squadronInjuresNumber: Int
+    # 中队死亡人数
+    squadronDeathNumber: Int
+    # 出动车次
+    dispatchTrainNumber: Int
+    # 出动人次
+    dispatchedPersonNumber: Int
+    # 轻伤人数
+    minorInjuriesNumber: Int
+    # 重伤人数
+    seriousInjuryNumber: Int
+    # 死亡人数
+    deathNumber: Int
+    # 救助人数
+    rescuedPersonsNumber: Int
+    # 时间戳
+    lastedhandleTime: Long
+}
+# 120反馈扩展
+type FeedbackExtend120BO {
+    # 反馈单编号
+    id: String
+    # 出警人type（1：单位，2：unit，3：人员）
+    responsePoliceType: String
+    # 出警人id
+    responsePolice: String
+    # 出警人name
+    responsePersonName: String
+    # 出动时间
+    startTime: Long
+    # 到场时间
+    arriveTime: Long
+    # 事发地址分类
+    incidentAddressType: String
+    # 事发地址分类name
+    incidentAddressTypeName: String
+    # 一级事发地址分类
+    parentIncidentAddressType: String
+    # 一级地址分类name
+    parentIncidentAddressTypeName: String
+    # 出动车次
+    dispatchTrainNumber: Int
+    # 出动人次
+    dispatchedPersonNumber: Int
+    # 抓获人数
+    numberOfArrestPeople: Int
+    # 涉案人数
+    numberOfInvolvedPeople: Int
+    # 救助人数
+    numberOfRescuedPeople: Int
+    # 时间戳
+    updateTime: Long
+}
+# 122反馈扩展
+type FeedbackExtend122BO {
+    # 反馈单编号
+    id: String
+    # 出警人type（1：单位，2：unit，3：人员）
+    responsePoliceType: String
+    # 出警人id
+    responsePolice: String
+    # 出警人name
+    responsePersonName: String
+    # 出动时间
+    startTime: Long
+    # 到场时间
+    arriveTime: Long
+    # 事发地址分类
+    incidentAddressType: String
+    # 事发地址分类name
+    incidentAddressTypeName: String
+    # 一级事发地址分类
+    parentIncidentAddressType: String
+    # 一级地址分类name
+    parentIncidentAddressTypeName: String
+    # 出动车次
+    numberOfDispatchVehicle: Int
+    # 出动人次
+    numberOfDispatchPeople: Int
+    # 轻伤人数
+    minorInjuriesNumber: Int
+    # 重伤人数
+    seriousInjuryNumber: Int
+    # 死亡人数
+    deathNumber: Int
+    # 时间戳
+    lastedhandleTime: Long
+}

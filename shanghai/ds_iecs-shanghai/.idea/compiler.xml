@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="ds_iecs-garage" />
+        <module name="ds_iecs-web-distribute" />
+        <module name="ds_iecs-base" />
+        <module name="ds_iecs-accept-shanghai" />
+        <module name="ds_iecs-notify" />
+        <module name="ds_iecs-hangzhou-tools" />
+        <module name="ds_iecs-basedata" />
+        <module name="ds_iecs-agent-shanghai" />
+        <module name="ds_iecs-intelligent" />
+        <module name="ds_iecs-distribute" />
+        <module name="ds_iecs-accept-hangzhou" />
+        <module name="ds_iecs-base-ext" />
+        <module name="ds_iecs-keydata" />
+        <module name="ds_iecs-agent" />
+        <module name="ds_iecs-schedule" />
+        <module name="ds_iecs-web-accept-hangzhou" />
+        <module name="ds_iecs-dsnetcommon" />
+        <module name="ds_iecs-integrate" />
+        <module name="ds_iecs-web-schedule" />
+        <module name="ds_iecs-out" />
+        <module name="ds_iecs-web-accept-shanghai" />
+        <module name="ds_iecs-web-integrate" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="ds-oauth-resource" target="1.8" />
+      <module name="ds_iecs-mdc" target="1.8" />
+      <module name="ds_iecs-web-mdc" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="ds-oauth-resource" options="-parameters" />
+    </option>
+  </component>
+</project>

@@ -1,0 +1,33 @@
+server:
+  port:8080
+
+spring:
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/sys?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  mvc:
+    view:
+      prefix: classpath:/templates/
+      suffix: .html
+
+  #type: com.alibaba.druid.pool.DruidDatasource
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.soft.demo.entity
+  #开启驼峰命名
+  configuration:
+   map-underscore-to-camel-case: true
+   #开启缓存
+   cache-enabled: true
+
+# 在控制台上打印sql (level后面的是包名)
+logging:
+  level:
+    com:
+      soft:
+        demo:
+          mapper: debug

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="off" packages="com.dscomm.comp.logs.appender.db.jdbc">
+	<Properties>
+		<Property name="baseDir">logs/iecslogs</Property>
+	</Properties>
+
+
+	<Appenders>
+
+		<Console name="console" target="SYSTEM_OUT">
+			<PatternLayout charset="UTF-8"
+				pattern="%d{yyyy/MM/dd HH24:mm:ss.SSS} [%thread] %-5level %logger{10}(%line) - %msg%exception{full}%n" />
+		</Console>
+
+
+		<RollingRandomAccessFile name="rollingRandomAccessFile"
+								 fileName="${baseDir}/iceslog.log" filePattern="${baseDir}/history/iecslog-%d{yyyy-MM-dd}-%i.log.gz">
+			<PatternLayout charset="UTF-8"
+						   pattern="%d{yyyy/MM/dd HH24:mm:ss.SSS} [%thread] %-5level %logger{10}(%line) - %msg%exception{full}%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="4" />
+				<SizeBasedTriggeringPolicy size="100 M" />
+			</Policies>
+			<DefaultRolloverStrategy max="200">
+				<Delete basePath="${baseDir}/" maxDepth="1">
+					<IfFileName glob="*.log" />
+					<IfLastModified age="15d" />
+				</Delete>
+			</DefaultRolloverStrategy>
+		</RollingRandomAccessFile>
+
+
+        <RollingRandomAccessFile name="auditRollingRandomAccessFile"
+                                 fileName="${baseDir}/audit.log" filePattern="${baseDir}/audit-%d{MM-dd}-%i.log.gz">
+            <PatternLayout charset="UTF-8"
+                           pattern="[%d{yyyy/MM/dd HH24:mm:ssS}][IECS]%m%n" />
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="2" />
+                <SizeBasedTriggeringPolicy size="100 M" />
+            </Policies>
+            <DefaultRolloverStrategy max="200">
+                <Delete basePath="${baseDir}/" maxDepth="1">
+                    <IfFileName glob="*.log" />
+                    <IfLastModified age="30d" />
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingRandomAccessFile>
+
+		<RollingRandomAccessFile name="udp"
+								 fileName="${baseDir}/udp.log" filePattern="${baseDir}/%d{yyyy-MM}/udp-%d{dd}-%i.log.gz">
+			<PatternLayout charset="UTF-8"
+						   pattern="%d{yyyy/MM/dd HH:mm:ss.SSS} [%thread] %-5level %logger{10}(%line) - %msg%exception{full}%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="2" />
+				<SizeBasedTriggeringPolicy size="10 MB" />
+			</Policies>
+			<DefaultRolloverStrategy max="10" />
+		</RollingRandomAccessFile>
+
+
+		<Async name="async">
+
+			<AppenderRef ref="console" />
+			<AppenderRef ref="rollingRandomAccessFile" />
+
+		</Async>
+
+	</Appenders>
+	<Loggers>
+
+		<root level="info">
+			<appender-ref ref="async" />
+		</root>
+
+		<!-- 打印hibernate的info日志 -->
+		<Logger name="org.hibernate" level="error" additivity="false">
+			<AppenderRef ref="rollingRandomAccessFile" />
+		</Logger>
+
+		<!-- 打印sql语句 -->
+		<Logger name="org.hibernate.SQL" level="error" additivity="false">
+			<AppenderRef ref="rollingRandomAccessFile" />
+		</Logger>
+
+		<logger name="com.dscomm" level="debug" additivity="false">
+			<appender-ref ref="async" />
+		</logger>
+
+		<!-- 打印upd的info日志 -->
+		<logger name="com.dscomm.iecs.garage.service.impl.UdpServiceImpl" level="debug" additivity="false">
+			<appender-ref ref="udp" />
+		</logger>
+
+
+		<!-- 查询出来的结果集提取，如果嫌这个日志太多可以关掉
+        <Logger name="org.hibernate.type.descriptor.sql.BasicExtractor" level="trace" additivity="false">
+            <AppenderRef ref="rollingRandomAccessFile" />
+        </Logger> -->
+	</Loggers>
+</configuration>  

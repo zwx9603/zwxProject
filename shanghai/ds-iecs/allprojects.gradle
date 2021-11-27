@@ -1,0 +1,17 @@
+allprojects {
+  apply plugin: 'java'
+  apply plugin: 'maven'
+  apply plugin: 'idea'
+  apply plugin: 'eclipse'
+
+  group = 'com.dscomm'
+  version '1.0.0-SNAPSHOT'
+
+  sourceCompatibility = 1.8
+  targetCompatibility = 1.8
+
+  configurations {
+    provided
+    all*.exclude module: 'spring-boot-starter-logging'
+  }
+}

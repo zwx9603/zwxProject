@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zwx.basedata.mapper.StudentMapper">
+
+    <resultMap id="studentInfo" type="com.zwx.basedata.entity.StudentEntity">
+        <result property="sno" column="sno" jdbcType="VARCHAR"></result>
+        <result property="name" column="name" jdbcType="VARCHAR"></result>
+        <result property="age" column="age" jdbcType="VARCHAR"></result>
+        <result property="sex" column="sex" jdbcType="VARCHAR"></result>
+        <result property="tel" column="tel" jdbcType="VARCHAR"></result>
+    </resultMap>
+    <!--查询学生类的信息-->
+    <select id="findAllStudent" resultMap="studentInfo">
+        SELECT * FROM student
+    </select>
+    <!--根据条件查询学生信息-->
+    <select id="findStudentCondition" resultMap="studentInfo">
+        SELECT * FROM student
+        <where>
+            <if test="sno != null and sno != '' ">
+                sno = #{sno}
+            </if>
+            <if test="name != null and name != '' ">
+                and name = #{name},
+            </if>
+            <if test="age != null and age != '' ">
+                and age = #{age},
+            </if>
+            <if test="sex != null and sex != '' ">
+                and sex = #{sex},
+            </if>
+            <if test="tel != null and tel != '' ">
+                and tel = #{tel},
+            </if>
+        </where>
+    </select>
+    <!--添加学生信息-->
+    <insert id="saveStudent" parameterType="com.zwx.basedata.entity.StudentEntity" useGeneratedKeys="true" keyProperty="sno">
+        INSERT INTO student (name,age,sex,tel)
+        VALUES (#{name},#{age},#{sex},#{tel})
+    </insert>
+    <!--修改学生信息-->
+    <update id="updateStudent" parameterType="com.zwx.basedata.entity.StudentEntity">
+        UPDATE student
+        <set>
+            <if test="name != null and name != '' ">
+                name = #{name},
+            </if>
+            <if test="age != null and age != '' ">
+                age = #{age},
+            </if>
+            <if test="sex != null and sex != '' ">
+                sex = #{sex},
+            </if>
+            <if test="tel != null and tel != '' ">
+                tel = #{tel},
+            </if>
+        </set>
+            WHERE sno = #{sno}
+    </update>
+    <!--刪除学生信息-->
+    <delete id="deleteStudent">
+        DELETE FROM student WHERE sno = #{sno}
+    </delete>
+</mapper>

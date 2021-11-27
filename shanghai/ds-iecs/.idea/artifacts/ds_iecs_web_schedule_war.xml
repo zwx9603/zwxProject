@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="ds_iecs-web-schedule:war">
+    <output-path>$PROJECT_DIR$/ds_iecs-web-schedule/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>ds_iecs-web-schedule</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="ds-schedule-web.war">
+      <element id="artifact" artifact-name="ds_iecs-web-schedule:war exploded" />
+    </root>
+  </artifact>
+</component>

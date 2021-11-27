@@ -1,0 +1,52 @@
+subprojects { subprj ->
+  repositories {
+//    jcenter()
+//    mavenLocal()
+//    mavenCentral()
+    maven {
+      //url 'https://nexus.dscomm.com.cn:5090/repository/maven-public/'
+      url 'http://192.168.0.51:8080/nexus/content/groups/public/'
+    }
+    jcenter()
+  }
+
+  jar {
+    manifest.attributes provider: 'MX Foundation.'
+    excludes = []
+  }
+
+  task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from "$buildDir/docs/javadoc"
+  }
+
+  task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+  }
+
+  task copyDependencies(type: Copy) {
+    into "$buildDir/dependencies"
+    from configurations.runtime
+  }
+
+  [compileJava, compileTestJava, javadoc]*.options*.encoding = 'UTF-8'
+
+  artifacts {
+    archives jar
+    archives javadocJar
+    archives sourcesJar
+  }
+
+  configurations {
+    provided
+    deployerJars
+  }
+
+  dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile(
+      libs.'junit'
+    )
+  }
+}

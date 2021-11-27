@@ -1,0 +1,4144 @@
+##警情信息 input  type 管理
+
+
+##警情查询参数
+input IncidentQueryInputInfo{
+   scopeSquadronId : String    ##查询范围辖区Id 必填
+   scopeType : Int     ##查询范围辖区类型 0根机构 1非根机构
+   squadronIds : [String]    ##辖区id集合
+   keyword  : String    ##模糊匹配关键字（警情地址模糊匹配）
+   receiverObjectId  : String    ##接收对象id
+   incidentTypeCodes : [String]    ##警情类型编码集合
+   incidentLevelCodes : [String]    ##警情等级编码集合
+   incidentStateCodes : [String]    ##警情状态编码集合
+   filterIncidentIds : [String]    ##过滤警情id
+   startTime : Long      ##查询开始时间
+   endTime : Long      ##查询结束时间
+   whetherKeyUnit : Boolean     ##是否查询重点单位
+   whetherImport : Boolean     ##是否查询重大案件
+   whetherPage : Boolean     ##是否分页查询 默认分页
+   pagination : PaginationInputInfo     ##分页条件
+}
+
+##警情列表分页
+type PaginationIncidentBean{
+    pagination : Pagination    ##分页
+    list : [IncidentBrieflyBean]    ##数据集合
+}
+
+
+##警情列表简要Bean
+type IncidentBrieflyBean {
+	id : String   ## 主键
+	incidentNumber : String   ## 案件编号（日期坐席工号）
+      squadronOrganizationId  : String   ## 主管中队
+   squadronOrganizationName     : String   ## 主管中队名称
+    brigadeOrganizationId    : String   ## 所属大队
+    brigadeOrganizationName    : String   ## 所属大队名称
+     districtCode   : String   ##  行政区编码
+     districtName   : String   ##  行政区名称
+     registerModeCode   : String   ## 立案方式代码
+     registerModeName   : String   ## 立案方式代码
+     registerIncidentTime   : Long   ## 立案时间
+     crimeAddress   : String   ## 案发地址
+      longitude  : String   ## 经度
+      latitude  : String   ## 纬度
+     height   : String   ## 高度
+     incidentTypeCode   : String   ## 案件类型代码
+    incidentTypeName    : String   ## 案件类型名称
+     incidentTypeSubitemCode   : String   ## 案件类型子项代码（细类）（案件类型备用）
+      incidentTypeSubitemName  : String   ## 案件类型子项名称（细类）（案件类型备用）
+      incidentLevelCode  : String   ## 案件等级代码
+      incidentLevelName  : String   ## 案件等级名称
+      disposalObjectCode  : String   ## 处置对象代码
+     disposalObjectName   : String   ## 处置对象名称
+      incidentStatusCode  : String   ## 案件状态代码
+      incidentStatusName  : String   ## 案件状态名称
+      incidentNatureCode  : String   ## 案件性质代码 1 实警；0 虚警
+      incidentNatureName  : String   ## 案件性质名称
+       whetherImportSign : Int   ## 是否重大案件标识
+       mergeStatus : Int   ## 合并状态
+      whetherMainMerge  : Int    ## 是否为合并主案件
+      registerSeatNumber  : String   ## 立案接警坐席号
+       acceptancePersonNumber : String   ## 接警员工号
+       acceptancePersonName : String   ## 接警员姓名
+      dispatchOrganization  : String   ##出动机构
+     dispatchVehicle   : String   ## 出动车辆
+      incidentGroupId  : String   ##案件群组id 如果有多个群组 多个群组逗号分隔
+      whetherFocusOn  : Int    ##是否关注 0不关注 1 关注 默认 0 不关注
+      whetherImportant  : Int      ##重要警情标识 0非重要 1重要 默认0非重要
+      attachmentNum  : Int      ##附件数量
+      alarmPhone  : String   ##报警电话
+     relayRecordNumber   : String   ##录音号 （案件主案件录音号）
+	alarmModeCode : String   ## 报警方式代码
+	alarmModeName : String   ## 报警方式名称
+
+	alarmPersonPhone : String ## 报警人联系电话
+    alarmPersonName : String   ##报警人姓名
+
+      soundRecordList  : [SoundRecordBean]  ##录音文件信息
+}
+
+
+##警情详情Bean
+type IncidentBean {
+	id : String   ## 主键
+    idCode:String #通用唯一识别码
+	incidentSource : String ##警情来源
+	incidentNumber : String   ## 案件编号
+	acceptanceId : String   ## 受理单编号
+	squadronOrganizationId : String   ## 主管机构ID
+	squadronOrganizationName : String   ## 主管机构名称
+	brigadeOrganizationId : String   ## 所属大队ID
+	brigadeOrganizationName : String   ## 所属大队名称
+	districtCode : String   ## 行政区编码
+	districtName : String   ## 行政区名称
+	alarmModeCode : String   ## 报警方式代码
+	alarmModeName : String   ## 报警方式名称
+   registerModeCode  : String  ## 立案方式代码
+   registerModeName  : String  ## 立案方式名称
+	registerIncidentTime : Long   ##立案时间
+	title  : String   ## 名称
+	crimeAddress : String   ##案发地址
+	longitude : String   ##经度
+	latitude : String   ##纬度
+	height : String   ##高度
+	incidentTypeCode : String   ## 案件类型编码
+	incidentTypeName : String   ## 案件类型名称
+	incidentTypeSubitemCode : String   ## 案件类型子项代码（细类）（案件类型备用）
+	incidentTypeSubitemName : String   ## 案案件类型子项名称（细类）（案件类型备用）
+	incidentLevelCode : String   ## 案件等级编码
+	incidentLevelName : String   ## 案件等级名称
+	disposalObjectCode : String   ## 处置对象编码 燃烧对象
+	disposalObjectName : String   ## 处置对象名称 燃烧对象
+	incidentNatureCode : String   ## 案件性质编码
+	incidentNatureName : String   ## 案件性质名称
+	incidentStatusCode : String   ## 案件状态编码
+	incidentStatusName : String   ## 案件状态名称
+	whetherImportSign : Int   ## 是否重大案件
+
+    keyUnit  : String  ## 重点单位
+	keyUnitId : String   ##重点单位主键
+	keyUnitName : String   ##重点单位名称
+    keyUnitTypeCode : String  ## 重点单位 警情对象类别代码
+    keyUnitTypeName : String  ## 重点单位  警情对象类别名称
+
+	keyUnitBean : KeyUnitBean   ##重点单位bean
+	supplementInfo : String   ## 补充信息
+	attentions : String   ## 注意事项
+	incidentDescribe : String   ## 案件描述
+	mergeStatus : Int   ## 合并状态
+	whetherMainMerge : Int   ## 否为合并主案件
+	retentionIncidentNumber : String   ## 保留案件编号
+	registerOrganizationId : String   ## 立案单位ID
+	registerOrganizationName : String   ## 立案单位名称
+	registerSeatNumber : String   ## 立案坐席号
+	acceptancePersonNumber : String   ##接警员工号
+	acceptancePersonName : String   ##接警员姓名
+	handleType : String   ## 处理类型
+	handleTypeName  : String   ## 处理类型名称
+	relationIncidentNumber : String   ## 关联案件单编号
+	dispatchOrganization : String   ## 出警机构
+	dispatchVehicle : String   ## 出动车辆
+	incidentLabel : String   ## 警情标签
+    incidentLabelName : String   ##todo  警情标签名称
+
+    buildingStructureCode : String   ## 建筑结构代码
+    buildingStructureName : String   ## 建筑结构名称
+    smogSituationCode : String   ## 烟雾情况代码
+    smogSituationName : String   ## 烟雾情况名称
+    trappedCount : String   ##被困人数
+    storeysOfBuildings : Int   ## 楼房层数
+    burningFloor : String   ## 燃烧楼层 救援楼层
+    burningArea : String   ## 燃烧面积
+    disasterSites : String   ##灾害场所
+    disasterSitesName : String   ##灾害场所名称
+    securityContactPerson : String   ##安保联系人
+    contactPersonPhone : String   ##安保联系人电话
+    whetherSensitiveArea : Int   ##是否敏感地区
+    whetherWaterShortageArea : Int   ##是否缺水地区
+    whetherSensitiveTime : Int   ##是否敏感时间
+
+    transmitTime : Long   ## 下达时间
+    receiveTime : Long   ##接收时间
+    dispatchTime : Long   ## 出动时间
+    arriveTime : Long   ## 到达时间
+    fightTime : Long   ## 战斗展开时间
+    fightStartTime : Long   ## 作战开始时间
+    fireControlTime : Long   ## 火势控制时间
+    extinguishTime : Long   ##  基本扑灭时间
+    fightEdnTime : Long   ## 作战结束时间 返回
+    returnTime : Long   ## 归队时间
+    halfwayReturnTime : Long   ##中返时间
+
+	remarks : String   ## 备注
+
+    whetherFocusOn : Int   ##是否关注  0不关注 1 关注
+    injuredCount : String   ##受伤人数
+    deathCount : String   ##死亡人数
+    securityStartTime : Long   ##安保开始时间 上岗时间
+    securityEndTime : Long   ##安保结束时间 下岗时间
+    whetherTestSign : Int   ##是否测试警情 0非测试警情  1测试警情
+    placeFileIncidentTime : Long ##案件归档时间
+    incidentEndTime : Long ##案件结案时间
+
+
+    whetherImportant  : Int ##重要警情标识 0非重要警情 1重要警情
+    incidentGroupId :  String    ##案件群组id 如果有多个群组 多个群组逗号分隔
+
+
+    alarmPhone : String   ##报警电话
+    alarmPersonName : String   ##报警人姓名
+    alarmPersonSex : String   ##报警人性别
+    alarmPersonSexName : String   ##报警人性别名称
+    alarmPersonPhone : String   ##报警人联系电话
+    alarmAddress : String   ##报警地址
+    alarmStartTime : Long   ##报警开始时间（振铃时间）
+    receiveStartTime : Long   ##接警开始时间（接听时间）
+    alarmEndTime : Long   ##报警结束时间（挂机时间）
+    receiveEndTime : Long   ##接警结束时间（立案时间）
+    relayRecordNumber : String ##录音号
+    whetherTrappedSign : Int   ##报警人是否为被困 0非被困人员 1被困人员
+
+    handleBatchNum  :  String   ##调派次数
+    handleOrganizationNum  :  String   ##出动单位数
+    handleOrganization :  String   ##出动单位id列表
+    handleVehicleNum  :  String    ##出动车辆数
+    handlePersonNum  :  String    ##出动人员数
+    totalWater: String   ###载水总量
+    totalFoam: String    ###载泡沫总量
+
+    attachmentNum :  Int   ##警情附件数
+    attachmentList: [AttachmentBean ] ## 附件资料列表
+    soundRecordList: [SoundRecordBean] ## 录音信息列表
+
+    handleOrganizationVehicleList : [HandleOrganizationVehicleBean] ##案件详情存在  出动车辆信息
+    handleShowBeanList : [HandleShowBean] ##案件详情存在 案件处警信息统计
+    commanderBeans:[CommanderBean] #现场指挥员
+
+    originalIncidentNumber :  String  ##第三方原始案件编号  警情是从其他系统转入时存在
+
+    receiveTips:String 	##接警提示
+    handleTips:String ##处警提示
+    safetyTips:String ##安全提示
+    uniformAddressId:String ##统一地址库id
+
+    locationRecordBeans:[LocationRecordBean] ##定位记录
+
+}
+
+# 录音信息
+type SoundRecordBean {
+    id : String  ## 主键
+    recordNo: String  # 录音号
+    recordId: String  # 录音id
+    filename: String  # 文件名
+    agentId: String # 坐席号
+    callerId: String  # 主叫号码
+    calledId: String   # 被叫号码
+    numbers: String  # 所有成员
+    beginTime: Long   # 开始时间
+    remark: String   # 备注
+}
+
+
+##标签查询参数
+input TagLabelQueryInputInfo{
+   keyword  : String    ##模糊匹配关键字（ 电话号码 用户名称 ）
+   businessTable :  String     ##业务表名 1电话标签
+   phoneKeyword  : String    ##电话号码模糊匹配
+   personNameKeyword  : String    ##用户名称模糊匹配
+   startTime  : Long     ##查询开始时间
+   endTime  : Long     ##查询结束时间
+   whetherPage : Boolean     ##是否分页查询 默认分页
+   pagination : PaginationInputInfo     ##分页条件
+}
+
+##标签分页
+type PaginationTagLabelBean{
+    pagination : Pagination    ##分页
+    list : [TagLabelBean]    ##数据集合
+}
+
+##标记标签
+type TagLabelBean{
+    id : String   ## 主键
+    businessTable : String  ##业务表
+    businessTableName : String  ##业务表名
+    businessDataId : String  ##单据ID
+    tagType : String  ## 标记类型
+    tagTypeName : String  ## 标记类型名称
+    remarksTitle : String  ## 备注标题
+    remarksContent : String  ## 备注信息
+    personName :  String  ##用户编号
+    personId :  String ##用户名称
+    addTime : Long  ##加入时间
+    revokeTime : Long  ##撤销时间
+    remarks : String  ##备注
+}
+
+##接警处警提示
+type CommonTipsBean{
+    id : String   ## 主键
+    type : String  ##代码类型编码 案件类型编码
+    typeName : String  ##代码类型名称 案件类型名称
+    code : String  ##代码值  处置对象编码
+    name : String   ##代码名称 处置对象名称
+    level : String   ##  案件等级编码
+    levelName : String   ## 案件等级名称
+    defaultValue : Int   ##是否大类默认提示 0 非默认提示 1默认提示
+    receiveTips : String  ##接警提示
+    handleTips : String  ##处警提示
+    safetyTips: String ## 安全提示
+    remarks : String  ##备注
+
+}
+
+##接警处警提示
+input CommonTipsInputInfo{
+    id : String   ## 主键
+    type : String  ##代码类型 案件类型编码
+    code : String  ##代码值 处置对象编码
+    level : String   ## 案件等级 编码
+    defaultValue : Int   ##是否大类默认提示 0 非默认提示 1默认提示
+    receiveTips : String  ##接警提示
+    handleTips : String  ##处警提示
+    safetyTips: String ## 安全提示
+    remarks : String  ##备注
+
+}
+
+##立案  保存警情参数
+ input IncidentSaveInputInfo {
+     id : String   ## 主键/警情id
+     acceptanceId : String   ## 受理单编号
+     repeatPrimaryIncidentId : String  ##合并主案件id（事前合并/重复报警 时，传入已存在案件的id）
+     telephoneId : String  ##电话报警记录id
+     unTrafficAlarmId  : String  ##非话务报警id
+
+     alarmStartTime : Long   ##报警开始时间（振铃时间）
+     receiveStartTime : Long   ##接警开始时间（接听时间）
+     alarmEndTime : Long   ##报警结束时间（挂机时间）
+     receiveEndTime : Long   ##接警结束时间（挂机时间）
+
+     alarmPhone : String   ##报警电话
+      alarmPersonName : String   ##报警人姓名
+      alarmPersonSex : String   ##报警人性别
+      alarmPersonPhone  : String   ##报警人联系电话
+      alarmAddress  : String   ##报警地址
+      relayRecordNumber : String ##录音号
+      whetherTrappedSign : Int ##报警人是否为被困 0非被困人员 1被困人员
+
+      alarmModeCode : String   ##报警方式代码
+ 	incidentSource : String ##警情来源
+     incidentNumber  : String   ## 案件编号（日期坐席工号）
+      registerModeCode : String   ## 立案方式代码
+     squadronOrganizationId  : String   ## 主管中队
+      brigadeOrganizationId : String   ## 所属大队
+      districtCode : String   ##  行政区编码
+
+     title  : String   ## 名称
+     crimeAddress  : String   ## 案发地址
+     longitude  : String   ## 经度
+      latitude : String   ## 纬度
+      height : String   ## 高度
+      incidentTypeCode : String   ## 案件类型代码
+ 	incidentTypeSubitemCode : String   ## 案件类型子项代码（细类）（案件类型备用）
+     incidentLevelCode  : String   ## 案件等级代码
+     disposalObjectCode  : String   ## 处置对象代码 燃烧对象
+     incidentNatureCode  : String   ## 案件性质代码
+     incidentStatusCode   : String   ## 案件状态代码
+      whetherImportSign : Int   ## 是否重大案件标识
+     keyUnitId  : String   ## 重点单位
+      supplementInfo : String   ## 补充信息
+     attentions  : String   ## 注意事项
+     incidentDescribe  : String   ##案件描述
+
+     handleType  : String   ## 处理类型
+     incidentLabel  : String   ## 警情标签
+
+      buildingStructureCode : String   ## 建筑结构代码
+     smogSituationCode : String   ## 烟雾情况代码
+     trappedCount : String   ##被困人数
+     storeysOfBuildings : Int   ## 楼房层数
+     burningFloor : String   ## 燃烧楼层 救援楼层
+     burningArea : String   ## 燃烧面积
+     disasterSites : String   ##灾害场所
+     whetherSensitiveArea : Int   ##是否敏感地区
+     whetherWaterShortageArea : Int   ##是否缺水地区
+     whetherSensitiveTime : Int   ##是否敏感时间
+
+     securityContactPerson : String   ##安保联系人
+     contactPersonPhone : String   ##安保联系人电话
+
+     remarks  : String   ##备注
+
+     injuredCount : String   ##受伤人数
+     deathCount : String   ##死亡人数
+     securityStartTime : Long   ##安保开始时间 上岗时间
+     securityEndTime : Long   ##安保结束时间 下岗时间
+     whetherTestSign : Int   ##是否测试警情 0非测试警情  1测试警情
+     uniformAddressId :String ## 统一地址库id
+ }
+
+##预警信息集合  保存参数
+input EarlyWarningListSaveInputInfo{
+    earlyWarningList : [EarlyWarningSaveInputInfo] ##预警集合
+}
+
+
+##预警信息  保存参数
+input EarlyWarningSaveInputInfo{
+    incidentId : String  ##案件ID
+    receiveOrganizationId : String  ##预警接收单位编号
+    earlyWarningType : String   ##预警类型 0预警前置 1预警
+    organizationId : String  ##主管中队
+    districtCode : String  ##  行政区划编码
+    alarmTime : Long  ##报警时间
+    crimeAddress : String  ## 案发地址
+    longitude : String  ## 经度
+    latitude : String  ## 纬度
+    height : String  ## 高度
+    incidentTypeCode : String  ## 案件类型
+    incidentTypeSubitemCode : String  ## 案件类型子项代码（细类）（案件类型备用）
+    incidentLevelCode : String  ## 案件等级
+    alarmPhone : String  ## 报警电话
+    sendOrganizationId : String  ## 发送单位编号
+    sendPersonNumber : String  ## 发送人工号
+    sendSeatNumber  : String  ## 发送坐席号
+    sendTime  : Long  ##发送时间
+    revokeTime  : Long  ##撤销时间
+    remarks : String  ##备注
+    whetherTestSign : Int   ##是否测试警情 0非测试警情  1测试警情
+
+}
+
+##预警信息   查询参数
+input EarlyWarningQueryInputInfo{
+    incidentId : String  ##案件id
+    earlyWarningType : String  #预警类型 0预警前置 1预警
+    receiveOrganizationId : String  ##预警接收单位编号
+}
+
+
+##预警信息
+type EarlyWarningBean{
+    id : String ## 主键
+    incidentId : String  ##案件ID
+    receiveOrganizationId : String  ##预警接收单位编号
+    receiveOrganizationName : String  ##预警接收单位名称
+    earlyWarningType : String   ##预警类型  0预警前置 1预警
+    earlyWarningStatus : String   ##预警状态 0已通知 1已接收
+    receiveOrganizationDispatchPhone : String   ## 预警接收单位调度电话
+    receiveOrganizationMailCode : String   ## 预警接收单位邮政编码
+    receiveOrganizationFaxNumber : String   ## 预警接收单位传真号码
+    receiveOrganizationContactPerson : String   ## 预警接收单位单位联系人
+    receiveOrganizationContactPhone  : String   ## 预警接收单位单位联系电话
+
+    organizationId : String  ##主管中队
+    organizationName : String  ##主管中队名称
+    districtCode : String  ##  行政区划编码
+    districtName : String  ##  行政区划名称
+    alarmTime : Long  ##报警时间
+    crimeAddress : String  ## 案发地址
+    longitude : String  ## 经度
+    latitude : String  ## 纬度
+    height : String  ## 高度
+    incidentTypeCode : String  ## 案件类型
+    incidentTypeName : String  ## 案件类型名称
+    incidentTypeSubitemCode : String  ## 案件类型子项代码（细类）（案件类型备用）
+    incidentTypeSubitemName : String  ## 案件类型子项名称（细类）（案件类型备用）
+    incidentLevelCode : String  ## 案件等级
+    incidentLevelName : String  ## 案件等级名称
+    alarmPhone : String  ## 报警电话
+    sendOrganizationId : String  ## 发送单位编号
+    sendOrganizationName : String  ## 发送单位名称
+    sendPersonNumber : String  ## 发送人工号
+    sendSeatNumber  : String  ## 发送坐席号
+    sendTime : Long ##发送时间
+    revokeTime : Long ##撤销时间
+    remarks : String  ##备注
+    whetherTestSign : Int   ##是否测试警情 0非测试警情  1测试警情
+
+    organizationLongitude :  String   ## 单位经度
+    organizationLatitude  : String ##单位纬度
+    organizationHeight  : String ##单位高度
+    distance  : Float  ##单位距离警情的距离
+
+    speakToFileUrl :  String   ## tts播报语音文件路径
+
+}
+
+##受理单（报警记录）
+type AcceptanceBean{
+   id : String   ## 主键
+
+   alarmPhone : String   ##报警电话
+   alarmPersonName : String   ##报警人姓名
+   alarmPersonSex : String   ##报警人性别
+   alarmPersonSexName : String   ##报警人性别名称
+   alarmPersonPhone : String   ##报警人联系电话
+   alarmAddress : String   ##报警地址
+   alarmStartTime : Long   ##报警开始时间（振铃时间）
+   receiveStartTime : Long   ##接警开始时间（接听时间）
+   alarmEndTime : Long   ##报警结束时间（挂机时间）
+   receiveEndTime : Long   ##接警结束时间（立案时间）
+   relayRecordNumber : String ##录音号
+   whetherTrappedSign : Int   ##报警人是否为被困 0非被困人员 1被困人员
+
+   incidentId  : String  ##案件ID
+	incidentSource : String ##警情来源
+   originalIncidentNumber  : String   ##原始案件编号
+   alarmModeCode  : String  ##报警方式代码
+   alarmModeName  : String  ##报警方式名称
+
+   organizationId  : String  ## 主管机构ID,废弃字段
+   organizationName  : String  ## 主管机构名称,废弃字段
+   squadronOrganizationId  : String                    ## 主管机构ID
+   squadronOrganizationName  : String                  ## 主管机构名称
+   brigadeOrganizationId  : String  ##所属大队
+   brigadeOrganizationName  : String  ##所属大队名称
+   districtCode  : String  ##  行政区编码
+   districtName  : String  ##  行政区名称
+   registerModeCode  : String  ## 立案方式代码
+   registerModeName  : String  ## 立案方式名称
+   registerIncidentTime  : Long  ## 立案时间
+     title  : String   ## 名称
+    crimeAddress : String  ## 案发地址
+    longitude : String  ## 经度
+    latitude : String  ## 纬度
+   height  : String  ## 高度
+   incidentTypeCode  : String  ## 案件类型代码
+   incidentTypeName  : String  ## 案件类型名称
+   incidentTypeSubitemCode  : String  ## 案件类型子项代码（细类）（案件类型备用）
+   incidentTypeSubitemName  : String  ## 案件类型子项名称（细类）（案件类型备用）
+   incidentLevelCode  : String  ## 案件等级代码
+   incidentLevelName  : String  ## 案件等级名称
+    disposalObjectCode : String  ## 处置对象代码
+   disposalObjectName : String  ## 处置对象名称
+   incidentStatusCode  : String  ## 案件状态代码
+   incidentStatusName  : String  ## 案件状态名称
+   whetherImportSign  : Int  ## 是否重大案件标识
+   keyUnit  : String  ## 重点单位
+   keyUnitId  : String  ## 重点单位
+    keyUnitName : String  ## 重点单位
+    keyUnitTypeCode : String  ## 重点单位 警情对象类别代码
+    keyUnitTypeName : String  ## 重点单位  警情对象类别名称
+    supplementInfo : String  ## 补充信息
+   attentions  : String  ## 注意事项
+  incidentDescribe   : String  ##案件描述
+   registerOrganizationId  : String  ##立案机构ID
+    registerOrganizationName : String  ##立案机构名称
+    registerSeatNumber : String  ##立案接警坐席号
+    acceptancePersonNumber  : String   ## 接警员工号
+    acceptancePersonName : String  ## 接警员姓名
+    handleType : String  ##处理类型
+   receiveDuration  : Long  ##接警时长
+     buildingStructureCode  : String   ## 建筑结构代码
+     buildingStructureName  : String   ## 建筑结构代码
+     smogSituationCode  : String   ## 烟雾情况代码
+     smogSituationName  : String   ## 烟雾情况代码
+     trappedCount  : String   ##被困人数
+     storeysOfBuildings  : Int   ## 楼房层数
+     burningFloor  : String   ## 燃烧楼层  救援楼层
+      burningArea : String   ## 燃烧面积
+    disasterSites   : String   ##灾害场所
+    disasterSitesName : String   ##灾害场所名称
+     securityContactPerson  : String   ##安保联系人
+      contactPersonPhone : String   ##安保联系人电话
+     whetherSensitiveArea  : Int   ##是否敏感地区
+     whetherWaterShortageArea  : Int   ##是否缺水地区
+     whetherSensitiveTime  : Int   ##是否敏感时间
+    injuredCount : String   ##受伤人数
+    deathCount : String   ##死亡人数
+    securityStartTime : Long   ##安保开始时间 上岗时间
+    securityEndTime : Long   ##安保结束时间 下岗时间
+    whetherTestSign : Int   ##是否测试警情 0非测试警情  1测试警情
+
+   remarks  : String  ##备注
+}
+
+##非话务报警bean
+type UnTrafficAlarmBean{
+   id : String   ## 主键
+    incidentId : String  ##案件ID
+   incidentSource  : String  ##案件来源
+   organizationId  : String  ## 主管机构编号
+    organizationName : String  ## 主管机构名称
+   districtCode  : String  ##  行政区域编号
+   districtName  : String  ##  行政区域名称
+    alarmTime : Long  ##报警时间
+    crimeAddress : String  ## 案发地址
+   longitude  : String  ## 经度
+   latitude  : String  ## 纬度
+    height : String  ## 高度
+    smogSituationCode : String  ## 烟雾情况代码
+   smogSituationName  : String  ## 烟雾情况名称
+    buildingStructureCode : String  ## 建筑结构代码
+    buildingStructureName : String  ## 建筑结构名称
+   incidentTypeCode  : String  ## 案件类型代码
+    incidentTypeName : String  ## 案件类型名称
+    incidentLevelCode : String  ## 案件等级代码
+   incidentLevelName  : String  ## 案件等级名称
+   disposalObjectCode  : String  ## 处置对象代码
+   disposalObjectName  : String  ## 处置对象名称
+   keyUnitId  : String  ## 重点单位
+   keyUnitName : String  ## 重点单位名称
+   trappedCount : Int  ##被困人数
+   incidentDescribe : String  ##案件描述
+   storeysOfBuildings : Int  ## 楼房层数
+   burningFloor  : String  ## 燃烧楼层
+   burningArea  : Float  ## 燃烧面积
+   disasterSites  : String  ##灾害场所
+   disasterSitesName  : String  ##灾害场所名称
+    remarks : String  ##备注
+}
+
+##电话报警信息（呼叫记录）接警记录
+type TelephoneBean{
+   id : String   ## 主键
+   telephoneId : String   ## 电话报警信息（呼叫记录）接警记录id
+   acceptanceId : String   ## 受理单ID
+   incidentId : String   ##案件ID
+   callDirection : String   ##呼叫方向  呼入/呼出
+   callDirectionName : String   ##呼叫方向名称
+   seatNumber : String   ## 坐席号
+   personName : String   ## 警员姓名
+   personNumber : String   ## 警员工号
+   callingNumber : String   ##主叫号码
+   calledNumber : String   ##被叫号码
+   acdGroupNumber : String   ##ACD组号
+   ringingTime : Long   ##振铃时间 ( 报警开始时间 )
+   answerTime : Long   ##接听时间 ( 接警开始时间 )
+   endTime : Long   ##结束时间 ( 报警结束时间 )
+   ringingDuration : Long    ##振铃时长
+   conversationDuration : Long   ##通话时长
+   relayRecordNumber : String   ##录音号
+   installedUserName : String   ##装机用户名
+   installedAddress : String   ##装机地址
+   alarmPersonName : String   ##报警人姓名
+   alarmPersonSex : String   ##报警人性别
+  alarmPersonPhone  : String   ##报警人联系电话
+  alarmAddress  : String   ##报警地址
+  longitude  : String   ## 报警坐标 经度
+   latitude : String   ## 报警坐标 纬度
+  height  : String   ## 报警坐标 高度
+   remarks : String   ##备注
+  whetherTrappedSign : Int ##报警人是否为被困 0非被困人员 1被困人员
+    incidentNumber:String ##案件编号
+}
+
+
+
+##警情状态变动表bean
+type IncidentStatusChangeBean{
+   id : String   ## 主键
+   incidentId  : String  ##案件ID
+   handleId  : String  ## 处警记录ID
+   handlePoliceId  : String  ## 处警信息ID
+   incidentStatusCode  : String  ##案件状态代码
+   incidentStatusName   : String  ##案件状态名称
+   changeTime   : Long  ##变动时间
+}
+
+
+##附件信息
+input AttachmentSaveInputInfo{
+      id : String ##附件id
+      incidentId : String ## 案件ID
+      relationObject: String ##关联对象
+      relationId : String ## 关联ID
+      attachmentType : String ##附件类型
+      attachmentFileType : String  ##文件类型
+      attachmentFileName : String   ## 文件名称
+      attachmentFileUrl  : String ## 路径
+      attachmentFileDesc : String   ## 描述
+      organizationId : String ## 消防机构编号
+      seatNumber : String  ##坐席号
+      acceptancePersonNumber : String ## 接警员工号
+      remarks : String ## 备注
+
+}
+
+##附件信息bean
+type AttachmentBean{
+    id : String   ## 主键
+    incidentId : String ##警情id
+    relationObject : String  ##关联对象
+    relationId : String  ## 关联ID
+    uploadTime : Long ##上传时间
+    attachmentType : String  ##附件类型
+    attachmentTypeName : String  ##附件类型
+    attachmentFileType : String   ##文件类型
+    attachmentFileTypeName : String   ##文件类型名称
+    attachmentFileName : String   ##文件名称
+    attachmentFileUrl : String   ##路径
+    attachmentFileDesc : String   ##描述
+    organizationId : String  ## 消防机构编号
+    organizationName : String   ## 消防机构名称
+    seatNumber : String  ## 坐席号
+    acceptancePersonNumber : String  ## 接警员工号
+    remarks : String  ## 备注
+}
+
+
+
+
+##案件合并记录 保存参数
+input IncidentMergeSaveInputInfo {
+    mainIncidentId : String  ## 主案件ID
+    mergeIncidentId : String  ## 被合并案件ID
+    mergeSeatNumber : String  ## 合并坐席编号
+    acceptancePersonNumber : String  ## 接警员工号
+    remarks : String  ##备注
+}
+
+##案件拆分 保存参数
+input IncidentSplitSaveInputInfo {
+    mainIncidentId : String  ## 主案件ID
+    splitIncidentId : String  ## 被拆分案件ID
+    splitSeatNumber : String  ## 分拆坐席编号
+    acceptancePersonNumber : String  ## 接警员工号
+    remarks : String  ##备注
+}
+
+##标记标签修改保存参数
+input TagLabelSaveInputInfo{
+    businessTable : String  ##业务表名
+    businessDataId : String  ##单据ID
+    tagType : String  ## 标记类型
+    remarksTitle : String  ## 备注标题
+    remarksContent : String  ## 备注信息
+    remarks : String  ##备注
+}
+
+##立案与派车同接口 保存接口
+input IncidentHandleSaveInputInfo {
+   incidentSaveInputInfo : IncidentSaveInputInfo  ##案件信息保存
+   handleSaveInputInfo : HandleSaveInputInfo  ##调派信息保存
+}
+
+## 立案与派车同接口 返回
+type HandleIncidentBean{
+    incidentBean : IncidentBean ##案件信息
+    handleBean : HandleBean ## 调派信息
+}
+
+##案件合并信息
+type IncidentMergeBean{
+    mainIncident : IncidentBean ##主案件信息
+    mergeIncidents : [IncidentBean] ##合并案件信息
+}
+##案件卷宗
+type IncidentDossierBean{
+    incidentId : String  ##事件id
+    incidentBean : IncidentBean ##警情详情
+    relatedIncidentBeanList : [IncidentBean]  ##关联警情
+    acceptanceInformationBean : AcceptanceInformationBean  ##受理单(接警信息)
+    handleBeanList : [HandleBean]  ##处警记录
+    sceneInstructionBeanList : [InstructionBean] ##指令单 （现场指挥）
+    accidentBean : AccidentBean  ##结案信息
+    localeBeanList : [LocaleBean]  ##现场信息
+    attachmentBeanList : [AttachmentBean]  ##附件
+
+    #telephoneInformationBean : TelephoneInformationBean  ##电话报警信息（仅仅包含报警信息）
+    #earlyWarningBeanList : [EarlyWarningBean]  ##预警信息
+    #documentBeanList : [DocumentBean]  ##警情文书
+    #participantFeedbackBeanList : [ParticipantFeedbackBean]  ##参战人员反馈
+    #fireSafetyMonitoringBeanList : [FireSafetyMonitoringBean]  ##火场出入记录
+
+
+}
+
+##电话报警信息Bean
+type TelephoneInformationBean{
+   mainTelephone : TelephoneBean   ## 主案件电话报警记录
+   telephoneList  : [TelephoneBean]  ##案件相关的所有电话报警记录
+}
+
+##电话报警信息查询条件
+input TelephoneQueryInputInfo{
+   startTime  : Long     ##查询开始时间
+   endTime  : Long     ##查询结束时间
+   seatNumber : String  ##坐席号
+   personNumber : String  ##警员工号
+   phoneKeyword : String  ##电话号码 模糊
+   nameKeyword : String  ##接警员姓名 报警人名称 模糊
+   whetherPage : Boolean     ##是否分页查询 默认分页
+   pagination : PaginationInputInfo     ##分页条件
+}
+
+##电话报警信息Bean 分页
+type PaginationTelephoneBean{
+    pagination : Pagination    ##分页
+    list : [TelephoneBean]    ##数据集合
+}
+
+
+##接警信息bean
+type AcceptanceInformationBean{
+   mainAcceptance : AcceptanceBean   ## 主案件接警信息
+   acceptanceList  : [AcceptanceBean]  ##案件相关的所有接警信息
+}
+
+
+##黑名单保存参数
+input BlacklistSaveInputInfo{
+    phoneNumber : String  ##电话号码(主键)
+    alarmNumber : String   ## 报警编号
+    blackTimeCode : String  ##黑名单字典锁定code
+}
+
+
+## 回拨参数
+input CallBackSaveInputInfo {
+   callingNumber  :  String   ## 呼出方电话
+   calledNumber  :  String   ## 被呼叫方电话
+   incidentId  :  String   ## 事件单编号
+   relayRecordNumber : String ##录音号
+   callType : String ##拨打类型
+}
+
+
+## 警情关注bean
+type AttentionBean {
+     id :  String   ## 主键
+     type :  Int  ## 1 警情关注 2 重要警情关注
+     incidentId :  String   ## 关注信息id
+     attentionType :  Int  ## 关注类型 1 普通关注；2班长关注
+     attentionPersonId :  String   ## 关注人账号
+     attentionWay :  Int   ## 关注方式  1 系统关注  2 人工关注
+     attentionOrganizationId :  String   ## 关注单位
+     attentionTime :  Long   ## 关注时间
+}
+
+##黑名单查询条件
+input BlackListQueryInputInfo{
+   keyword  : String    ##模糊匹配关键字（ 电话号码 用户名称 ）
+   phoneKeyword  : String    ##电话号码模糊匹配
+   personNameKeyword  : String    ##用户名称模糊匹配
+   startTime  : Long     ##查询开始时间
+   endTime  : Long     ##查询结束时间
+   whetherPage : Boolean     ##是否分页查询 默认分页
+   pagination : PaginationInputInfo     ##分页条件
+}
+
+##黑名单分页
+type PaginationBlacklistBean{
+    pagination : Pagination    ##分页
+    list : [BlacklistBean]    ##数据集合
+}
+
+## 黑名单bean
+type BlacklistBean{
+    alarmNumber : String   ## 报警编号(主键)
+    phoneNumber : String  ##电话号码
+    startTime : Long  ##开始时间
+    endTime : Long  ## 结束时间
+    personId : String  ## 用户编号
+    personName : String  ## 用户姓名
+}
+
+## 班长警情接管警情信息
+input MonitotTakeOverIncidentInputInfo {
+    incidentBean : IncidentPushBean   ## 警单基本信息
+    extendContent : String   ## 扩展信息 前端存放自定义信息
+}
+
+## 警情流转
+input IncidentCirculationInputInfo {
+    incidentBean : IncidentPushBean   ## 警单保存基本信息  IncidentSaveInputInfo
+    receiver : String   ## 接收者账号
+}
+
+## 警情流转
+input IncidentCirculationConfirmInputInfo {
+    incidentId : String   ## 警单id
+    receiver : String   ## 接收者账号
+}
+
+
+##警情详情PushBean 与 警情基本详情bean
+input IncidentPushBean {
+    id : String   ## 主键/警情id
+    repeatPrimaryIncidentId : String  ##合并主案件id（事前合并/重复报警 时，传入已存在案件的id）
+    telephoneId : String  ##电话报警记录id
+    unTrafficAlarmId  : String  ##非话务报警id
+
+     alarmPersonName : String   ##报警人姓名
+     alarmPersonSex : String   ##报警人性别
+     alarmPersonPhone  : String   ##报警人联系电话
+     alarmAddress  : String   ##报警地址
+     relayRecordNumber : String ##录音号
+     whetherTrappedSign : Int ##报警人是否为被困 0非被困人员 1被困人员
+
+    incidentSource : String ##警情来源
+	incidentNumber : String   ## 案件编号
+	acceptanceId : String   ## 受理单编号
+	squadronOrganizationId : String   ## 主管机构ID
+	squadronOrganizationName : String   ## 主管机构名称
+	brigadeOrganizationId : String   ## 所属大队ID
+	brigadeOrganizationName : String   ## 所属大队名称
+	districtCode : String   ## 行政区编码
+	districtName : String   ## 行政区名称
+	alarmModeCode : String   ## 报警方式代码
+	alarmModeName : String   ## 报警方式名称
+   registerModeCode  : String  ## 立案方式代码
+   registerModeName  : String  ## 立案方式名称
+	registerIncidentTime : Long   ##立案时间
+	crimeAddress : String   ##案发地址
+	longitude : String   ##经度
+	latitude : String   ##纬度
+	height : String   ##高度
+	incidentTypeCode : String   ## 案件类型编码
+	incidentTypeName : String   ## 案件类型名称
+	incidentTypeSubitemCode : String   ## 案件类型子项代码（细类）（案件类型备用）
+	incidentTypeSubitemName : String   ## 案案件类型子项名称（细类）（案件类型备用）
+	incidentLevelCode : String   ## 案件等级编码
+	incidentLevelName : String   ## 案件等级名称
+	disposalObjectCode : String   ## 处置对象编码 燃烧对象
+	disposalObjectName : String   ## 处置对象名称 燃烧对象
+	incidentNatureCode : String   ## 案件性质编码
+	incidentNatureName : String   ## 案件性质名称
+	incidentStatusCode : String   ## 案件状态编码
+	incidentStatusName : String   ## 案件状态名称
+	whetherImportSign : Int   ## 是否重大案件
+	keyUnitId : String   ##重点单位主键
+	keyUnitName : String   ##重点单位名称
+	supplementInfo : String   ## 补充信息
+	attentions : String   ## 注意事项
+	incidentDescribe : String   ## 案件描述
+	mergeStatus : Int   ## 合并状态
+	whetherMainMerge : Int   ## 否为合并主案件
+	retentionIncidentNumber : String   ## 保留案件编号
+	handleType : String   ## 处理类型
+	handleTypeName  : String   ## 处理类型名称
+	relationIncidentNumber : String   ## 关联案件单编号
+	dispatchOrganization : String   ## 出警机构
+	dispatchVehicle : String   ## 出动车辆
+	incidentLabel : String   ## 警情标签
+    incidentLabelName : String   ## 警情标签名称
+    buildingStructureCode : String   ## 建筑结构代码
+    buildingStructureName : String   ## 建筑结构名称
+    smogSituationCode : String   ## 烟雾情况代码
+    smogSituationName : String   ## 烟雾情况名称
+    trappedCount : String   ##被困人数
+    injuredCount : String   ##受伤人数
+    deathCount : String   ##死亡人数
+    storeysOfBuildings : Int   ## 楼房层数
+    burningFloor : String   ## 燃烧楼层 救援楼层
+    burningArea : String   ## 燃烧面积
+    disasterSites : String   ##灾害场所
+    disasterSitesName : String   ##灾害场所名称
+    securityContactPerson : String   ##安保联系人
+    contactPersonPhone : String   ##安保联系人电话
+    whetherSensitiveArea : Int   ##是否敏感地区
+    whetherWaterShortageArea : Int   ##是否缺水地区
+    whetherSensitiveTime : Int   ##是否敏感时间
+
+	remarks : String   ## 备注
+
+    securityStartTime : Long   ##安保开始时间 上岗时间
+    securityEndTime : Long   ##安保结束时间 下岗时间
+    whetherTestSign : Int   ##是否测试警情 0非测试警情  1测试警情
+
+
+}
+
+
+
+##处警 调度 input  type 管理
+
+
+## 调派记录（处警记录） 保存参数
+input HandleSaveInputInfo{
+    incidentId : String  ## 案件信息ID
+    handleNumber : String  ## 处警编号
+    handleStartTime : Long  ## 处警开始时间
+    handleEndTime  : Long  ## 处警结束时间
+    handleOrganizationId : String  ## 处警单位编号
+    handleSeatNumber : String  ## 处警台号（坐席号）
+    handlePersonNumber : String  ## 处警员工号
+    handlePersonName  : String  ##处警员姓名
+    waitHandleDuration : Long  ##等待处警时长
+    handleDuration : Long  ##处警时长
+    handleStatus  : String  ##处警单状态
+    handleSource : String  ##  处警来源（ 1 接处警/ 2实战指挥/ 3移动终端）
+    remarks : String  ##备注
+    handleOrganizationSaveInputInfo : [HandleOrganizationSaveInputInfo ]   ##调派单位信息 （ 处警信息 ）
+
+    handleTypeCode : String  ##警情调派形式类别代码
+    handleContent : String  ##调派指令_文件内容
+   handleOrganizationVehicleSaveInputInfo : [HandleOrganizationVehicleSaveInputInfo ]   ##调派单位车辆信息 （ 作战车辆信息 ）
+   handleOrganizationEquipmentSaveInputInfo  : [HandleOrganizationEquipmentSaveInputInfo ]   ##调派单位装备信息
+   handleMiniatureStationSaveInputInfo : [HandleMiniatureStationSaveInputInfo] ##调派微站
+}
+
+##调派单位信息 （ 处警信息 ） 保存参数
+input HandleOrganizationSaveInputInfo{
+   organizationId  : String  ##消防机构编号
+   remarks : String  ##备注
+   handleOrganizationVehicleSaveInputInfo : [HandleOrganizationVehicleSaveInputInfo ]   ##调派单位车辆信息 （ 作战车辆信息 ）
+   handleOrganizationEquipmentSaveInputInfo  : [HandleOrganizationEquipmentSaveInputInfo ]   ##调派单位装备信息
+}
+
+##调派单位车辆信息 （ 作战车辆信息 ） 保存参数
+input HandleOrganizationVehicleSaveInputInfo{
+   organizationId  : String  ##消防机构编号
+    vehicleId  : String  ## 车辆编号
+    vehicleTypeCode  : String  ## 装备类型代码 （车辆类型代码）
+    fightFunctionCode  : String  ## 作战功能代码
+    remarks  : String  ##备注
+}
+
+##调派单位装备信息 保存参数
+input HandleOrganizationEquipmentSaveInputInfo{
+   organizationId  : String  ##消防机构编号
+    equipmentId  : String ##  装备 通用唯一识别码
+    equipmentName   :  String ##   装备名称
+    equipmentTypeCode  :  String  ## 装备类型代码
+    dispatchNum : Int  ## 调派数量
+    remarks  : String  ##备注
+}
+
+
+##处警记录（调派记录）bean
+type HandleBean{
+   id : String   ## 主键
+   incidentId  : String  ##案件信息ID
+   handleNumber  : String  ## 处警编号
+   originalIncidentNumber  : String   ##原始案件编号
+   handleStartTime  : Long  ## 处警开始时间
+   handleEndTime  : Long  ## 处警结束时间
+   handleBatch  : String  ## 处警批次
+   dispatchOrganization  : String  ##出动机构
+   dispatchVehicle  : String  ##出动车辆
+     handleOrganization   : String  ##处警单位
+  handleOrganizationId   : String  ##处警单位编号
+   handleOrganizationName  : String  ##处警单位名称
+   handleSeatNumber  : String  ##处警台号（坐席号）
+    handlePersonNumber : String  ##处警员工号
+   handlePersonName  : String  ##处警员姓名
+    waitHandleDuration : Long  ##等待处警时长
+   handleDuration  : Long  ##处警时长
+   handleStatus  : String  ##处警单状态
+   handleStatusName  : String  ##处警单状态名称
+   handleSource  : String  ##处警来源（接处警/实战指挥/移动终端）
+   remarks  : String  ##备注
+
+
+    feedbackTime  :  Long  ## 反馈_日期时间
+    handleExpertNum  : Int  ##  调派专家_人数
+    handlePersonNum  :  Int  ##  调派人员_人数
+    dispatchVehicleNum   : Int ##  调派车辆_数量
+    dispatchEquipmentNum  :  Int ## 调派装备_数量
+    handleTypeCode  :  String  ## 警情调派形式类别代码
+    handleTypName  :  String  ## 警情调派形式类别名称
+    handleContent   :  String  ## 调派指令_文件内容
+
+   handleOrganizationBean : [HandleOrganizationBean]  ##调派单位信息
+    handleExpertBean : [HandleExpertBean] ##调派专家信息
+    handleMiniatureStationBean : [HandleMiniatureStationBean] ##调派微站信息
+
+
+}
+
+##调派单位信息 （ 处警信息 ）bean
+type HandleOrganizationBean{
+   id : String   ## 主键
+   incidentId : String   ##案件ID
+   handleId  : String  ## 处警记录ID
+  organization  : String  ##消防机构
+   organizationId  : String  ##消防机构编号
+   organizationName  : String  ##消防机构名称
+   noticeTime  : Long  ## 通知时间
+   systemFeedbackTime  : Long  ## 系统反馈时间
+   personFeedbackPersonTime  : Long  ## 人工反馈时间
+   handlePoliceStatus  : String   ## 指令状态 （处警信息状态）
+    handlePoliceStatusName  : String   ## 指令状态名称 （处警信息状态名称）
+    feedbackPersonId : String  ## 反馈用户编号
+    feedbackPersonName  : String  ## 反馈人姓名
+    remarks  : String  ##备注
+    speakToFileUrl  : String  ##tts播放文件路径
+    handleOrganizationEquipmentBean : [HandleOrganizationEquipmentBean ]   ##调派单位装备信息
+    handleOrganizationVehicleBean : [HandleOrganizationVehicleBean ]    ## 调派单位车辆信息 （ 作战车辆信息 ）
+
+    handleStartTime  : Long  ## 处警开始时间
+    handleEndTime  : Long  ## 处警结束时间
+    handleBatch  : String  ## 处警批次
+
+    organizationCode : String  ## 机构代码
+    pinyinHeader  : String  ## 机构名称拼音头
+    organizationShortName : String  ## 机构简称
+    organizationAddress : String  ## 机构地址
+    organizationDesc : String  ## 机构描述
+    organizationParentId : String  ## 上级机构ID
+    organizationParentCode : String  ## 上级机构编码
+    organizationCategoryCode : String  ## 机构类别
+    organizationCategoryName : String  ## 机构类别名称
+    organizationTypeCode : String  ## 机构类型代码
+    organizationTypeName : String  ## 机构类型名称
+    organizationNatureCode : String  ## 机构性质代码
+    organizationNatureName : String  ## 机构性质名称
+    districtCode : String  ## 行政区代码
+    districtName : String  ## 行政区名称
+    longitude : String  ## 经度
+    latitude : String  ## 纬度
+    height : String  ## 高度
+    dispatchPhone : String  ## 调度电话
+    mailCode : String  ## 邮政编码
+    faxNumber : String  ## 传真号码
+    contactPerson : String  ## 单位联系人
+    contactPhone : String  ## 单位联系电话
+    organizationWeight : Int  ## 机构权重
+
+
+}
+
+##调派单位车辆信息 （ 作战车辆信息 ）
+type HandleOrganizationVehicleBean{
+   id : String   ## 主键
+   incidentId  : String   ##案件id
+    handleId : String  ## 处警记录ID
+    handleStartTime  : Long  ## 处警开始时间
+    handleEndTime  : Long  ## 处警结束时间
+    handleBatch  : String  ## 处警批次
+   handlePoliceId  : String  ## 处警信息ID
+    organizationId : String  ## 消防机构编号
+   organizationName  : String  ## 消防机构名称
+   vehicle  : String  ## 车辆
+   vehicleId  : String  ## 车辆编号
+    vehicleNumber  : String  ## 车辆编号  机动车号牌号码
+    vehicleTypeCode : String  ## 装备类型代码 （车辆类型代码）
+   vehicleTypeName  : String  ## 装备类型名称
+   fightFunctionCode  : String  ## 作战功能代码
+    fightFunctionName : String  ## 作战功能名称
+    vehicleCode : String   ##车辆编号
+    vehicleName : String  ## 装备名称 车辆名称
+    vehicleShortName : String  ## 车辆简称
+    vehicleLevelCode : String  ## 车辆等级代码
+    vehicleLevelName : String  ## 车辆等级名称
+    vehicleStatusCode : String  ## 车辆状态代码 ( 车辆状态代码_灭火 )
+    vehicleStatusName : String  ## 车辆状态名称 ( 车辆状态代码_灭火 )
+    gpsNumber : String  ## GPS编号
+    locationNumber : String ##定位编号
+    radioCallSign : String  ## 电台呼号
+    waterCarrier : Float  ##载水量
+    carrierBubble : Float  ##载泡量
+    maxFlow : Float  ##最大流量
+    minFlow : Float  ##最小流量
+    maxLiftingHeight : Float  ##最大举升高度
+    liftingWeight  : Float  ##起吊重量
+    passengersNum : Float  ##载人数量
+    traction : Float  ##牵引力
+    heightLimit : Float  ##车辆限高
+    maxSmokeDischarge : Float  ##最大排烟量
+    incidentNumber : String  ## 案件编号
+    whetherAssembling : Int  ##是否装配
+    whetherDetachment : Int  ##是否跨支队
+    whetherCorps : Int  ##是否跨总队
+   noticeTime  : Long  ## 通知时间
+    setOutTime : Long  ## 出动时间
+    arriveTime : Long  ## 到达时间
+    sendWaterTime : Long  ## 出水时间
+   stopWaterTime  : Long  ## 停水时间
+   returnLoadTime  : Long  ## 返回时间
+   halfwayReturnTime  : Long  ## 中返时间
+   returnTime  : Long  ## 归队时间
+   remarks  : String  ##备注
+
+    handLiftPump : Float ##手抬泵
+    fireMonitorFlow : Float ##消防炮流量
+    pumpFlow : Float ##泵流量
+     vehicleCommanderId : String  ##车辆指挥员Id
+    vehicleCommander : String  ##车辆指挥员
+    vehicleCommanderPhone : String  ##车辆指挥员联系电话
+    equipmentVehicleLoadBeanList : [EquipmentVehicleLoadBean]  ##车辆装备
+    participantFeedbackBeanList : [ParticipantFeedbackBean]  ##车辆人员
+    vehiclePersonsBeans: [VehiclePersonsBean]
+     mappingGroupId : String  ## 车库号
+     vehicleIdentification : String ##车辆标识 0 头车 1指挥车 2尾车  可拓展
+     safetyTips : String ## 安全提示
+}
+
+
+
+##处警记录（调派记录）bean 分组
+type HandleGroupBean{
+   incidentId  : String  ##案件信息ID
+   handleBatch  : String  ## 派车批次  分组后 只存在 1 首次派车  2 二次派车（ 增援派车  ）
+   handleOrganizationBean : [HandleOrganizationGroupBean]  ##调派单位信息
+}
+####随车人员信息 wl_clryxx
+#type VehiclePersonsBean {
+#    #车载人员id
+#    vehiclePersonId: String
+#    #车辆ID
+#    vehicleId: String
+#    #车辆名称
+#    vehicleName: String
+#    #车牌号码
+#    vehicleNumber: String
+#    #消防机构编号
+#    organizationId: String
+#    #消防机构名称
+#    organizationName: String
+#    #人员ID
+#    personId: String
+#    #人员姓名
+#    personName: String
+#    #人员类型(角色)  细类
+#    personType: String
+#    #人员类型（角色）名称
+#    personTypeName: String
+#    #驾驶员
+#    driver: String
+#    #通讯员
+#    correspondent: String
+#    #车载人员数 （ 包含指挥员 ） 默认 1
+#    personNum: Int
+#    #人员联系方式
+#    personPhone: String
+#    #排序
+#    sorter: Int
+#    #是否车辆登记  0 未登记  1 已登记
+#    whetherParticipant:Int
+#    #人员参战id 为空 冗余字段
+#    participantId: String
+#    #大类  1指挥员 2驾驶员 3通信员  4消防战士
+#    whetherCommander: Int
+#}
+
+##调派单位信息 （ 处警信息 ）bean 分组
+type HandleOrganizationGroupBean{
+    incidentId : String   ##案件ID
+    organization  : String  ##消防机构
+    organizationId  : String  ##消防机构编号
+    organizationName  : String  ##消防机构名称
+    organizationCode : String  ## 机构代码
+    pinyinHeader  : String  ## 机构名称拼音头
+    organizationShortName : String  ## 机构简称
+    organizationAddress : String  ## 机构地址
+    organizationDesc : String  ## 机构描述
+    organizationParentId : String  ## 上级机构ID
+    organizationParentCode : String  ## 上级机构编码
+    organizationCategoryCode : String  ## 机构类别
+    organizationCategoryName : String  ## 机构类别名称
+    organizationTypeCode : String  ## 机构类型代码
+    organizationTypeName : String  ## 机构类型名称
+    organizationNatureCode : String  ## 机构性质代码
+    organizationNatureName : String  ## 机构性质名称
+    districtCode : String  ## 行政区代码
+    districtName : String  ## 行政区名称
+    longitude : String  ## 经度
+    latitude : String  ## 纬度
+    height : String  ## 高度
+    dispatchPhone : String  ## 调度电话
+    mailCode : String  ## 邮政编码
+    faxNumber : String  ## 传真号码
+    contactPerson : String  ## 单位联系人
+    contactPhone : String  ## 单位联系电话
+    organizationWeight : Int  ## 机构权重
+
+    handleOrganizationVehicleBean : [HandleOrganizationVehicleBean ]    ## 调派单位车辆信息 （ 作战车辆信息 ）
+    handleOrganizationEquipmentBean : [HandleOrganizationEquipmentBean ]   ##调派单位装备信息
+
+}
+
+##案件处警信息bean
+type HandleShowBean{
+
+    incidentId  : String  ##案件ID
+    handleId : String  ## 处警记录ID
+    handleStartTime  : Long  ## 处警开始时间
+    handleBatch  : String  ## 处警批次
+    dispatchOrganizationName  :  [String] ##出动机构名称
+    dispatchParticipant : Int  ## 出动人员数
+    dispatchVehicle  :  [String] ## 出动车辆id
+    handleShowVehicleBeans :[HandleShowVehicleBean] ## 车辆 类型分布 list
+}
+
+##案件处警车辆信息
+type HandleShowVehicleBean{
+    vehicleTypeCode  : String  ##车辆类型
+    vehicleTypeName : String  ##车辆类型名称
+    vehicleTypeNum  : Int  ## 车辆类型数量
+}
+
+
+##调派单位装备信息bean
+type HandleOrganizationEquipmentBean{
+   id : String   ## 主键
+   incidentId  : String  ##案件ID
+    handleId : String  ## 处警记录ID
+    handleStartTime  : Long  ## 处警开始时间
+    handleEndTime  : Long  ## 处警结束时间
+    handleBatch  : String  ## 处警批次
+    handlePoliceId : String  ## 处警信息ID
+    organizationId : String  ## 消防机构编号
+    organizationName : String  ## 消防机构名称
+    equipmentTypeCode : String  ## 装备类型代码
+    equipmentTypeName : String  ## 装备类型名称
+    dispatchNum : Int  ## 调派数量
+    remarks : String  ##备注
+
+    equipment : String ##  装备
+    equipmentId  : String ##   装备 通用唯一识别码
+    equipmentName  : String ##   装备名称
+    dispatchStartTime  : Long ##   调派开始时间
+    dispatchEndTime  :  Long ##  调派结束时间
+
+}
+
+##调派专家bean
+type HandleExpertBean{
+    id:String
+    incidentId:String #案件ID
+    handleId:String #处警记录ID
+    expertId:String  #专家ID
+    expertName:String #专家姓名
+    expertType:String #专家类型
+    dispatchTime:Long #调派时间
+    relayRecordNumber:String #录音号
+    remarks:String #备注
+}
+
+
+
+## 保存通话记录( 调度日志 ) 保存参数
+input DispatchDailyRecordSaveInputInfo{
+    incidentId : String  ##案件ID
+    callingNumber : String  ##主叫号码
+    calledNumber : String  ##被叫号码
+    seatNumber : String  ## 坐席号
+    conversationStartTime : Long  ##通话开始时间
+    conversationEndTime : Long  ##通话结束时间
+    conversationDuration : Long  ##通话时长
+    relayRecordNumber : Long  ##录音号
+    remarks : String  ## 备注
+}
+
+## 通话记录( 调度日志 )
+type DispatchDailyRecordBean{
+    id : String ##主键
+    incidentId : String  ##案件ID
+    callingNumber : String  ##主叫号码
+    calledNumber : String  ##被叫号码
+    seatNumber : String  ## 坐席号
+    conversationStartTime : Long  ##通话开始时间
+    conversationEndTime : Long  ##通话结束时间
+    conversationDuration : Long  ##通话时长
+    relayRecordNumber : Long  ##录音号
+    remarks : String  ## 备注
+}
+
+## 短信发送 保存参数
+input SendSMSSaveInputInfo{
+    id : String ## 主键
+    incidentId : String  ##案件ID
+    smsType : String   ##短信类型
+    smsNumber : String   ##短信号码
+    smsContent : String   ##短信内容
+    systemCode : String    ##系统代码
+    priorityNum : String    ##优先级
+    sendOrganizationId : String  ## 发送消防机构编号
+    sendPersonNumber : String  ## 发送人工号
+    sendSeatNumber : String  ## 发送坐席号
+    remarks : String  ## 备注
+}
+
+## 短信发送
+type SendSMSBean{
+    id :  String  ## 主键
+    incidentId : String  ##案件ID
+    smsType : String   ##短信类型
+    smsNumber : String   ##短信号码
+    smsContent : String   ##短信内容
+    systemCode : String    ##系统代码
+    priorityNum : String    ##优先级
+    sendStatus : String    ##发送状态
+    smsAddTime : Long    ##短信提交时间
+    smsSendTime : Long    ##短信发送时间
+    smsReceiveTime : Long    ##短信收到时间
+    sendOrganizationId : String  ## 发送消防机构编号
+    sendOrganizationName : String  ## 发送消防机构名称
+    sendPersonNumber : String  ## 发送人工号
+    sendSeatNumber : String  ## 发送坐席号
+    remarks : String  ## 备注
+}
+
+## 增援请求 保存参数
+input ReinforcementAskSaveInputInfo{
+    incidentId : String  ##案件ID
+    type : String  ##信息类型 自定义 1请求增援
+    content : String  ##内容
+    reinforcementAskDetailInputInfo : [ReinforcementAskDetailInputInfo]  ##请求详情（车辆类型、数量、装备及要求）
+    askOrganizationId : String  ## 发送机构ID
+    receiveOrganizationId : String  ## 接受机构ID
+    reinforcementTypeSign : String  ## 增援类型标志
+    meetAddress : String  ## 接应地点
+    meetTime : Long  ## 接应时间
+    meetContactPerson : String  ## 接应联系人
+    meetContactPersonPhone : String  ## 接应联系人电话
+    remarks : String  ## 备注
+}
+##增援请求 详情
+input ReinforcementAskDetailInputInfo{
+    vehicleTypeCode : String  ## 车辆类型代码
+    vehicleCount : Int  ## 车辆数量
+    equipmentTypeCode : String  ## 装备类型代码
+    equipmentCount : Int  ## 装备数量
+    remarks : String  ## 备注/其他要求
+}
+
+## 增援请求
+type ReinforcementAskBean{
+    id :  String  ## 主键
+    incidentId : String  ##案件ID
+    type : String  ##信息类型
+    content : String  ##内容
+    askOrganizationId : String  ## 发送机构ID
+    askOrganizationName : String  ## 发送机构名称
+    receiveOrganizationId : String  ## 接受机构ID
+    receiveOrganizationName : String  ## 接受机构名称
+    reinforcementTypeSign : String  ## 增援类型标志
+    reinforcementAskDetailBean : [ReinforcementAskDetailBean] ##请求增援车辆装备内容
+    handleSign : String  ## 处理标志
+    meetAddress : String  ## 接应地点
+    meetTime : Long  ## 接应时间
+    meetContactPerson : String  ## 接应联系人
+    meetContactPersonPhone : String  ## 接应联系人电话
+    remarks : String  ## 备注
+}
+
+## 增援车辆装备信息
+type ReinforcementAskDetailBean{
+    vehicleTypeCode : String  ## 车辆类型代码
+    vehicleTypeName : String  ## 车辆类型名称
+    vehicleCount : Int  ## 车辆数量
+    equipmentTypeCode : String  ## 装备类型代码
+    equipmentTypeName : String  ## 装备类型名称
+    equipmentCount : Int  ## 装备数量
+    remarks : String  ## 备注/其他要求
+}
+
+##参战人员信息bean
+type ParticipantFeedbackBean{
+    id : String   ## 主键
+    incidentId : String   ##案件id
+    organizationId : String  ## 消防机构编号
+    organizationName : String  ## 消防机构名称
+    vehicleId : String  ## 车辆编号
+    personId : String  ## 人员编号
+    personName : String  ## 人员姓名
+    personPhone : String  ## 人员联系电话
+    personRole : String  ##人员角色
+    personRoleName : String  ##人员角色名称
+    sorter : Int ## 排序
+    checkTime : Long  ##清点时间
+    whetherFeedback  : Int  ##是否返回
+    feedbackCheckTime : Long  ##返回清点时间
+    checkPersonId : String  ##清点人员编号
+    checkPersonName : String  ##清点人员姓名
+    remarks : String  ##备注
+
+    whetherEnterFireSafety : Int ##是否进入火场 1 进火场 0 不在火场
+    enterFireTime : Long  ##人员进入火场 存在进入火场时间
+    withdrawFireTime : Long  ##人员撤出火场时间
+}
+
+##参战人员设置 保存参数
+input ParticipantSaveInputInfo{
+    incidentId : String   ##案件id
+    checkPersonId : String  ##清点人员编号
+    checkPersonName : String  ##清点人员姓名
+    participantFeedbackSaveInputInfo : [ParticipantFeedbackSaveInputInfo ]   ##参战人员反馈
+}
+
+##参战人员明细设置 保存参数
+input ParticipantFeedbackSaveInputInfo{
+    id : String   ## 主键
+    organizationId : String  ## 消防机构编号
+    vehicleId : String  ## 车辆编号
+    personId : String  ## 人员编号
+    personName : String  ## 人员姓名
+    personPhone : String  ## 人员联系电话
+    personRole : String  ##人员角色
+    sorter : Int ## 排序
+    checkTime : Long  ##清点时间
+    whetherFeedback : Int  ##是否返回
+    feedbackCheckTime : Long  ##返回清点时间
+    remarks : String  ##备注
+}
+
+##火场安全监控记录bean
+type FireSafetyMonitoringBean{
+    id : String   ## 主键
+    incidentId : String  ##案件ID
+    organizationId : String  ## 消防机构编号
+    organizationName : String  ## 消防机构名称
+    personId : String  ##人员ID
+    personName : String   ## 人员名称
+    enterFireTime : Long  ##进入火场时间
+    withdrawFireTime : Long  ##撤出火场时间
+    planWithdrawFireTime : Long  ##应撤出火场时间
+    remarks  : String  ## 备注
+}
+
+##火场安全监控记录 保存
+input FireSafetySaveInputInfo{
+    incidentId : String  ##案件ID
+    fireSafetyType : Int  ##操作类型  1 进火场 0 不在火场
+    fireSafetyMonitoringSaveInputInfo : [FireSafetyMonitoringSaveInputInfo]  ##火场进出人员信息
+}
+
+##火场进出人员记录 保存
+input FireSafetyMonitoringSaveInputInfo{
+    organizationId : String  ## 消防机构编号
+    organizationName : String  ## 消防机构名称
+    personId : String  ##人员ID
+    personName : String   ## 人员名称
+    remarks  : String  ## 备注
+}
+
+
+
+
+
+##现场信息bean
+type LocaleBean{
+    id : String   ## 主键
+    idCode:String #通用唯一识别码
+    incidentId : String  ##案件ID
+    commandId : String   ##指挥ID
+   instructId : String   ##指令单ID （ 处警记录id  集结点id ）
+   instructRecordId : String   ##指令记录ID ( 处警信息id  集结积极力量id )
+   localeType : Int      ## 反馈类型 ( 0现场反馈 1指令反馈 2 集结力量反馈 ) 默认0  现场反馈
+   localeSource : Int       ##反馈来源 （ 1接处警 2实战指挥 3移动反馈  ） 默认1 接处警
+   collectionTime : Long ## 采集实际 反馈时间
+    localeDesc : String  ##现场描述
+  localeExtension  : String   ##现场详细 扩展内容
+
+    fireSitesTemperature : String  ##火场温度
+    weatherInformationCode : String  ##天气字典代码
+    weatherInformationName : String  ##天气字典名称
+    weatherTemperature : String  ##气温
+    windDirection : String  ##风向
+    windDirectionName : String  ##风向名称
+    windGrade : String  ##风力等级
+    windGradeName : String  ##风力等级名称
+    relativeHumidity : String  ##相对湿度
+    disasterGradeCode : String  ##灾害等级代码
+    disasterGradeName : String  ##灾害等级名称
+    operatorPerson  : String  ##操作人
+    burningArea : String  ##燃烧面积
+    smogSituationCode : String  ##烟雾情况代码
+    smogSituationName : String  ##烟雾情况名称
+   whetherSmogSituation : Int   ##是否冒烟 1 冒烟 0 不冒烟
+   whetherFire : Int   ##是否着火 1 着火 0 不着火
+  tempRallyPointAddress  : String   ##临时集结点地址
+   longitude : String   ##临时集结点 经度
+  latitude  : String   ##临时集结点 纬度
+  crimeAddress  : String   ##案发地址
+   incidentTypeCode : String   ##案件类型代码
+   incidentTypeName : String   ##案件类型名称
+  incidentTypeSubitemCode  : String   ##案件类型子项代码（细类）（案件类型备用）
+  incidentTypeSubitemName  : String   ##案件类型子项名称（细类）（案件类型备用）
+   feedbackObjectId : String   ##反馈对象id
+   feedbackObjectName : String   ##反馈对象名称
+   feedbackOrganizationId : String   ##反馈单位编码
+   feedbackOrganizationName : String    ##反馈单位名称
+    remarks : String  ## 备注
+    attachmentBeans : [AttachmentBean] ##附件信息
+    whetherFileFeedback : Int ##是否为附件反馈 0文字反馈 1附件反馈 默认0 文字反馈
+
+     attendanceNum  : String   ## 到场人数
+     trappedPersonNum  : String   ## 被困人数
+     rescueNum  : String   ## 抢救人数
+     massRescueNum  : String   ##群众抢救人数
+     troopsRescueNum  : String   ## 部队抢救人数
+      injuredNum : String   ##属性 受伤人数
+     massInjuredNum  : String   ## 群众受伤人数
+     troopsInjuredNum  : String   ## 部队受伤人数
+     deathNum  : String   ## 死亡人数
+      massDeathNum : String   ## 群众死亡人数
+      troopsDeathNum : String   ## 部队死亡人数
+      outContactNum : String     ##  失联人员
+      massOutContactNum : String     ##  群众失联人员
+     troopsOutContactNum  : String     ##  部队失联人员
+    fireSitesDesc   : String   ## 火势_简要情况
+      burnMaterialCode : String    ## 燃烧物质_编码
+     burnMaterialName  : String   ## 燃烧物质_名称
+
+        buildingUpLayerNumber :  String ## 建筑层数(地上)
+        buildingDownLayerNumber :  String ## 建筑层数(地下)
+       buildingStructure :  String ##  建筑结构
+       buildingStructureName :  String ## 建筑结构名称
+        buildingArea :  String ## 建筑面积
+         burningFloor :  String ## 燃烧层
+
+      windSpeed : String   ## 风_速度
+      pressure : String   ##  气压
+      smogSituationDesc : String   ##  烟雾_简要情况
+     localeCommander  : String   ##现场指挥员 姓名
+
+}
+
+##现场信息 保存参数
+input LocaleSaveInputInfo{
+    id : String  ##主键
+    incidentId : String  ##案件ID
+    commandId : String   ##指挥ID
+   instructId : String   ##指令单ID （ 处警记录id  集结点id ）
+   instructRecordId : String   ##指令记录ID ( 处警信息id  集结积极力量id )
+   localeType : Int      ## 反馈类型 ( 0现场反馈 1指令反馈 2 集结力量反馈 ) 默认0  现场反馈
+   localeSource : Int       ##反馈来源 （ 1接处警 2实战指挥 3移动反馈  ） 默认1 接处警
+    localeDesc : String  ##现场描述
+  localeExtension  : String   ##现场详细 扩展内容
+
+    fireSitesTemperature : String  ##火场温度
+    weatherInformationCode : String  ##天气字典代码
+    weatherInformationName : String  ##天气字典名称
+    weatherTemperature : String  ##气温
+    windDirection : String  ##风向
+    windGrade : String  ##风力等级
+    relativeHumidity : String  ##相对湿度
+    disasterGradeCode : String  ##灾害等级代码
+    operatorPerson  : String  ##操作人
+    burningArea : String  ##燃烧面积
+    smogSituationCode : String  ##烟雾情况代码
+   whetherSmogSituation : Int   ##是否冒烟 1 冒烟 0 不冒烟
+   whetherFire : Int   ##是否着火 1 着火 0 不着火
+  tempRallyPointAddress  : String   ##临时集结点地址
+   longitude : String   ##临时集结点 经度
+  latitude  : String   ##临时集结点 纬度
+  crimeAddress  : String   ##案发地址
+   incidentTypeCode : String   ##案件类型代码
+  incidentTypeSubitemCode  : String   ##案件类型子项代码（细类）（案件类型备用）
+   feedbackObjectId : String   ##反馈对象id
+   feedbackObjectName : String   ##反馈对象名称
+   feedbackOrganizationId : String   ##反馈单位编码
+   feedbackOrganizationName : String    ##反馈单位名称
+    remarks : String  ## 备注
+    attachments : [AttachmentSaveInputInfo] ##附件信息
+   whetherFileFeedback : Int ##是否为附件反馈 0文字反馈 1附件反馈 默认0 文字反馈
+
+    attendanceNum  : String   ## 到场人数
+    trappedPersonNum  : String   ## 被困人数
+    rescueNum  : String   ## 抢救人数
+    massRescueNum  : String   ##群众抢救人数
+    troopsRescueNum  : String   ## 部队抢救人数
+     injuredNum : String   ##属性 受伤人数
+    massInjuredNum  : String   ## 群众受伤人数
+    troopsInjuredNum  : String   ## 部队受伤人数
+    deathNum  : String   ## 死亡人数
+     massDeathNum : String   ## 群众死亡人数
+     troopsDeathNum : String   ## 部队死亡人数
+     outContactNum : String     ##  失联人员
+     massOutContactNum : String     ##  群众失联人员
+    troopsOutContactNum  : String     ##  部队失联人员
+   fireSitesDesc   : String   ## 火势_简要情况
+     burnMaterialCode : String    ## 燃烧物质_编码
+    burnMaterialName  : String   ## 燃烧物质_名称
+
+   buildingUpLayerNumber :  String ## 建筑层数(地上)
+   buildingDownLayerNumber :  String ## 建筑层数(地下)
+   buildingStructure :  String ## 建筑结构
+   buildingArea :  String ## 建筑面积
+    burningFloor :  String ## 燃烧层
+
+     windSpeed : String   ## 风_速度
+     pressure : String   ##  气压
+     smogSituationDesc : String   ##  烟雾_简要情况
+    localeCommander  : String   ##现场指挥员 姓名
+
+}
+
+
+##现场信息 查询参数
+input LocaleQueryInputInfo{
+    incidentId : String  ##案件ID
+    commandId : String   ##指挥ID
+   instructId : String   ##指令单ID （ 处警记录id  集结点id ）
+   instructRecordId : String   ##指令记录ID ( 处警信息id  集结积极力量id )
+   localeType : [Int]      ## 反馈类型 ( 0现场反馈 1指令反馈 2 集结力量反馈 ) 默认0  现场反馈
+   localeSource : [Int]       ##反馈来源 （ 1接处警 2实战指挥 3移动反馈  ） 默认1 接处警
+   feedbackObjectId : String   ##反馈对象id
+   keyword : String   ##关键字反馈 现场信息/现场信息补充
+}
+
+
+##结案反馈（事故情况）bean
+type AccidentBean{
+    id : String   ## 主键
+    incidentId : String  ##案件id
+    actualCrimeAddress : String  ##实际案发地址
+    accidentUnitName : String  ##事故单位名称
+    accidentUnitNature : String  ##事故单位性质
+    accidentUnitNatureName : String  ##事故单位性质名称
+    responsiblePersonName : String  ##负责人姓名
+    responsiblePersonAge : String  ##负责人年龄
+    responsiblePersonCareer : String   ##负责人职业信息
+    responsiblePersonNativePlace : String   ##负责人籍贯
+    accidentReason : String  ##事故原因
+    burningMaterial : String  ##燃烧物质
+    burningArea : String  ##燃烧面积
+    protectArea : String  ##保护面积
+    economicLoss : String  ##经济损失
+    protectEconomic : String  ##保护价值
+    injuredNumber : String  ##受伤人数
+    rescueNumber : String  ##抢救人数
+    deathNumber : String  ##死亡人数
+    dispatchWaterGunNumber : Int  ##出动水枪数
+    accidentDescribe : String  ##主要情况
+    rescueMeasures : String  ##营救措施
+    smogSituation : String  ##烟雾情况
+    smogSituationName : String  ##烟雾情况名称
+    spreadSituation : String  ##蔓延情况
+    waterSituation : String  ##水源情况
+    peripherySituation  : String  ##周边情况
+    buildingUpLayerNumber : String  ##建筑层数(地上)
+    buildingDownLayerNumber : String  ##建筑层数(地下)
+    buildingStructure : String  ##建筑结构
+    buildingStructureName : String  ##建筑结构名称
+    buildingArea  : String  ##建筑面积
+    burningFloor  : String  ##燃烧层
+    leakageMaterial : String  ##泄漏物质
+    remarks : String  ##备注
+
+   incidentLevelCode : String    ##  警情等级代码
+   incidentLevelName : String    ##  警情等级名称
+   accidentTime : Long ## 日期时间
+    dispatchTrainNum  : Int   ## 出动车次
+    dispatchVehicleNum   : Int   ## 出动车辆数
+    dispatchWaterGunNum   : Int   ##出动水枪数
+    dispatchPersonNum   : Int   ## 出动人数
+ attendanceNum  : String   ##  到场人数
+  trappedPersonNum : String   ##  被困人数
+  rescueNum : String   ##  抢救人数
+  massRescueNum : String   ##  群众抢救人数
+  troopsRescueNum : String   ##  部队抢救人数
+  injuredNum : String   ##  受伤人数
+  massInjuredNum : String   ##  群众受伤人数
+ troopsInjuredNum  : String   ##  部队受伤人数
+  deathNum : String   ##  死亡人数
+  massDeathNum : String   ##  群众死亡人数
+  troopsDeathNum : String   ##  部队死亡人数
+ outContactNum  : String     ##   失联人员数
+  massOutContactNum : String     ##  群众失联人员
+ troopsOutContactNum  : String     ##   部队失联人员
+
+    seatNumber    : String   ##    坐席号
+     personId   : String   ##  警员
+     personNumber   : String   ##  警员工号
+     personName   : String   ##   警员姓名
+
+    ##作战情况相关字段
+    combatSituation : String   ##战斗情况
+    localeCommander : String    ##现场总指挥
+    localeDeputyCommander : String   ##现场副指挥
+    dispatcher : String   ##119调度员
+    localeCorrespondent : String   ##现场通讯员
+    detachmentCorrespondent : String   ##支队通讯员
+    squadronCommander : String   ##中队指挥员
+    squadronCorrespondent : String   ##中队通讯员
+    videographer : String   ##录像人员
+    combatProcessDesc : String     ##战斗过程描述
+
+}
+
+##事故情况  保存参数
+input AccidentSaveInputInfo{
+    id :  String ##主键
+    incidentId : String  ##案件id
+    actualCrimeAddress : String  ##实际案发地址
+    accidentUnitName : String  ##事故单位名称
+    accidentUnitNature : String  ##事故单位性质
+    responsiblePersonName : String  ##负责人姓名
+    responsiblePersonAge : String  ##负责人年龄
+    responsiblePersonCareer : String   ##负责人职业信息
+    responsiblePersonNativePlace : String   ##负责人籍贯
+    accidentReason : String  ##事故原因
+    burningMaterial : String  ##燃烧物质
+    burningArea : String  ##燃烧面积
+    protectArea : String  ##保护面积
+    economicLoss : String  ##经济损失
+    protectEconomic : String  ##保护价值
+    injuredNumber : String  ##受伤人数
+    rescueNumber : String  ##抢救人数
+    deathNumber : String  ##死亡人数
+    dispatchWaterGunNumber : Int  ##出动水枪数
+    accidentDescribe : String  ##主要情况
+    rescueMeasures : String  ##营救措施
+    smogSituation : String  ##烟雾情况
+    spreadSituation : String  ##蔓延情况
+    waterSituation : String  ##水源情况
+    peripherySituation  : String  ##周边情况
+    buildingUpLayerNumber : String  ##建筑层数(地上)
+    buildingDownLayerNumber : String  ##建筑层数(地下)
+    buildingStructure : String  ##建筑结构
+    buildingArea  : String  ##建筑面积
+    burningFloor  : String  ##燃烧层
+    leakageMaterial : String  ##泄漏物质
+    remarks : String  ##备注
+
+   incidentLevelCode : String    ##  警情等级代码
+    dispatchTrainNum  : Int   ## 出动车次
+    dispatchVehicleNum   : Int   ## 出动车辆数
+    dispatchWaterGunNum   : Int   ##出动水枪数
+    dispatchPersonNum   : Int   ## 出动人数
+ attendanceNum  : String   ##  到场人数
+  trappedPersonNum : String   ##  被困人数
+  rescueNum : String   ##  抢救人数
+  massRescueNum : String   ##  群众抢救人数
+  troopsRescueNum : String   ##  部队抢救人数
+  injuredNum : String   ##  受伤人数
+  massInjuredNum : String   ##  群众受伤人数
+ troopsInjuredNum  : String   ##  部队受伤人数
+  deathNum : String   ##  死亡人数
+  massDeathNum : String   ##  群众死亡人数
+  troopsDeathNum : String   ##  部队死亡人数
+ outContactNum  : String     ##   失联人员数
+  massOutContactNum : String     ##  群众失联人员
+ troopsOutContactNum  : String     ##   部队失联人员
+
+    ##作战情况相关字段
+    combatSituation : String   ##战斗情况
+    localeCommander : String    ##现场总指挥
+    localeDeputyCommander : String   ##现场副指挥
+    dispatcher : String   ##119调度员
+    localeCorrespondent : String   ##现场通讯员
+    detachmentCorrespondent : String   ##支队通讯员
+    squadronCommander : String   ##中队指挥员
+    squadronCorrespondent : String   ##中队通讯员
+    videographer : String   ##录像人员
+    combatProcessDesc : String     ##战斗过程描述
+    uniformAddressId:String ##统一地址库id
+}
+
+##文书信息
+type DocumentBean {
+	id: String   ##主键
+	incidentId : String  ##案件ID
+	dateSourceId  : String  ##数据来源id
+	type : String  ##文书类型
+	typeName : String  ##文书类型名称
+	typeSubitemCode : String  ##文书类型 子项编码
+	typeSubitemName : String  ##文书类型 子项名称
+	title : String ##标题
+	content : String  ##文书内容
+	recordTime : Long  ##记录文书时间
+	feedbackTime :  Long  ##反馈_日期时间
+	feedbackPerson : String  ##反馈人姓名
+	feedbackOrganization  : String  ##反馈消防机构
+	feedbackOrganizationId : String  ##反馈消防机构代码
+	feedbackOrganizationName : String  ##反馈消防机构名称
+	terminalId : String   ## 终端ID
+	remarks: String  ##备注
+	whetherUpdate : Int ##是否可以修改 0 不可以修改 1 可以修改 默认不可以修改
+    attachmentBeans:[AttachmentBean] #附件信息
+}
+
+##文书保存修改参数
+input DocumentSaveInputInfo {
+	id: String   ##主键
+	incidentId : String  ##案件ID
+	dateSourceId  : String  ##数据来源id
+	type : String  ##文书类型
+	typeSubitemCode : String  ##文书类型 子项编码
+	title : String ##标题
+	content : String  ##文书内容
+    recordTime : Long  ##记录文书时间
+	feedbackTime :  Long  ##反馈_日期时间
+	feedbackPerson : String  ##反馈人姓名
+	feedbackOrganizationId : String  ##反馈消防机构代码
+	terminalId : String   ## 终端ID
+	remarks: String  ##备注
+}
+
+##等级调度查询参数
+input HierarchicalDispatchQueryInputInfo {
+    scopeSquadronId : String  ##查询范围辖区Id 必填
+    scopeType : Int ##查询范围辖区类型 0根机构 1非根机构
+    hierarchicalDispatchNum : Int ##调派数量
+    incidentTypeCode  : String  ## 案件类型代码
+    incidentLevelCode : String  ## 案件等级代码
+    disposalObjectCode : String  ## 处置对象代码
+    squadronOrganizationId : String  ## 优先调派机构id
+    whetherPage : Boolean     ##是否分页查询 默认分页
+    pagination : PaginationInputInfo     ##分页条件
+}
+
+
+
+##等级调度分页信息
+type PaginationHierarchicalDispatchBean{
+    pagination : Pagination    ##分页
+    list : [HierarchicalDispatchBean]    ##数据集合
+}
+
+##等级调度出动力量信息
+type HierarchicalDispatchBean {
+    id : String   ## 主键
+    title : String ##等级调度名称
+    organizationId : String  ## 消防机构编号
+    organizationName : String  ## 消防机构名称
+    incidentTypeCode : String  ## 案件类型代码
+    incidentTypeName : String  ## 案件类型名称
+    disposalObjectCode : String  ## 处置对象代码
+    disposalObjectName : String  ## 处置对象名称
+    incidentLevelCode : String  ## 案件等级代码
+    incidentLevelName : String  ## 案件等级名称
+    hierarchicalDispatchVehicleBeanList : [HierarchicalDispatchVehicleBean] ##调派车辆信息
+    remarks : String  ## 备注
+   makeTime : Long  ## 制作时间
+   makePersonId : String  ## 制作人id
+   makePersonName : String  ## 制作人姓名
+   hierarchicalDispatchTips : String  ## 等级调派提示信息
+   hierarchicalDispatchVehicleIdList : [String]  ##  等级调派车辆id
+   usageTimes: Int #使用次数
+}
+
+##等级调度车辆信息bean
+type HierarchicalDispatchVehicleBean {
+   vehicleTypeCode : String   ## 车辆类型代码
+   vehicleTypeName : String   ## 车辆类型名称
+   dispatchNum : Int   ## 调派数量
+   vehicleNum : Int    ##符合条件可用数量
+   vehicles :  [String]  ##符合条件的车辆信息
+   #推荐分数,用于智能推荐力量接口
+   score:String
+
+ }
+
+
+##等级调度 保存参数
+input HierarchicalDispatchSaveInputInfo {
+   id : String   ##主键
+   title : String ##等级调度名称
+   organizationId : String  ##消防机构编号
+   incidentTypeCode : String  ##案件类型代码
+   disposalObjectCode : String  ##处置对象代码
+   incidentLevelCode : String  ##案件等级代码
+  hierarchicalDispatchVehicleSaveInputInfoList : [HierarchicalDispatchVehicleSaveInputInfo] ##车辆类型与数量
+   remarks : String  ##备注
+}
+
+##等级调度车辆类型 数量 保存参数
+input HierarchicalDispatchVehicleSaveInputInfo {
+   vehicleTypeCode : String  ##车辆类型代码
+   dispatchNum : Int   ##调派数量
+}
+
+
+##案件车辆状态变动 保存参数
+input IncidentVehicleStatusUpdateInputInfo {
+   incidentId : String  ##案件id
+   vehicleStatusCode : String  ##车辆状态
+   changeSource : String ##变动来源 1接处警 2 实战指挥 3移动端
+   incidentVehicleHandles : [IncidentVehicleHandleUpdateInputInfo]  ##案件车辆变动集合
+}
+
+##案件车辆变动 保存参数
+input IncidentVehicleHandleUpdateInputInfo {
+   vehicleId : String  ##车辆id
+   handleId : String  ##处警记录id
+}
+
+##中队填报信息bean
+type SquadronFillInBean{
+    id : String ##主键
+    incidentId   : String    ## 案件ID
+    writeOrganizationId   : String    ## 填写机构编号
+    writeOrganizationName   : String    ## 填写机构名称
+    dispatchWaterGunNumber  : Int     ## 出动水枪数
+    deathNumber  : Int     ## 死亡人数
+   injuredNumber   : Int     ## 受伤人数
+    rescueNumber  : Int     ## 抢救人数
+   writeTime : Long   ## 填写时间
+    remarks   : String    ##  备注
+}
+
+
+##中队填报信息 保存参数
+input SquadronFillInSaveInputInfo{
+    id : String ##主键
+    incidentId   : String    ## 案件ID
+    writeOrganizationId   : String    ## 填写机构编号
+    dispatchWaterGunNumber  : Int     ## 出动水枪数
+    deathNumber  : Int     ## 死亡人数
+   injuredNumber   : Int     ## 受伤人数
+    rescueNumber  : Int     ## 抢救人数
+   writeTime : Long   ## 填写时间
+    remarks   : String    ##  备注
+}
+
+##电话库bean
+type PhoneLibraryBean{
+    id : String ##主键
+    phoneNumber   : String    ## 电话号码
+    userName   : String    ## 用户姓名
+    userAddress   : String    ## 用户地址
+    remarks  : String     ## 备注
+}
+
+
+##保存指令单参数
+input InstructionSaveInputInfo{
+     incidentId  : String    ### 事件ID 必填
+     commandId  : String    ### 指挥ID
+     superiorInstructionId  : String    ### 关联上级指令Id
+     instructionsType  : String    ### 指令类型 必填
+    ##  INSTRUCTION("INSTRUCTION","指令"),
+    ##  ASK_FOR_LEADER("ASK_FOR_LEADER","请示领导"),
+    ##  CONSULT_EXPERT("CONSULT_EXPERT","咨询专家"),
+    ##  NOTIFIED("NOTIFIED","通报"),
+    ##  CONTACT("CONTACT","联系"),
+    ##  APPROVAL("APPROVAL","批示"),
+     instructionsOrganizationId  : String     ### 指令下达单位编码
+     instructionsOrganizationName  : String    ### 指令下达单位名称
+     instructionsPersonId  : String    ### 指令下达人ID
+    instructionsPersonName   : String    ### 指令下达人员姓名
+    instructionsPersonRank   : String    ### 指令下达人员姓名职务编码
+    instructionsPersonRankName   : String    ### 指令下达人员姓名职务
+   instructionsPersonArriveTime    : Long    ### 指令下达人员到场时间
+   instructionsPersonBackTime    : Long    ### 指令下达人员返回时间
+    instructionsSource   : String    ### 指令来源  1 接处警 2 图上指挥  3 移动 可拓展
+    instructionsTime   : Long    ### 指令下达时间
+    instructionsMode   : String    ### 指令下达方式 可参考InstructionsTypeEnum 枚举
+     ## TEXT("TEXT","文本"),
+     ## SMS("SMS","短信"),
+     ## VOICE("VOICE","语音"),
+     ## MICRO_GROUP("MICRO_GROUP","微群"),
+     instructionTitle  : String    ### 指令单标题
+     instructionsContent  : String    ### 指令单内容
+      instructionsContentExtension : String    ### 指令单内容扩展
+     remarks  : String    ### 备注
+    instructionRecordList : [InstructionRecordSaveInputInfo]     ### 指令记录
+
+    instructionTypeCode  : String   ##警情指令类型代码
+    instructionCategoryCode  : String  ##警情信息类别代码
+}
+
+##保存指令记录参数
+input InstructionRecordSaveInputInfo{
+     receivingObjectType  : String    ### 受令对象类型 可参考InstructionsTypeEnum 枚举 必填
+     ## VEHICLE("VEHICLE","车辆"),
+     ## PERSON("PERSON","人员"),
+     ## SAFEGUARDUNIT("SAFEGUARDUNIT","联勤单位"),
+     ##  EMERGENCYUNIT("EMERGENCYUNIT","联动单位"),
+     ##    TERMINAL_EQUIPMENT("TERMINAL_EQUIPMENT","终端设备"),
+     receivingObjectId  : String    ### 受令对象ID 必填
+     receivingObjectName  : String    ### 受令对象名称
+    receivingObjectOrganizationId   : String    ### 受令对象单位ID
+    receivingObjectOrganizationName   : String    ###  受令对象单位名称
+      timeout : Long    ###超时时间
+     remarks  : String    ### 备注
+}
+
+
+##保存指令单处理参数
+input InstructionRecordHandleSaveInputInfo{
+     id  : String    ### 主键
+     handleResultDesc  : String    ### 处理结果 简要情况
+     handlePersonName  : String    ###  处理人_姓名
+}
+
+##指令单bean
+type InstructionBean{
+      id : String  ##主键
+     incidentId  : String    ### 事件ID
+     commandId  : String    ### 指挥ID
+      superiorInstructionId : String    ### 关联上级指令Id
+      instructionsType : String    ### 指令类型
+    ##  INSTRUCTION("INSTRUCTION","指令"),
+    ##  ASK_FOR_LEADER("ASK_FOR_LEADER","请示领导"),
+    ##  CONSULT_EXPERT("CONSULT_EXPERT","咨询专家"),
+    ##  NOTIFIED("NOTIFIED","通报"),
+    ##  CONTACT("CONTACT","联系"),
+    ##  APPROVAL("APPROVAL","批示"),
+      instructionsOrganizationId : String     ### 指令下达单位编码
+      instructionsOrganizationName : String    ### 指令下达单位名称
+     instructionsPersonId  : String    ### 指令下达人ID
+     instructionsPersonName  : String    ### 指令下达人员姓名
+    instructionsPersonRank   : String    ### 指令下达人员姓名职务编码
+      instructionsPersonRankName : String    ### 指令下达人员姓名职务
+       instructionsPersonArriveTime : Long    ### 指令下达人员到场时间
+   instructionsPersonBackTime    : Long    ### 指令下达人员返回时间
+     instructionsSource  : String    ### 指令来源  1 接处警 2 实战指挥  3 移动 可拓展
+    instructionsTime   : Long    ### 指令下达时间
+    instructionsMode   : String    ### 指令下达方式 可参考InstructionsTypeEnum 枚举
+     ## TEXT("TEXT","文本"),
+     ## SMS("SMS","短信"),
+     ## VOICE("VOICE","语音"),
+     ## MICRO_GROUP("MICRO_GROUP","微群"),
+      instructionTitle : String    ### 指令单标题
+     instructionsContent  : String    ### 指令单内容
+    instructionsContentExtension   : String    ### 指令单内容扩展
+      remarks : String    ### 备注
+   instructionRecordList : [ InstructionRecordBean ]     ### 指令记录
+
+    instructionTypeCode  : String  ##警情指令类型代码
+    instructionTypeName  : String   ##警情指令类型名称
+    instructionCategoryCode  : String  ##警情信息类别代码
+    instructionCategoryName  : String  ##警情信息类名称
+
+    attachmentBeans:[AttachmentBean] #附件信息
+}
+
+##指令记录bean
+type InstructionRecordBean{
+      id : String  ##主键
+      incidentId : String    ### 事件ID
+      commandId : String    ### 指挥ID
+    instructionId   : String    ### 指令单ID
+    receivingObjectType : String    ### 受令对象类型 可参考InstructionsTypeEnum 枚举
+     ## VEHICLE("VEHICLE","车辆"),
+     ## PERSON("PERSON","人员"),
+     ## SAFEGUARDUNIT("SAFEGUARDUNIT","联勤单位"),
+     ## EMERGENCYUNIT("EMERGENCYUNIT","联动单位"),
+     ## TERMINAL_EQUIPMENT("TERMINAL_EQUIPMENT","终端设备"),
+    receivingObjectId   : String    ### 受令对象ID
+    receivingObjectName   : String    ### 受令对象名称
+    receivingObjectOrganizationId   : String    ### 受令对象单位ID
+    receivingObjectOrganizationName   : String    ###  受令对象单位名称
+    instructState   : String    ### 指令单状态（已下达、已签收、已反馈） 可参考InstructionsTypeEnum 枚举
+     ##   STATUS_GIVEN("STATUS_GIVEN","已下达"),
+     ##    STATUS_SIGNED("STATUS_SIGNED","已签收"),
+    instructionRecordTime   : Long    ### 指令下达时间
+    receivingTime   : Long    ###接收时间
+     timeout  : Long    ###超时时间
+     remarks  : String    ### 备注
+    instructionBean : InstructionBean     ### 指令单
+    handleSign  :  Int   ### 处理结果 判断标识
+    handleResultDesc  :  String ###处理结果 简要情况
+    handlePersonName  :  String ### 处理人_姓名
+    handleTime  :  Long  ###  处理_日期时间
+
+
+}
+
+##调派单查询参数
+input InstructionQueryInputInfo{
+     incidentId  : String    ### 事件ID
+     commandId  : String    ### 指挥ID
+    instructionType : [String] ## 指令类型 APPROVAL ( 批示 ) INSTRUCTION ( 指令  ) ASK_FOR_LEADER ( 汇报 )  CONSULT_EXPERT( 咨询 ) NOTIFIED ( 通报)
+     instructionsSource : [String] ##  指令来源  1 接处警 2 图上指挥  3 移动 可拓展
+    keyword   : String     ### 关键字查询  指令内容/指令内容扩展 模糊
+}
+
+##调派指令查询参数Input
+input InstructionRecordQueryInputInfo{
+     incidentId   : String    ### 事件ID
+     commandId  : String    ### 指挥ID
+     instructionId  : String    ### 调派指令单ID
+     receivingObjectId  : String    ### 受令对象ID
+   instructState : [String]      ### 指令单状态 STATUS_GIVEN( 已下达 ) STATUS_SIGNED ( 已签收 ) STATUS_FEEDBACKED ( 已反馈 )
+}
+
+
+
+## 出动力量车辆统计
+type DispatchAgencyCarBean{
+    stateCode:String  #车辆状态代码
+    stateName:String  #车辆状态名称
+    count:Int #数量
+}
+
+##出动力量统计信息
+type DispatchAgencyBean{
+    organization:[OrganizationBean] #周边救援中队信息
+    cars:[DispatchAgencyCarBean]  #出动力量车辆统计
+    person:Int #救援人数
+}
+
+
+##重点单位 预案 input  type 管理
+
+
+
+
+##重点单位查询参数
+input KeyUnitQueryInputInfo{
+     organizationId:String #所属单位单位 id
+     unitAddress : String   ##单位地址模糊匹配
+}
+
+
+
+
+##预案查询条件
+input PlanQueryInputInfo {
+    planCategoryCodes : [String] ##预案种类
+    planTypeCodes : [String] ##预案类型代码
+    keyword : String ##关键字 预案名称 预案说明 重点单位名称  部位名称  模糊匹配
+    whetherPage : Boolean     ##是否分页查询 默认分页
+    pagination : PaginationInputInfo     ##分页条件
+}
+
+##预案分页信息
+type PaginationPlanBean{
+    pagination : Pagination    ##分页
+    list : [PlanBean]    ##数据集合
+}
+
+##预案基本信息
+type PlanBean{
+   id : String   ##主键
+    idCode:String ##应急预案_通用唯一识别码
+   templateId    : String   ##模板ID
+   planCategoryCode   : String   ##预案种类代码
+   planCategoryName   : String   ##预案种类名称
+   planTypeCode   : String   ##预案类型代码
+   planTypeName   : String   ##预案类型名称
+   planCode   : String   ##预案编号
+   planName  : String   ##预案名称
+   planDesc : String ##预案描述
+   planStatusCode    : String   ##预案状态代码
+   planStatusName    : String   ##预案状态名称
+   keyUnitId   : String   ##重点单位ID
+   objectName   : String   ##对象名称
+   objectTypeCode  : String   ##对象类型代码
+   objectTypeName  : String   ##对象类型名称
+   planOrderNum    : Int   ##预案顺序号
+   positionId   : String   ##部位ID
+   mappingVersionNum    : String   ##类型与内容项对应
+   versionNum   : String   ##预案版本号
+   securityClassification   : String   ##保密等级
+   organizationId   : String   ##机构ID
+   organizationName  : String    ##机构名称
+   positionName  : String   ##部位名称
+   whetherCrossRegion     : Int   ##是否跨区域
+   whetherParentPlan    : Int   ##是否母预案
+   whetherExternalSystemData   : Int   ##是否外部系统数据
+   makePersonId   : String   ##制作人ID
+   makePersonName  : String   ##制作人名称
+   makeOrganizationId  : String   ##制作单位ID
+   makeOrganizationName  : String    ##制作单位名称
+   makeTime    : Long   ##制作日期
+   operatorId    : String   ##数据操作人编号
+   operatorName    : String   ##数据操作人姓名
+   operateOrganization    : String   ##操作机构
+   remarks   : String   ##备注
+    planBrieflyDesc:String ##预案概述_简要情况
+   planDispatch : [PlanDispatchBean] ##预案调派力量
+   attachmentBean:[AttachmentBean] ##附件信息
+
+    planDispatchNum :  Int   ##预案调派车辆数量
+    planDispatchVehicleIdList : [String]   ##预案调派车辆id
+    dispatchStatusNum :  Int    ##预案可调派车辆数量
+    dispatchVehicleStatusIdList :  [String]   ##预案可调派车辆id
+    disabledDispatchVehicleIdList :  [String]   ##预案不可调派车辆id
+    noVehicleIdList :  [String]   ##预案不可调派未找到车辆信息 车辆id
+    planDispatchTips :  String   ##预案调派提示信息
+    planSupplementBeanList :  [PlanSupplementBean]    ##预案如果 某个类型的车辆缺少 提供补充同类型车辆id ;
+
+}
+
+## 预案车辆调集 （预案调派）bean
+type PlanDispatchBean {
+   id : String   ##主键
+   planId : String  ##预案id
+   subordinateUnitId : String  ##所属单位ID
+   subordinateUnitName : String  ##所属单位名称
+   organizationId : String  ##机构编号
+   organizationName : String  ##机构名称
+   vehicleId : String  ##车辆ID
+   vehicleName : String  ##车辆名称
+   dispatchGroup : String  ##出动组别
+   vehicleNumber : String  ##车牌号码
+   vehicleTypeCode : String  ##车辆类型代码
+   vehicleTypeName : String  ##车辆类型名称
+   vehicleLevelCode : String  ##车辆等级代码
+   vehicleLevelName : String  ##车辆等级名称
+   operationalFunctionCode : String  ##作战功能代码
+   operationalFunctionName : String  ##作战功能名称
+   dispatchOrderNum : Int  ##出动顺序
+  attendanceTime : Long  ##到场时间
+   remarks : String  ##备注
+   usageTimes: Int #使用次数
+}
+
+
+## 预案车辆调集 （ 补充调派）bean
+type PlanSupplementBean {
+     vehicleTypeCode :  String  ##补充车辆类型编码
+     vehicleTypeName :  String  ##补充车辆类型名称
+     planSupplementNum :  Int  ##补充车辆类型数量
+     disabledDispatchVehicleIdList : [String]  ##车辆类型不可调用车辆ids
+     planSupplementVehicleIdList  : [String]  ##补充类型车辆ids
+}
+
+
+##预案基本信息 保存修改参数
+input PlanSaveInputInfo {
+   id : String   ##主键
+   keyUnitId : String ##重点单位id
+   templateId : String  ##模板ID
+   planType : String  ##预案种类
+  planCode  : String  ##预案编号
+   planOrderNum : Int  ##预案顺序号
+  mappingVersionNum  : String  ##类型与内容项对应
+  versionNum  : String  ##预案版本号
+   securityClassification : String  ##保密等级
+   planTypeCode : String  ##预案类型代码
+   planName : String  ##预案名称
+   planDesc : String ##预案描述
+   positionId : String  ##部位ID
+   positionName : String  ##部位名称
+   planStatusCode : String  ##预案状态代码
+   objectTypeCode : String  ##对象类型代码
+  whetherCrossRegion  : Int  ##是否跨区域
+   makePersonId : String  ##制作人ID
+   makePersonName : String  ##制作人名称
+   makeOrganizationId : String  ##制作单位ID
+   makeOrganizationName : String  ##制作单位ID
+   makeTime : Long  ##制作日期
+   operatorId : String  ##数据操作人编号
+   operatorName : String  ##数据操作人姓名
+   whetherParentPlan : Int  ##是否母预案
+   organizationId : String  ##机构ID
+   organizationName : String  ##机构ID
+   objectName : String  ##对象名称
+   whetherExternalSystemData : Int  ##是否外部系统数据
+   operateOrganization : String  ##操作机构
+   remarks : String  ##备注
+   planDispatchSaveInputInfo : [PlanDispatchSaveInputInfo] ##预案调派信息
+   attachmentSaveInputInfo:[AttachmentSaveInputInfo] ##附件信息
+}
+
+##预案车辆调集 （预案调派）保存修改参数
+input PlanDispatchSaveInputInfo {
+   id : String   ##主键
+   subordinateUnitId : String  ##所属单位ID
+   organizationId : String  ##机构编号
+   vehicleId : String  ##车辆ID
+   dispatchGroup : String  ##出动组别
+   vehicleNumber : String  ##车牌号码
+   vehicleTypeCode : String  ##车辆类型代码
+   vehicleLevelCode : String  ##车辆等级代码
+   operationalFunctionCode : String  ##作战功能代码
+   dispatchOrderNum : Int  ##出动顺序
+  attendanceTime : Long  ##到场时间
+   remarks : String  ##备注
+}
+
+##集合演练方案
+type DrillPlanBean {
+   id : String  ## 主键
+   incidentTypeCode : String  ##案件类型
+   incidentTypeName : String  ##案件类型名称
+   drillPlanName : String  ##演练方案名称
+   drillPlanContent : String  ##演练方案内容
+   makeOrganizationId : String  ##演练方案制作单位
+   makeOrganizationName : String  ##演练方案制作单位名称
+   makePersonId : String  ##演练方案制作人编号
+   makePersonName : String  ##演练方案制作人姓名
+   whetherEnable : Int  ##是否启用
+   enableTime :  Long    ##生效时间
+   invalidTime :  Long   ##过期时间
+   makeTime : Long  ##制作日期
+   remarks : String  ##备注
+   drillPlanDispatchBeans : [DrillPlanDispatchBean]  ##集合演练方案调度信息集合
+   usageTimes: Int #使用次数
+}
+
+##集合演练方案 分页
+type PaginationDrillPlanBean{
+    pagination : Pagination    ##分页
+    list : [DrillPlanBean]    ##数据集合
+}
+
+##集合演练方案调度信息
+type DrillPlanDispatchBean {
+    id : String  ## 主键
+    drillPlanId : String  ##演练方案ID
+    organizationId : String  ##消防机构编号
+    organizationName : String  ##消防机构名称
+    vehicleId : String  ##车辆编号
+    vehicleName : String ##   车辆名称
+    vehicleNumber : String ## 车牌号码
+    vehicleTypeCode : String ## 车辆类型代码
+    vehicleTypeName : String ## 车辆类型名称
+    orderNum : Int ## 出车顺序
+    whetherValid : Int ## 是否有效
+    remarks : String ##备注
+}
+
+##集合演练方案 条件查询参数
+input DrillPlanQueryInputInfo {
+    incidentTypeCodes : [String] ##案件类型
+    keyword : String  ##关键字 演练方案名称 案内容 制作人姓名  模糊匹配
+    whetherEnableStatus :  Boolean   ##是否查询启用状态
+    whetherEnableTime :  Boolean     ##是否查询当前时间是否在有效时间内
+    whetherPage : Boolean ##是否分页查询 默认分页
+    pagination : PaginationInputInfo  ##分页条件
+}
+
+
+##集合演练方案 保存修改参数
+input DrillPlanSaveInputInfo {
+    id : String  ## 主键
+   incidentTypeCode : String  ##案件类型
+   drillPlanName : String  ##演练方案名称
+   drillPlanContent : String  ##演练方案内容
+   makeOrganizationId : String  ##演练方案制作单位
+   makePersonId : String  ##演练方案制作人编号
+   makePersonName : String  ##演练方案制作人姓名
+   whetherEnable : Int  ##是否启用
+   enableTime :  Long    ##生效时间
+   invalidTime :  Long   ##过期时间
+   makeTime : Long  ##制作日期
+   remarks : String  ##备注
+   drillPlanDispatchSaveInputInfos : [DrillPlanDispatchSaveInputInfo]  ##集合演练方案调度信息集合
+}
+
+##集合演练方案调度信息 保存修改参数
+input DrillPlanDispatchSaveInputInfo {
+    id : String  ## 主键
+    organizationId : String  ##消防机构编号
+    vehicleId : String  ##车辆编号
+    vehicleName : String ##   车辆名称
+    vehicleNumber : String ## 车牌号码
+    vehicleTypeCode : String ## 车辆类型代码
+    orderNum : Int ## 出车顺序
+    whetherValid : Int ## 是否有效
+    remarks : String ##备注
+}
+
+##统计各等级重点单位
+type KeyUnitLevelCountBean{
+    unitLevelCode:String  #重点单位等级
+    keyUnitCount:Int  #重点单位数量
+    unitLevelName:String #重点单位等级名称
+}
+
+
+## 值班值守 其他    input  type 管理
+
+type OnDutySummaryOrganizationBean{
+    organizationId : String   ##单位Id
+    organizationName : String   ##单位名称
+    onDutySummaryOrganizations  : [OnDutySummaryBean] ##单位值班信息
+}
+
+## 值班信息Bean
+type OnDutySummaryBean{
+   id : String  ## 值班记录id
+   organizationIntegrated : String   ##单位一体化id
+   organizationId : String   ##单位Id
+   organizationName : String   ##单位名称
+   onDutyTime : Long   ##值班日期
+   onDutyType : String   ##值班类型
+	onDutyTypeName : String ##值班类型
+	onDutyCode : String ##岗位编码
+   onDutyName : String ##岗位名称
+   responsibilities : String   ##值班职责
+   onDutyPersonId : String   ##值班人id
+   onDutyPersonNumber : String   ##值班人编号
+   onDutyPersonName  : String   ##值班人姓名
+   contactNumber  : String   ##联系电话
+   onDutyNumber  : String   ##值班人次
+   showNumber  : String   ##显示序号
+	districtCode : String ##  行政区划代码
+	districtName : String  ##  行政区划代码
+	remarks : String ##  备注
+	onDutyPersonUnitName : String  ##  值班人员 单位名称
+	whetherDeputy : String  ##  正副班_判断标识
+	pinyinHeader : String  ##  拼音头 机构拼音头 , 人员姓名拼音头
+}
+
+
+
+##天气信息
+type WeatherBean{
+    id : String   ## 主键
+    forecastTime : Long  ##预报发布时间
+    forecastStartTime : Long  ##预报起始时间
+    forecastEndTime : Long  ##预报结束时间
+    organizationId : String  ##消防机构代码
+    organizationName : String  ##消防机构名称
+   districtCode : String  ##行政区域
+   districtName : String  ##行政区域名称
+   longitude  : String ##  经度
+   latitude : String ##  纬度
+   regionRange : String ##  范围信息
+   minTemperature : Float  ##最低温度
+   maxTemperature : Float  ##最高温度
+  weatherInformationCode1  : String  ##天气情况代码1
+   weatherInformationName1 : String  ##天气情况名称1
+   weatherInformationCode2 : String  ##天气情况代码2
+   weatherInformationName2 : String  ##天气情况名称2
+   minWindpower : String  ##最低风力
+   minWindpowerName : String  ##最低风力名称
+   maxWindpower : String  ##最高风力
+   maxWindpowerName : String  ##最高风力名称
+  winddirection1  : String  ##风向1
+  winddirection1Name  : String  ##风向1名称
+   winddirection2 : String  ##风向2
+   winddirection2Name : String  ##风向2名称
+   precipitationProbability : String  ##降水概率
+  minRelativeHumidity  : String  ##最低相对湿度
+  maxRelativeHumidity  : String  ##最高相对湿度
+   disasterForecast : String  ##灾害预报
+   recordingMode : String  ##记录方式
+  remarks  : String  ## 备注
+  windPowerLevelInfo :[String] ## 风力等级信息
+  windDirectionInfo :[String] ## 风向信息
+}
+
+
+##天气信息 保存参数
+input WeatherSaveInputInfo{
+    id : String   ## 主键
+    forecastTime : Long  ##预报发布时间
+    forecastStartTime : Long  ##预报起始时间
+    forecastEndTime : Long  ##预报发布时间
+    organizationId : String  ##消防机构代码
+   districtCode : String  ##行政区域
+   minTemperature : Float  ##最低温度
+   maxTemperature : Float  ##最高温度
+  weatherInformationCode1  : String  ##天气情况代码1
+   weatherInformationCode2 : String  ##天气情况代码2
+   minWindpower : String  ##最低风力
+   maxWindpower : String  ##最高风力
+  winddirection1  : String  ##风向1
+   winddirection2 : String  ##风向2
+   precipitationProbability : String  ##降水概率
+  minRelativeHumidity  : String  ##最低相对湿度
+  maxRelativeHumidity  : String  ##最高相对湿度
+   disasterForecast : String  ##灾害预报
+   recordingMode : String  ##记录方式
+  remarks  : String  ## 备注
+}
+
+##中队车辆与车库门对应关系 查询条件
+input VehicleGarageMappingQueryInputInfo {
+    organizationIds   : [String]   ##消防机构编号
+    mappingTypes  : [String]   ##关系类型
+    mappingObjectIds  : [String]    ##车辆编号 班组号
+    mappingGroupIds   : [String]   ##车库门编号 房间号
+}
+
+## 中队车辆与车库门对应关系
+type VehicleGarageMappingBean{
+   id : String   ## 主键
+   organizationId : String   ##消防机构编号
+   organizationName : String   ##消防机构名称
+   mappingType : String   ##关系类型
+   mappingTypeName : String   ##关系类型名称
+   mappingObjectId : String    ##车辆编号 班组号
+   mappingObjectName : String    ##车辆编号 班组号名称 车牌号
+   mappingObjectName2 : String    ##车辆编号 班组号号名称2 车辆名称
+   mappingGroupId : String   ##车库门编号 房间号
+   mappingGroupName : String   ##车库门编号 /房间号 名称
+   remarks : String   ##备注
+}
+
+##中队车辆与车库门对应关系集合 保存参数
+input VehicleGarageMappingSaveListInputInfo{
+    vehicleGarageMappingSaveInputInfos : [VehicleGarageMappingSaveInputInfo] ##中队车辆与车库门对应关系
+}
+
+##中队车辆与车库门对应关系 保存参数
+input VehicleGarageMappingSaveInputInfo{
+   organizationId : String   ##消防机构编号
+   mappingType : String   ##关系类型
+   mappingObjectId : String    ##车辆编号/班组号
+   mappingGroupId : String   ##车库门编号/房间号
+   remarks : String   ##备注
+}
+
+##违规操作记录分页
+type PaginationViolationRecordBean{
+    pagination : Pagination    ##分页
+    list : [ViolationRecordBean]    ##数据集合
+}
+
+##违规操作记录
+type ViolationRecordBean{
+    id  : String   ##ID
+    billId : String  ##单据编号
+    violationType : String  ## 违规类型
+    violationTypeName : String  ## 违规类型
+    violationTime : Long  ##违规时间
+    standardValue : String   ##  标准值
+    actualValue : String   ## 实际值
+    organizationId : String ##机构id
+    organizationName : String ##机构名称
+    violationPersonNumber : String   ## 违规人员工号
+    violationPersonName : String   ## 违规人员姓名
+    violationSeatNumber : String   ## 违规坐席号
+    violationDesc : String   ## 操作描述
+    violationStatus : String   ## 违规状态(1违规中,2结束违规)
+    remarks : String  ## 备注
+}
+
+
+##违规记录保存参数
+input ViolationSaveInputInfo{
+     id : String   ## 主键
+     billId: String  ##单据编号
+     violationType : String  ## 违规类型
+    standardValue : String   ##  标准值
+    actualValue : String   ## 实际值
+    organizationId : String ##机构id
+    violationPersonNumber : String   ## 违规人员工号
+    violationPersonName : String   ## 违规人员姓名
+    violationSeatNumber : String   ## 违规坐席号
+    violationDesc : String   ## 操作描述
+    violationStatus : String   ## 违规状态(1违规中,2结束违规)
+    remarks : String  ## 备注
+}
+
+##消息通知保存参数
+input NewsCircularSaveInputInfo{
+   type :  String  ##类型
+   source : String     ##  来源  1 接处警 2 图上指挥  3 移动 可拓展
+    title :  String ##标题
+   content :  String   ##内容
+  remarks  :  String   ## 备注
+   newsCircularReceiverSaveInputInfoList :  [NewsCircularReceiverSaveInputInfo]    ##消息接收对象
+}
+
+##消息通知 接收者保存参数
+input NewsCircularReceiverSaveInputInfo{
+  receiverObjectId  :  String     ##通知对象id（单位id）
+ receivingObjectName :  String     ##通知对象名称（单位名称）
+ receivingObjectType :  String     ##对象类型 可参考InstructionsTypeEnum 枚举
+  remarks  :  String   ## 备注
+}
+
+##消息分页查询
+input NewsCircularQueryInputInfo{
+   startTime :  Long      ##查询开始时间
+   endTime :  Long      ##查询结束时间
+   type :  [String]   ##  类型
+   receivingObjectId : String ##接收对象
+   newsCircularStatus : [Int] ##接收消息状态
+  source  :  [String]    ## 指令来源  1 接处警 2 图上指挥  3 移动 可拓展
+  keyword   :  String    ## 关键字查询   标题  内容  模糊
+   titleKeyword  :  String    ## 关键字查询   标题模糊
+   contentKeyword :  String    ## 关键字查询   内容模糊
+  whetherPage  :  Boolean      ##是否分页查询 默认分页
+   pagination :  PaginationInputInfo    ##分页条件
+}
+
+##分页消息通知
+type PaginationNewsCircularBean{
+    pagination : Pagination  ## 分页
+    list :  [NewsCircularBean ] ##内容
+}
+
+##消息通知
+type NewsCircularBean{
+     id : String   ## 主键
+   type :  String    ##类型
+ source   :  String     ##  来源  1 接处警 2 图上指挥  3 移动 可拓展
+   title :  String   ##标题
+   content :  String   ##内容
+  circularTime :  Long    ##通知时间
+   circularPersonId :  String    ##通知下达者id
+   circularPersonName :  String    ##通知下达者姓名
+   circularOrganizationId :  String     ##通知下达单位id
+   circularOrganizationName :  String     ##通知下达单位名称
+  remarks  :  String   ## 备注
+   newsCircularReceiverBeanList :  [NewsCircularReceiverBean]    ##消息接收对象
+}
+
+##分页消息通知
+type PaginationNewsCircularReceiverBean{
+    pagination : Pagination ##分页
+    list :  [NewsCircularReceiverBean ] ##内容
+}
+
+##消息通知接收对象
+type NewsCircularReceiverBean{
+     id : String   ## 主键
+  newsCircularId  :  String   ##消息通知id
+   receivingObjectId :  String     ##通知对象id（单位id）
+   receivingObjectName :  String     ##通知对象名称（单位名称）
+   receivingObjectType :  String     ##对象类型 可参考InstructionsTypeEnum 枚举
+   newsCircularStatus :  Int   ##状态 0已通知 1已接收
+  circularTime :  Long    ##通知时间
+  operateTime :  Long    ##接收时间
+   operatePersonId :  String    ##接收者id
+ operatePersonName   :  String    ##接收者姓名
+   remarks :  String   ## 备注
+  newsCircularBean : NewsCircularBean    ##通知消息
+}
+
+#中队值守力量
+type DutyPowerBean{
+    vechileNum:Int   #车辆数
+    organizationName:String  #中队名
+    vehicleBean: [EquipmentVehicleBean]   #车辆信息
+}
+
+#大队值守力量
+type DistrictChartBean{
+    districtName:String  #辖区名称
+    districtCode: String  #辖区代码
+    organizationId: String  #机构ID
+    organizationName: String  #机构名称
+    organizationNum: Int  #执勤中队数
+    fullTimeNum: Int  #专职队数量
+    fireStationNum: Int  #微型消防站数量
+    vechileNum: Int  #车辆数
+    dutyPowerBean: [DutyPowerBean]  #
+}
+
+#值守力量
+type DistrictChartOnDutyBean{
+    vehicleNum:Int #车辆数
+    fullTimeNum:Int #专职队数量
+    organizationNum:Int  #中队数量
+    fireStationNum:Int  #微型消防站数量
+    districtChartBean:[DistrictChartBean] #辖区力量
+}
+
+
+
+##统计信息 input  type 管理
+
+
+##警情趋势查询参数
+input IncidentTrendQueryInputInfo{
+   scopeSquadronId : String    ##查询范围辖区Id 必填
+   scopeType  : Int     ##查询范围辖区类型 0根机构 1非根机构
+   startTime : Long   ##开始时间
+   endTime : Long   ##结束时间
+   timeType : String   ##时间类型
+   districtCode : String    ## 行政区代码
+}
+
+
+##警情统计查询参数
+input IncidentStatisticsQueryInputInfo{
+   scopeSquadronId : String    ##查询范围辖区Id 必填
+   scopeType : Int     ##查询范围辖区类型 0根机构 1非根机构
+   squadronIds : [String]    ##辖区id集合
+   keyword  : String    ##模糊匹配关键字（警情地址模糊匹配）
+   incidentTypeCodes : [String]    ##警情类型编码集合
+   incidentLevelCodes : [String]    ##警情等级编码集合
+   incidentStateCodes : [String]    ##警情状态编码集合
+   districtCodes : [String]    ##行政区代码集合
+   startTime : Long      ##查询开始时间
+   endTime : Long      ##查询结束时间
+   whetherKeyUnit : Boolean     ##是否查询重点单位
+   whetherImport : Boolean     ##是否查询重大案件
+}
+
+
+##处警统计查询参数
+input HandleStatisticsQueryInputInfo{
+   scopeSquadronId : String    ##查询范围辖区Id 必填
+   scopeType : Int     ##查询范围辖区类型 0根机构 1非根机构
+   startTime : Long      ##查询开始时间
+   endTime : Long      ##查询结束时间
+}
+
+##监控查询参数
+input MonitorQueryInputInfo{
+   scopeSquadronId : String   ##查询范围辖区Id 必填
+   startTime  : Long     ##查询开始时间
+   endTime  : Long     ##查询结束时间
+   searchTimeType : Int    = 1 ##时间查询类型  0 今日  1 24小时 2 一周 3 半月 4 一月 5 半年
+   keyword : String  ##关键字
+   typeCode : [String]  ## 类型
+   seatNumber : String  ##坐席号
+   personNumber : String  ##人员工号
+   whetherPage : Boolean     ##是否分页查询 默认分页
+   pagination : PaginationInputInfo     ##分页条件
+}
+
+##坐席查询参数
+input SeatQueryInputInfo{
+   scopeSquadronId  : String   ##查询范围辖区机构Id
+   seatTypeCodes  : [ String ]   ##坐席类型编码集合
+}
+
+
+##统计维度Bean
+type DimensionAssembleBean{
+    dimensionCode : String  ##统计维度编码
+    dimensionName : String  ##统计维度名称
+    dimensionMainNun : String    ##统计维度主要统计数
+    dimensionSecondaryNum : String    ##统计维度次要统计数
+}
+
+##统计信息bean
+type DimensionAssembleStatisticsBean{
+   startTime  : Long   ##开始时间
+   endTime  : Long   ##结束时间
+   dimensionCount : Long   ## 总数
+   beans  : [DimensionAssembleBean]   ##总数构成信息
+}
+
+##案件类型同环比统计bean
+type IncidentTypeContrastStatisticsBean{
+   todayStatistics  : DimensionAssembleStatisticsBean   ##今天数据
+   yesterdayStatistics  : DimensionAssembleStatisticsBean   ##昨天数据
+   lastMonthTodayStatistics  : DimensionAssembleStatisticsBean   ##上月今天数据
+
+   ##currentMonthStatistics  : DimensionAssembleStatisticsBean   ##本月数据
+   ##lastMonthStatistics  : DimensionAssembleStatisticsBean   ##上月数据
+   ##lastYearCurrentMonthStatistics  : DimensionAssembleStatisticsBean   ##上年本月数据
+}
+
+##车辆状态分类统计bean
+type DimensionVehicleStatusStatisticsBean{
+   dimensionCount : Long   ## 总数
+   beans  : [DimensionVehicleStatusBean]   ##总数构成信息
+}
+
+##车辆状态分类bean
+type DimensionVehicleStatusBean{
+    dimensionCount : Long    ##总数
+    dimensionCode : String  ##车辆状态分类编码
+    dimensionName : String  ##车辆状态分类名称
+    beans : [DimensionAssembleBean]    ##车辆状态细分维度
+}
+
+##时间趋势bean
+type TimeTrendBean{
+   startTime  : Long   ##开始时间
+   endTime  : Long   ##结束时间
+   dimensionCount : Long   ## 总数
+   beans  : [DimensionAssembleBean]   ##总数构成信息
+}
+
+
+##kpi信息
+type KPIStatisticsBean{
+   acceptanceTotal  : Int   ##接警量
+   incidentTotal  : Int   ##警情量
+   violationTotal : Int   ##违规量
+   avgAcceptanceDuration : Long  ## 平均接警时长
+   avgHandleDuration : Long  ## 平均处警时长
+}
+
+
+
+##案件出动力量数统计
+type IncidentPowerStatisticsBean{
+  handleBatchNum : String     ##调派次数
+  handleOrganizationNum : String     ##出动单位数
+  handleVehicleNum : String      ##出动车辆数
+  handlePersonNum : String      ##出动人员数
+  totalWater: String        ##总水量
+  totalFoam: String         ##总泡沫量
+}
+
+
+##车辆统计查询参数
+input VehicleStatisticsQueryInputInfo{
+    scopeSquadronId  : String    ##查询范围辖区Id
+    scopeType : Int ##查询范围辖区类型 0根机构 1非根机构
+    keyword  : String    ##模糊匹配关键字（车辆名称 车辆简称 车牌号）
+    vehicleTypeCodes  : [String]    ##车辆类型编码集合
+    organizationIds  : [String]    ##车辆机构编码集合
+    vehicleStatusCodes  : [String]    ##车辆状态编码集合
+    nature : Int  ##机构性质 -1 查询全部  0 总队 1 支队 2 大队 3救援站（中队） 默认 -1
+}
+
+##多级统计信息bean
+type DimensionAssembleNestingStatisticsBean{
+    dimensionCount  : Long   ## 总数
+    beans : [DimensionAssembleNestingBean]   ##总数构成信息
+}
+
+##多级统计维度bean
+type DimensionAssembleNestingBean{
+    id : String  ## 编码
+    parentId  : String  ## 父编码
+    children   : String  ## 子嵌套信息
+    nestingDimensionCode  : String   ##多级嵌套编码
+    nestingDimensionName  : String   ##多级嵌套名称
+    nestingDimensionMainNun : String   ## 多级嵌套主要统计数
+    nestingDimensionSecondaryNum  : String   ##多级嵌套次要统计数
+    nestingParentDimensionCode  : String  ##多级嵌套父编码
+}
+
+##根据机构id获取灾情统计
+type OrganizationDisasterStatisticsBean{
+	organizationName : String   ##机构名称
+	organizationId : String     ##机构id
+	dimensionCount  : Long    ##机构id
+	dimensionAssembleBeanList : [DimensionAssembleBean]   ##案件分类统计
+}
+
+
+#警情信息趋势统计
+type IncidentCountBean{
+    incidentCount:DimensionAssembleStatisticsBean
+    incidentTrend:[TimeTrendBean]
+}
+
+#警情统计数据和数量变化趋势输入信息
+input IncidentStatisticsAndTrendInputInfo{
+    scopeSquadronId : String    ##查询范围辖区Id 必填
+    scopeType  : Int     ##查询范围辖区类型 0根机构 1非根机构
+    startTime : Long   ##开始时间
+    endTime : Long   ##结束时间
+    timeType : String   ##时间类型
+    districtCode : String    ## 行政区代码
+    squadronIds : [String]    ##辖区id集合
+    keyword  : String    ##模糊匹配关键字（警情地址模糊匹配）
+    incidentTypeCodes : [String]    ##警情类型编码集合
+    incidentLevelCodes : [String]    ##警情等级编码集合
+    incidentStateCodes : [String]    ##警情状态编码集合
+    whetherKeyUnit : Boolean     ##是否查询重点单位
+    whetherImport : Boolean     ##是否查询重大案件
+}
+
+
+
+#辖区警情统计返回结果
+type IncidentDistrictStatisticsBean{
+    dimensionCount: Long ## 警情总数
+    dimensionAssembleBeanList:[DimensionAssembleCodeNameStatisticsBean] ##辖区警情数量以及各个类型分布
+}
+
+
+##统计信息bean
+type DimensionAssembleCodeNameStatisticsBean{
+   dimensionCode  : String   ##统计维度编码
+   dimensionName  : String   ##统计维度名称
+   dimensionCount : Long   ## 总数
+   beans  : [DimensionAssembleBean]   ##总数构成信息
+}
+
+
+
+## 请求外部接口 input  type 管理
+
+
+
+
+## 请求外部接口 参数
+input  OutsideInputInfo{
+    incidentId : String  ## 案件信息ID
+    incident : IncidentSaveInputInfo  ## 案件信息
+    explain : String  ## 请求说明
+    type : [String] ##类型  1、110  2、122  3、应急
+    personId     :  String     ## 人员编号
+    personName     :  String     ## 人员姓名
+    seatNumber     :  String     ## 坐席号
+    handleUnit     :  String     ##操作单位id
+    receiveUnit     :  String     ##接收单位id
+}
+
+
+
+
+##水源信息管理 资源信息
+
+##水源基本信息
+type WaterBaseBean{
+    id:String    #id
+    number:String    #编码
+    waterCode:String    #水源编号
+    waterName:String    #水源名称
+    waterAddr:String    #水源地址
+    waterType:String    #水源类型
+    waterAttribute: String    #水源属性信息ID
+    organizationId: String    #机构ID
+    organizationName: String    #机构名称
+    nature: String    #性质
+    pipeNetwork: String    #所属管网
+    setTheForm: String    #设置形式
+    waterUnit: String    #供水单位
+    telephone: String    #供水单位联系方式
+    pipeDiameter: String    #管网直径
+    pipePressure: String    #管网压力
+    roadSection: String    #所属路段
+    district: String    #所属辖区
+
+    longitude: String    #经度
+    latitude: String    #纬度
+    altitude: String    #高度
+    mapLongitude: String    #上图经度
+    mapLatitude: String    #上图纬度
+    mapAltitude: String    #上图高度
+    waterBuildTime:Long    #建造时间
+    enableTime:Long    #启用时间
+    photoFileURL: String    #照片文件URL
+    eastUrl: String    #方位图东URL
+    southUrl: String    #方位图南URL
+    westUrl: String    #方位图西URL
+    northUrl: String    #方位图北URL
+    nearEastUrl: String    #毗邻关系东URL
+    nearSouthUrl: String    #毗邻关系南URL
+    nearWestUrl: String    #毗邻关系西URL
+    nearNorthUrl: String    #毗邻关系北URL
+    waterHandlersId: String    #操作员ID
+    auditStatus: String    #审核状态
+    recordStatus  : Int    #记录状态
+
+    pipeNetworkName  :  String #todo 字段 所属管网名称
+    manageUnit  :  String #todo 字段 管理_单位名称
+    maintenanceUnit  :  String #todo 字段 维保_单位名称
+    contact  :  String    #todo 字段 联系人
+    contactPersonName  :  String #todo 字段 联系人 姓名
+    roadSectionDesc  :  String #todo 字段 道路路口路段_简要情况
+    url  :  String #todo 字段 方位图
+    nearUrl  :  String #todo 字段 实景图
+
+     pipeForm : String  ##管网形式
+     pipeFormName : String   ##todo 字段 管网形式名称
+     waterIntake : String  ####取水形式
+     waterIntakeName : String  ####todo 字段 取水形式名称
+     placementForm : String  ####放置形式
+     placementFormName : String   ####todo 字段 放置形式名称
+     availableStatus : String  ####可用状态
+     availableStatusName : String  ###todo 字段 可用状态名称
+     waterStatus : String  ###水源状态
+    waterStatusName  : String  ##todo 字段 水源状态  消防设施状况分类与代码名称
+     interfaceForm : String   ##接口形式
+     interfaceFormName : String   ##todo 字段 接口形式名称
+     hydrantType : String    ##消防栓种类
+     hydrantTypeName : String     ##todo 字段 消防栓种类名称
+
+     waterCraneHeight : String   ##  水鹤高度
+     flowrate : String   ##  流量
+    inletDiameter  : String   ##  进水直径
+     effluentDiameter : String   ##  出水直径
+    waterDriveway : Int   ##加水车道
+     belongingWaterId : String  ##todo 字段 所在水源ID
+     belongingWaterName : String  ##todo 字段 所在水源名称
+     intakeHeight : String   ##  取水_高度
+    elevationHeight  : String    ##水源标高差_高度
+    parkingPosition  : String   ##停车位置
+   parkingNum  : Int   ##停车数量
+    naturalWaterTypeCode  : String    ##天然水源类型　
+        naturalWaterTypeName  : String    ##天然水源类型　
+   waterNaturalSourceHeight   : String   ##  天然水源高度
+    storage  : String   ## 容积 单位：立方米
+     area : String   ## 容积 单位：立方米
+     waterQualityDesc : String    ##水质情况_简要情况
+    seasonalChangesDesc  : String   ##四季变化_简要情况
+    whetherDrySeason : Int   ##有无枯水期_判断标识
+     drySeasonDesc : String    ##枯水期跨度_简要情况
+    waterStorage  : String   ##储水量 容积 单位：立方米
+
+
+}
+
+## 自动语音转写保存参数
+input VoiceTranscribeSaveInputInfo{
+   id : String     ## 主键
+   telephoneId : String    ##电话报警id
+   incidentId : String   ##案件ID
+   transcribeContent : String   ##转写内容
+   keyword : String   ##关键字
+   abstractContent : String   ##摘要
+   attachment : String   ##附件
+   attachmentType : String   ##附件类型
+   attachmentName : String   ##附件名称
+  attachmentUrl  : String   ##附件URL
+   relayRecordNumber : String   ##录音号
+   remarks : String   ## 备注
+}
+
+## 语音转写Bean
+type VoiceTranscribeBean{
+    id : String ## 主键
+   telephoneId : String    ##电话报警id
+   incidentId : String   ##案件ID
+  transcribeContent  : String   ##转写内容
+  keyword  : String   ##关键字
+   abstractContent : String   ##摘要
+  attachment  : String    ##附件
+  attachmentType  : String   ##附件类型
+  attachmentTypeName  : String   ##附件类型
+   attachmentName : String   ##附件名称
+   attachmentUrl : String   ##附件URL
+  relayRecordNumber  : String   ##录音号
+  seatNumber  : String   ##  坐席号
+   acceptancePerson : String   ## 接警员
+   acceptancePersonName : String   ## 接警员姓名
+   acceptancePersonNumber : String   ## 接警员工号
+   remarks : String   ## 备注
+}
+
+##交互记录bean
+type InteractiveRecordBean{
+    id:String
+    alarmId:String #报警编号
+      incidentId:String #警情id
+    senderIdNum:String #发送人证件号码
+      senderPhoneNum:String #发送人电话号码
+      senderName:String #发送人姓名
+      sendTime:Long #发送时间
+      messageContent:String #消息内容
+      messageType:Int #消息类型 文字、语音、视频、图片、文件
+      messageSource:Int #消息来源 0接受 1发送
+      resourceUrl:String #资源url
+      remark:String #备注
+      state:Int #状态 0未发生 1发送成功 2发送失败
+      xlabel:String #x坐标
+      ylabel:String
+      readMark:Int #已读标志 0/1
+}
+
+##交互记录保存输入信息
+input InteractiveRecordSaveInputInfo{
+      id:String
+      alarmId:String #报警编号
+      incidentId:String #警情id
+      senderIdNum:String #发送人证件号码
+      senderPhoneNum:String #发送人电话号码
+      senderName:String #发送人姓名
+      sendTime:Long #发送时间
+      messageContent:String #消息内容
+      messageType:Int #消息类型 文字、语音、视频、图片、文件
+      messageSource:Int #消息来源 0接受 1发送
+      resourceUrl:String #资源url
+      remark:String #备注
+      state:Int #状态 0未发生 1发送成功 2发送失败
+      xlabel:String #x坐标
+      ylabel:String
+      alarmNumber:String #电话号码
+      readMark:Int #已读标志 0未读 1已读
+}
+
+#灭火重点单位 重点部位信息
+type KeyUnitPositionBean{
+    id:String
+    idCode:String  #重点部位_通用唯一识别码
+    keyUnitId:String  #重点单位_通用唯一识别码
+    organizationId:String  #消防救援机构_通用唯一识别码
+    organizationName:String  #消防救援机构名称
+    positionName:String  #重点部位名称
+    positionAddress:String  #地点
+    position:String  #部位所在位置
+    positionFloor:Int  #部位所在 楼层
+    positionHeight:Float  #部位所在高度
+    buildingStructureTypeCode:String  #建筑结构类型代码
+    buildingStructureTypeName:String  #建筑结构类型名称
+    buildingStructureNatureCode:String  #建筑物使用性质代码
+    buildingStructureNatureName:String   #建筑物使用性质名称
+    builtUpArea:Float  #建筑面积
+    fireElevatorNum:Int  #消防电梯_数量
+    evacuationNum:Int   #疏散出口_数量
+    exitNum:Int    #安全出口_数量
+    fireFacilitiesDesc:String  #灭火设施_简要情况
+    dangerDesc:String  #危险性_简要情况
+    establishingDesc:String   #确立原因_简要情况
+    fireRrotectionSignsDesc:String  #防火标识设立_简要情况
+    dangerousSourcesDesc:String  #危险源_简要情况
+    fireDesc:String  #火种_简要情况
+    liablePerson:String   #责任人
+    liablePersonName:String  #责任人_姓名
+    fireSafetyDesc:String   #消防安全管理_简要情况
+    buildingsResistanceFireLevelCode:String    #建筑物耐火等级代码
+    buildingsResistanceFireLevelName:String    #建筑物耐火等级名称
+    remarks:String  #备注
+}
+
+#视频监控
+type VideoBean{
+    id:String
+    idCode:String   #视频监控_通用唯一识别码
+    videoCode:String   #视频编号
+    videoName:String   #视频名称
+    videoTypeCode:String   #视频监控类型代码
+    videoTypeName:String    #视频监控类型名称
+    videoAddress:String    #地点名称
+    videoURL:String    #视频连接地址
+    videoDesc:String    #简要情况
+    videoDefinitionCode:String   #视频清晰度类型代码
+    videoDefinitionName:String   #视频清晰度类型名称
+    videoAccessCode:String    #视频接入方式代码
+    videoAccessName:String    #视频接入方式名称
+    state:String   #视频状态
+    longitude:String   #经度
+    latitude:String   #纬度
+}
+
+#交接班日志
+type HandoverRecordBean{
+    id:String
+    handoverContent:String  #交接班内容 值班内容
+    handoverTime: Long  #留言时间
+    handoverPersonId: String  #留言人
+    handoverPersonName: String  #留言人姓名
+    handoverPersonNumber: String  #留言用户工号
+    handoverSeatNumber: String  #留言台号
+    handoverOrganizationId: String   #机构ID
+    deleted: Int   #删除标志
+    SJC: Long  #时间戳
+}
+
+
+#交接班日志 保存信息
+input HandoverRecordSaveInputInfo {
+    id:String
+    handoverContent:String   #交接班内容 值班内容
+    handoverTime: Long   #留言时间
+    handoverPersonId: String   #留言人
+    handoverPersonName: String   #留言人姓名
+}
+
+#交接班日志 查询信息
+input HandoverRecordQueryInputInfo{
+
+     startTime:Long   #开始时间
+     endTime:Long   #结束时间
+     keyWord:String   #关键字
+     whetherPage:Boolean   #是否分页，默认分页
+     pagination:PaginationInputInfo   #分页信息
+}
+
+#交接班日志 分页显示
+type PaginationHandoverRecordBean{
+    pagination:Pagination
+    list:[HandoverRecordBean]
+}
+
+
+## 车辆信息以及位置信息
+type VehicleDeviceLocationBean{
+    id : String ## 车辆id
+   organizationId : String   ## 消防机构编号
+   organizationName : String   ## 消防机构名称
+   vehicleId : String   ## 车辆编号
+   vehicleTypeCode : String   ## 装备类型代码 （车辆类型代码）
+   vehicleTypeName : String   ## 装备类型名称
+   fightFunctionCode : String   ## 作战功能代码
+   fightFunctionName : String   ## 作战功能名称
+   vehicleStatusCode : String   ## 车辆状态代码 ( 车辆状态代码_灭火 )
+   vehicleStatusName : String   ## 车辆状态名称 ( 车辆状态代码_灭火 )
+   vehicleCode : String    ##车辆编号
+   vehicleName : String   ## 装备名称 车辆名称
+   vehicleShortName : String   ## 车辆简称
+   vehicleLevelCode : String   ## 车辆等级代码
+   vehicleLevelName : String   ## 车辆等级名称
+   vehicleNumber : String   ## 车牌号码
+   gpsNumber : String   ## GPS编号
+   locationNumber : String   ## 定位编号
+    radioCallSign : String   ## 电台呼号
+   deviceLocationBean :  DeviceLocationBean  ##车辆位置信息
+
+}
+## 位置信息
+type DeviceLocationBean{
+   deviceCode : String      ##终端设备编号
+   lon : String   ## 经度
+   lat : String   ## 纬度
+   speed : String      ##终端速度
+   status : String    ##终端状态 0 下线  1 上线
+   time : String     ##时间
+
+}
+
+
+## 保存 定位短信 信息
+input UserSMSLocationVO{
+   ## 用户账号
+   userAccount  : String
+   ## 电话号码
+   phoneNumber : String
+   ## 案件id
+   incidentId : String
+   ##  发送短信内容
+   smsContent : String
+}
+
+
+
+## 保存消防转警的机构编码关系
+input OrgRelationshipSaveInputInfo{
+   fireDeptId : String  ##消防机构ID
+   transferType : String  ##转警类型
+   transferDeptName  : String  ##转警单位名称
+   transferDeptCode : String  ##转警单位编码
+   isAudit : Int   ##是否审核
+   transferOtherHandleOne : String  ##转警单位其他操作1
+   transferOtherHandleTwo : String  ##转警单位其他操作2
+   transferOtherHandleThree : String  ##转警单位其他操作3
+
+}
+
+## 消防转警的机构编码关系
+type OrgRelationshipBean{
+   id : String ## 主键
+   fireDeptId : String  ##消防机构ID
+   fireDeptName : String  ##消防机构ID
+   transferType : String ##转警类型
+   transferTypeName : String ##转警类型名称
+   transferDeptName  : String  ##转警单位名称
+   transferDeptCode : String  ##转警单位编码
+   isAudit : Int   ##是否审核
+   transferOtherHandleOne : String  ##转警单位其他操作1
+   transferOtherHandleTwo : String  ##转警单位其他操作2
+   transferOtherHandleThree : String  ##转警单位其他操作3
+}
+
+## 作战信息卡 保存信息
+input CombatInformationInputInfo{
+    id :String
+    organizationId:String #所属消防机构代码
+    unitName:String #单位名称
+    unitAddress:String #单位地址
+    fileURL:String #文件存放路径
+    fileName:String #文件名
+    uploadTime:Long
+}
+
+##作战信息卡 显示信息
+type CombatInformationBean{
+    id:String
+    organizationId:String   #机构代码
+    organizationName:String #机构名称
+    updatedTime:Long #上传时间
+    unitAddress:String #单位地址
+    fileURL:String #文件路径
+    fileName:String #文件名
+    uploadTime:Long #更新时间
+    addressShortName:String #地址简称
+    unitShortName:String #单位简称
+    unitName:String #单位名称
+}
+
+##作战信息卡 分页显示
+type PaginationCombatInformationBean{
+   pagination : Pagination    ##分页
+   list : [CombatInformationBean]    ##数据集合
+}
+
+##微站调派单信息保存参数
+input HandleMiniatureStationSaveInputInfo{
+    handleType  :   String     ##调派类型（01微站、02联勤、03联动、04专家）
+    handleWay  :   String   ##调派方式（01电话、02短信、03IVR、04系统）
+    handleObjectId  :   String    ##调派对象id
+    handleObjectName :   String  ## 调派对象名称
+    districtCode  :   String    ##调派对象所属辖区（微站管辖大队）
+    organizationId :   String  ## 调派对象消防机构编号
+    handleTime  :   Long   ## 调派时间
+    relayRecordNumber  :   String  ##录音号（电话方式）
+    handleContent   :   String   ##  内容（短信调派后IVR时用）
+}
+
+##微站调派单信息bean
+type HandleMiniatureStationBean{
+        id : String  ##微站调派信息id
+        incidentId  :   String  ##案件ID
+        handleId  :   String   ##处警单ID
+        handleBatch :   String  ## 处警批次
+        handleType :   String     ##调派类型（01微站、02联勤、03联动、04专家）
+        handleTypeName :   String     ##调派类型（01微站、02联勤、03联动、04专家）
+        handleWay  :   String   ##调派方式（01电话、02短信、03IVR、04系统）
+        handleWayName  :   String   ##调派方式（01电话、02短信、03IVR、04系统）
+        handleObjectId :   String    ##调派对象id
+        handleObjectName  :   String  ## 调派对象名称
+        districtCode  :   String    ##调派对象行政区划
+        districtName  :   String    ##调派对象行政区划 名称
+        organizationId :   String  ## 调派对象消防机构编号
+        organizationName :   String  ## 调派对象消防机构名称
+        handleTime  :   Long   ## 调派时间
+        relayRecordNumber :   String  ##录音号（电话方式）
+        handleContent  :   String   ##  内容（短信调派后IVR时用）
+        handleStatus :   String   ##  调派单状态
+        handleStatusName :   String   ##  调派单状态名称
+        handleOrganizationId  :   String   ## 处警单位编号
+        handleOrganizationName  :   String   ## 处警单位名称
+        handlePersonNumber  :   String  ## 处警人员编号
+        handleSeatNumber  :   String  ## 处警坐席号
+        latestFeedbackTime : Long ##最新反馈时间
+}
+
+## 保存微站调派反馈Input
+input HandleMiniatureStationFeedbackSaveInputInfo{
+    incidentId : String ##案件ID
+    handleId : String  ##处警单ID
+    handleMiniatureStationId : String  ##微站调派单ID
+    feedbackTime : Long  ##反馈时间
+    localeDesc : String  ##处置情况
+}
+
+## 微站调派反馈Bean
+type HandleMiniatureStationFeedbackBean{
+    id :  String ##调派信息id
+    incidentId : String ##案件ID
+    handleId : String  ##处警单ID
+    handleMiniatureStationId : String  ##微站调派单ID
+    feedbackTime : Long  ##反馈时间
+    localeDesc : String  ##处置情况
+}
+
+## 转警记录
+type TransferIncidentBean{
+    id :  String ##转警记录id
+    incidentId   :   String ##案件ID
+    transferType      :   String ##转警类型
+    transferUnit      :   String ##转警单位
+    transferPersonId     :   String ##转警人员员工号
+    transferPersonName      :   String ##转警人员姓名
+    transferSeatNumber      :   String ##转警坐席号
+    receiveUnit     :   String ##接收单位
+    receiveStatus    :   String ##接收状态
+    transferTime    :   Long ##发送转警时间
+    receiveTime     :   Long ## 接收转警时间
+    remarks    :   String ##备注
+}
+
+
+
+
+#LED
+type PaginationLedBean{
+     pagination : Pagination    ##分页
+     list : [LedBean]    ##数据集合
+}
+#LED
+type LedBean{
+      id:String
+      name:String   ##led名称
+      oldName:String  ##原始名称
+      order:String   ## 排序
+      isDisPlay:Int  ##是否显示LED  0不显示  1显示
+      organizationParentId:String   ##上级机构id
+      organizationParentName:String  ##上级机构名称
+      isImportantCity:Int  ##是否重要城市  0 不是  1是
+}
+#LED
+input LedSaveInputInfo{
+      type:String
+      inputInfos:[ledInputInfo]
+}
+#LED
+input LedQueryInputInfo{
+   whetherPage : Boolean     ##是否分页查询 默认分页
+   pagination : PaginationInputInfo     ##分页条件
+   orgId:String
+   type:String   ##类型   vehicle 查询led-车辆  organization 查询led-机构
+   oldName:String  ##原始名称
+   name:String   ##led名称
+   isDisPlay:Int  ##是否显示LED  0不显示  1显示
+}
+#LED
+input ledInputInfo{
+      id:String
+      name:String   ##led名称
+      oldName:String  ##原始名称
+      order:String   ## 排序
+      isDisPlay:Int  ##是否显示LED  0不显示  1显示
+      organizationParentId:String   ##上级机构id
+      isImportantCity:Int  ##是否重要城市  0 不是  1是
+}
+
+## 接警用语规范
+input StandardQueryInputInfo{
+    keyword : String ##关键字搜索
+    tipsType : String ##提示类型
+    tipsContent : String ##提示内容
+    tipsKeyword : String  ##提示关键字
+    incidentBigType : String ##对应案件大类（火灾、救援）
+    incidentType : String ##对应案件类型
+    placeType : String ##受灾场地类型，重点单位的类型
+    incidentLevel : String ##案件等级
+    standardType : String ##规范类型
+}
+## 获取接警用语规范
+type StandardBean{
+    tipsType : String ##提示类型
+    tipsContent : String ##提示内容
+    tipsKeyword : String  ##提示关键字
+    incidentBigType : String ##对应案件大类（火灾、救援）
+    incidentType : String ##对应案件类型
+    placeType : String ##受灾场地类型，重点单位的类型
+    incidentLevel : String ##案件等级
+}
+## 伤亡人数统计
+type InjuriesAndDeathsBean{
+   startTime  : Long   ##开始时间
+   endTime  : Long   ##结束时间
+   injuriesNum : Long   ## 受伤人员总数
+   deathsNum : Long   ## 死亡人员总数
+   beans  : [InjuriesAndDeathsNumBean]   ##总数构成信息
+}
+## 伤亡人数分类统计
+type InjuriesAndDeathsNumBean{
+    dimensionCode : String  ##统计维度编码
+    dimensionName : String  ##统计维度名称
+    injuriesNum : Long   ## 受伤人员总数
+    deathsNum : Long   ## 死亡人员总数
+}
+## 重大案件判定规则
+input MajorIncidentRuleInputInfo{
+    id : String
+    incidentType : String  ##案件类型
+    ruleType : String  ##规则类型
+    judgmentValue : String  ##判定值
+    priority : Int  ##优先级
+    describe : String  ##描述
+}
+## 重大案件判定规则查询参数
+input MajorIncidentRuleQueryInputInfo{
+    id : String
+    incidentType : String ##案件类型
+    ruleType : String ##规则类型
+    judgmentValue : String ##判定值
+    priority : Int ##优先级
+    describe : String ##描述
+    whetherPage : Boolean     ##是否分页查询 默认分页
+    pagination : PaginationInputInfo    ##分页条件
+}
+## 获取重大案件判定规则
+type MajorIncidentRuleBean{
+    id : String ##主键id
+    createdTime  : String ##创建时间
+    updatedTime : String ##更新时间
+    operator : String ##创建人
+    valid  : Int ##有效性
+    incidentType : String ##案件类型
+    incidentTypeName : String##案件类型名称
+    ruleType : String ##规则类型
+    ruleTypeName : String ##规则名称
+    judgmentValue : String ##判定值
+    priority : Int ##优先级
+    describe : String ##描述
+}
+## 获取重大案件判定规则分页返回
+type PaginationMajorIncidentRuleBean{
+    pagination : Pagination
+    list : [MajorIncidentRuleBean]
+}
+
+
+##车辆状态查询
+input VehicleStateChangeQueryInputInfo{
+    whetherPage : Boolean     ##是否分页查询 默认分页
+    pagination : PaginationInputInfo     ##分页条件
+    brigadeOrganizationId:String ##所属大队
+    organizationId:String ##所属机构
+    vehicleState:String ##车辆状态
+}
+
+#车辆状态 非战斗
+type PaginationVehicleStatusChangeBean{
+    pagination : Pagination    ##分页
+    list : [VehicleStatusChangeBean]    ##数据集合
+}
+##车辆状态变动
+type VehicleStatusChangeBean{
+    id:String ##
+    vehicleStatusCode:String ##车辆状态名称
+    vehicleId:String ##车辆编号
+    handleOrganizationVehicleId:String ##调派单位车辆信息 （ 作战车辆信息 ）id
+    handleId:String ##处警记录ID
+    incidentId:String ##案件id
+
+    vehicleStatusName:String ##车辆状态名称
+    vehicleName:String ##装备名称 车辆名称
+    vehicleNumber:String ##车牌号码
+    brigadeOrganizationName:String ##所属大队
+    brigadeOrganizationId:String ##所属大队
+    remarks:String ##备注
+    personId:String ##用户编号
+    seatNumber:String ##坐席号
+    organizationName:String ##消防机构名称
+    organizationId:String ##消防机构编号
+    changeSource:Long ##变动来源
+    changeTime:Long ##变动时间
+}
+
+
+##排队早释查询
+input ReleaseCallQueryInputInfo{
+    orgId:String ##排队单位
+    endTime:Long ##开始时间
+    startTime:Long ##结束时间
+}
+##排队实体
+type ReleaseCallEntity{
+    id:String
+    valid:Int
+    operator:String
+    updatedTime:Long
+    createdTime:Long
+
+    releasedTime:Long ##早释时间（结束时间）
+    queuedTime:Long ##排队时间（振铃时间,开始时间）
+    callNumber:String ##主叫号码
+    personNumber:String ##工号
+    agentNumber:String ##坐席号
+    orgId:String ##排队单位
+    orgName:String ##名称
+
+
+}
+
+## 警情引导输入
+input IncidentGuidanceInputInfo {
+    FeedbackNumber : String             ## 反馈号码
+    AddressTextInfo : String            ## 地址文字信息
+    ReportDescription : String          ## 上报描述
+    whetherTrapped : String             ## 是否有被困人
+    documentSaveInputInfo : DocumentSaveInputInfo ## 原火场文书入参
+    attachmentSaveInputInfos : [AttachmentSaveInputInfo] ## 附件信息
+}
+
+##呼入记录查询输入
+input CtiCallQueryInputInfo{
+    whetherPage : Boolean     ##是否分页查询 默认分页
+    pagination : PaginationInputInfo     ##分页条件
+    personName:String ##人员姓名
+    phoneNumber:String  ##电话
+    startTime:Long   ##
+    endTime:Long  ##
+}
+##查询结果
+type PaginationCtiCallBean{
+    pagination : Pagination    ##分页
+    list : [CtiCallBean]    ##数据集合
+}
+type CtiCallBean{
+    personId:String ##用户id
+    duration:Int ##持续时间
+    endTime:Long ##结束时间
+    startTime:Long #呼入时间
+    agentNumber:Int #坐席号
+    calledNumber:String ##被叫号码
+    callNumber: String ##主叫号码
+    acd: String ##acd组
+    id: String ##主键
+    name: String ##用户名
+    orgName:String ##用户所属机构名称
+}
+
+#定位记录
+input LocationRecordInputInfo{
+    sort:Int #序号
+    locationType:String  #定位类型 LOCATION_LBS基站定位 LOCATION_GPS gps定位 LOCATION_MOBILE手机定位 LOCATION_WECHAT微信定位 LOCATION_SMS短信定位 LOCATION_MAP手动辅助定位 LOCATION_GHSZD固话三字段定位 LOCATION_NETWORK 互联网定位 LOCATION_KEYUNIT 重点单位定位  LOCATION_ADDRESS 地址定位  LOCATION_OTHER 其它定位
+    locationTime:Long  #定位时间
+    gis_x:Float  #维度
+    gis_y:Float  #经度
+    remark:String  #备注
+    incidentId:String  #案件id
+    address:String  #地址
+    acquisitionFlag: Int #采用标志1案件已采用0未采用
+    quickPicture: String #快速上图
+
+}
+
+#定位记录
+type LocationRecordBean{
+    id: String
+    sort:Int #序号
+    locationType:String  #定位类型code
+    locationTypeName: String##定位类型名称
+    locationTime:Long  #定位时间
+    gis_x:Float  #维度
+    gis_y:Float  #经度
+    remark:String  #备注
+    incidentId:String  #案件id
+    address:String  #地址
+    acquisitionFlag: Int #采集标志
+    quickPicture: String #快速上图
+
+}
+#审计日志参数
+input AuditLogParamInput{
+    #操作类型 350添加黑名单 360删除黑名单 570修改黑名单
+    operateTypes: [String]
+    #开始时间
+    startTime: Long
+    #结束时间
+    endTime: Long
+    #单据编号(黑名单电话号码)
+    documentNumber: String
+}
+#审计日志结果集
+type AuditPaginationBean {
+    #分页参数
+    pagination: Pagination
+    # 结果集
+    list: [AuditLogBean]
+
+}
+#审计日志类
+type AuditLogBean {
+    #操作时间
+    operateTime: Long
+    #操作类型
+    operateType: String
+    #操作类型name
+    operateTypeName: String
+    #消防机构id
+    organizationId: String
+    #消防机构名称
+    organizationName: String
+    #操作台号
+    operateSeatNumber: String
+    #操作台名称
+    operateSeatName: String
+    #接警员工号
+    acceptancePersonNumber: String
+    #接警员姓名
+    acceptancePersonName: String
+    #ip地址
+    ipAddress: String
+    #描述
+    desc: String
+    #备注
+    remarks: String
+    #单据编号
+    documentNumber: String
+    #相关单据编号
+    relevantDocumentNumber: String
+}
+##作战单元
+input CombatUnitInputInfo {
+    #新增时不传,修改删除时必须传,否则就默认是新增
+    id: String
+    #作战单元名称
+    unitName: String
+    #作战单元说明
+    content: String
+    #所属单位id如果不传则取登陆人所属单位
+    orgId: String
+    #所属单位名称
+    orgName: String
+    #队长id可以为空
+    unitPersonId: String
+    #队长姓名
+    unitPersonName: String
+    #队长联系电话
+    unitPersonPhone: String
+    #有效性，新增时可以不填1有效0无效代表删除如果valid为0则除id之外其他参数都不用传了
+    valid: Int
+    #车辆id集合,修改时也需要传该单元所有的车辆id
+    vehicleIds: [String]
+}
+##作战单元
+type CombatUnitBean {
+    #id
+    id: String
+    #作战单元名称
+    unitName: String
+    #作战单元说明
+    content: String
+    #所属单位id
+    orgId: String
+    #所属单位名称
+    orgName: String
+    #队长id
+    unitPersonId: String
+    #队长姓名
+    unitPersonName: String
+    #队长联系电话
+    unitPersonPhone: String
+    #编写人账号
+    authorAccount: String
+    #编写人名称
+    authorName: String
+    #默认为1
+    valid: Int
+    #明细(车辆)
+    itemBeans: [CombatUnitItemBean]
+    #单位数量
+    orgNum: Int
+    #车辆数
+    vehicleNum: Int
+}
+###作战单元明细
+type CombatUnitItemBean {
+    #明细id
+    id: String
+    #作战单元id
+    combatUnitId: String
+    #车辆id
+    vehicleId: String
+    #有效性默认为1
+    valid: Int
+    #是否可用1可用0不可用
+    available: Int
+    #车辆详细信息
+    vehicleBean: EquipmentVehicleBean
+}
+#作战单元参数
+input CombatUnitQueryInputInfo {
+    #关键字，匹配作战单元名称和说明
+    keyWord: String
+    #所属单位id如果不传则取登陆人所属单位
+    orgId: String
+    #是否分权分域,1向下递归查询 默认不递归
+    scope: Int
+    #队长姓名
+    unitPersonName: String
+    #分页参数
+    pagination: PaginationInputInfo
+}
+#作战单元结果集
+type PaginationCombatUnitBean {
+    list: [CombatUnitBean]
+    pagination: Pagination
+}
+#车辆调派频率统计参数
+input IncidentVehicleStatisticsInputInfo {
+    #统计开始时间 可不传
+    startTime: Long
+    #统计结束时间 可不传
+    endTime: Long
+    # 处置对象代码 可不传
+    disposalObjectCode: String
+    #案件等级代码 可不传
+    incidentLevelCode: String
+}
+#统计车辆调派分布情况 以案件处置对象、等级为维度统计车辆类型分布情况
+type StatisticsBean {
+    #案件等级代码
+    incidentLevelCode: String
+    #案件等级名称
+    incidentLevelName: String
+    #车辆总数
+    vehicleTotal: Int
+    #按照案件处置对象维度统计项
+    levelItems: [IncidentLevelDispatchVehicleBean]
+}
+#按照案件处置对象维度统计项
+type IncidentLevelDispatchVehicleBean {
+     #处置对象代码
+     disposalObjectCode: String
+     # 处置对象名称
+     disposalObjectName: String
+    #车辆总数
+    vehicleTotal: Int
+    #车辆类型统计
+    staticItems: [IncidentVehicleStatisticsBean]
+}
+#按照车辆类型统计
+type IncidentVehicleStatisticsBean {
+    #车辆类型code
+    vehicleTypeCode: String
+    #车辆类型名称
+    vehicleTypeName: String
+    #车辆总数
+    vehicleCount: Int
+}
+#调度方案使用记录保存参数
+input DispachPlanUsageRecordInputInfo {
+    #方案id 必填字段
+    planId: String
+    #方案类型 0预案调派 1方案调派 2等级调派 3作战单元调派
+    planType: String
+    #案件编号 必填字段
+    incidentId: String
+    #处警记录id 如果取不到则不填
+    handleId: String
+    #备注
+    remark: String
+}
+#排队早释类参数
+input ReleaseCallSaveInputInfo {
+    #排队单位
+    orgId:String
+    #坐席号
+    agentNumber:String
+    #排队时间（振铃时间,开始时间）
+    queuedTime:Long
+    #早释时间（结束时间）
+    releasedTime:Long
+    #工号
+    personNumber:String
+    #主叫号码
+    callNumber:String
+    #单位名称
+    orgName:String
+}
+#排队早释类
+type ReleaseCallBean {
+    #排队单位id
+    orgId: String
+    #排队单位名称
+    orgName: String
+    #坐席号
+    agentNumber: String
+    #排队时间（振铃时间,开始时间）
+    queuedTime:Long
+    #早释时间（结束时间）
+    releasedTime: Long
+    #工号
+    personNumber: String
+    #主叫号码
+    callNumber: String
+}
+
+type UpdateStandardBean{
+    id:String
+    valid: Int
+    tipsType:String
+    tipsContent:String
+    tipsKeyword:String
+    incidentBigType:String
+    incidentType:String
+    placeType:String
+    incidentLevel:String
+    standardType:String
+}
+input UpdateStandardInfo{
+    id:String
+    valid: Int
+    tipsType:String
+    tipsContent:String
+    tipsKeyword:String
+    incidentBigType:String
+    incidentType:String
+    placeType:String
+    incidentLevel:String
+    standardType:String
+}
+#智能推荐案件等级参数
+input GradeJudgeQueryParamBean{
+    #处置对象代码 必传
+    ajxx_czdxdm: String
+    #重要时段 不传默认为0
+    ajxx_zdsd:String
+    #案件描述
+    ajxx_ajms:String
+    #烟雾情况代码 默认0
+    xcxx_ywqkdm: String
+    #是否看到明火 默认0
+    xcxx_huoyan:String
+    #是否被困 默认0
+    xcxx_rybk:String
+    #被困人数 默认0
+    xcxx_bkrs: String
+    #受伤人数 默认0
+    xcxx_qzssrs: String
+    #处置对象描述
+    xcxx_czdxms:String
+    #燃烧面积
+    xcxx_rsmj: String
+    #灾害场所代码
+    jcj_zhcs:String
+    #重点单位uuid
+    jcj_zddw:String
+    #夜间警情,传案发时间或报警时间
+    jcj_yjjq: Long
+    #案件编号
+    ajxx_id: String
+}
+#推荐案件等级结果
+type GradeJudgeResultBean{
+    #id 推荐记录的id
+    id: String
+    #警情级别
+    fire_level: String
+    #运算时间
+    time: Int
+}
+#智能推荐案件调派力量参数
+input PowerTransferQueryParam {
+    #处置对象代码   必传
+    ajxx_czdxdm:String
+    #立案时间   必传
+    ajxx_lasj: String
+    #灾害类型代码（一级）   必传
+    ajxx_ajlxdm:String
+    #报警点x坐标
+    ajxx_gis_x:String
+    #报警点y坐标
+    ajxx_gis_y:String
+    #灾害等级代码
+    ajxx_ajdjdm:String
+    # 楼房层数
+    ajxx_lfcs:String
+    #消防机构x坐标
+    ajxx_xfjg_gis_x:String
+    #消防机构y坐标
+    ajxx_xfjg_gis_y:String
+    #案件描述
+    ajxx_ajms:String
+    #案件来源
+    ajxx_ajly:String
+    #敏感区域 默认0
+    ajxx_mgqy:String
+    #重点危险源 默认0
+    ajxx_zdwxy:String
+    #涉外区域 默认0
+    ajxx_swqy:String
+    #大风影响 默认0
+    ajxx_dfyx:String
+    #严寒影响 默认0
+    ajxx_yhyx:String
+    #重点时段 默认0
+    ajxx_zdsd:String
+    #缺水区域 默认0
+    ajxx_qsqy:String
+    #接警警情ID,来自于接处警系统,全局唯一
+    ajxx_id:String
+    #气象信息
+    ajxx_qxxxms:String
+    #主管中队消防机构id
+    ajxx_xfjgid:String
+}
+#推荐力量返回值
+type SmartRecommendVehicleBean{
+    #id 推荐记录的id
+    id: String
+    #推荐车辆详细信息,包含车辆类型、车辆推荐数量、匹配的车辆id、匹配车辆数量
+    recommendVehicleDetail:[HierarchicalDispatchVehicleBean]
+    #推荐给前端的车辆id,是recommendVehicleDetail中的汇总，方便前端快速获取
+    vehicleIds:[String]
+    #提示信息，当可调派车辆有缺额时提示
+    tips:String
+    #智能推荐调用时的参数
+    recommendParam:PowerTransferQueryParamBean
+    #智能推荐服务(AI)的返回值结果
+    recommendResult:PowerTransferResultBean
+}
+
+#智能推荐案件调派力量参数返回
+type PowerTransferQueryParamBean {
+    #处置对象代码   必传
+    ajxx_czdxdm:String
+    #立案时间   必传
+    ajxx_lasj: String
+    #灾害类型代码（一级）   必传
+    ajxx_ajlxdm:String
+    #报警点x坐标
+    ajxx_gis_x:String
+    #报警点y坐标
+    ajxx_gis_y:String
+    #灾害等级代码
+    ajxx_ajdjdm:String
+    # 楼房层数
+    ajxx_lfcs:String
+    #消防机构x坐标
+    ajxx_xfjg_gis_x:String
+    #消防机构y坐标
+    ajxx_xfjg_gis_y:String
+    #案件描述
+    ajxx_ajms:String
+    #案件来源
+    ajxx_ajly:String
+    #敏感区域 默认0
+    ajxx_mgqy:String
+    #重点危险源 默认0
+    ajxx_zdwxy:String
+    #涉外区域 默认0
+    ajxx_swqy:String
+    #大风影响 默认0
+    ajxx_dfyx:String
+    #严寒影响 默认0
+    ajxx_yhyx:String
+    #重点时段 默认0
+    ajxx_zdsd:String
+    #缺水区域 默认0
+    ajxx_qsqy:String
+    #接警警情ID,来自于接处警系统,全局唯一
+    ajxx_id:String
+    #气象信息
+    ajxx_qxxxms:String
+    #主管中队消防机构id
+    ajxx_xfjgid:String
+}
+type PowerTransferResultBean{
+    #调用结果
+    success:String
+    #推荐结果
+    force_name_nums:String
+    #耗时
+    time:Int
+    #推荐的装备车辆
+    equipment:[RecommendItemBean]
+}
+#推荐服务返回的力量明细
+type RecommendItemBean {
+    #车辆类型代码
+    code:String
+    #数量
+    num:Int
+    #分数
+    score:String
+}
+#确认智能推荐结果、差异原因
+input ConfirmSmartRecommendInputInfo {
+    #推荐记录id
+    id:String
+    #差异原因
+    causeOfDifference: String
+    #实际级别 当确认等级推荐时给该字段赋值
+    level:String
+    #实际调派力量 当确认力量调派推荐时给该字段赋值
+    dispatchVehicles:[VehicleTypeAndNumInputInfo]
+}
+#实际派车情况
+input VehicleTypeAndNumInputInfo {
+    #车辆类型code
+    vehicleTypeCode:String
+    #车辆类型名称
+    vehicleTypeName:String
+    #车辆数量
+    num:Int
+    #车辆id集合
+    vehicleIds:[String]
+}
+
+type PaginationSmartRecommendationBean{
+    pagination : Pagination    ##分页
+    list : [FindSmartRecommendationBean]    ##数据集合
+}
+
+type FindSmartRecommendationBean{
+
+    id:String
+
+    createdTime:String
+
+    updatedTime:String
+
+    operator:String
+
+    valid:String
+
+    incidentId:String
+
+    requestData:String
+
+    result:String
+
+    type:String
+
+    callManualNumber:String
+
+    callManualName:String
+
+    callUnitId:String
+
+    callUnitName:String
+
+    wasteTime:Long
+
+    callTime:Long
+
+    sjc:Long
+
+    actualResults:String
+
+    causeOfDifference:String
+
+    state:Int
+
+}
+
+input FindSmartRecommendationInfo{
+    callManualNumber:String
+
+    callUnitId:String
+
+    startTime;:Long
+
+    endTime:Long
+
+    type:String
+
+    incidentId:String
+
+    pagination : PaginationInputInfo     ##分页条件
+
+}

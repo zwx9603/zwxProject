@@ -1,0 +1,967 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+
+##查询方法
+type Query {
+
+    #### 测试 ####
+    testQuery( type : String  ) : Boolean
+
+    #### 通用 ####
+    getSystemTime  : Long
+    getSystemTimeType( type : Int ) : Long
+
+    #### 基础数据  系统配置 ####
+    ##强制更新全部字典信息
+    forceCacheDictionary ( type : String  ) : Boolean
+    ##根据字典定义编码获得列表字典项信息
+    findDictionaryByGrid ( type : String! ) : [DictionaryBean]
+    ##根据字典定义编码获得树形字典项信息
+    findDictionaryByTree ( type : String! ) : [DictionaryBean]
+
+    ##根据字典key集合获得字典信息
+    findDictionaryByType( dicsType : [String] ) : [DictionaryKeyBean]
+    ##获得全部默认的字典信息
+    findDictionaryByAll( key : String ) : [DictionaryKeyBean]
+
+    ##获得全部范围信息
+    findRegion( ids:[String]  ) :   [RegionBean]
+
+    ##根据条件获得车辆信息(分页)
+    findEquipmentVehicleCondition ( inputInfo : EquipmentVehicleQueryInputInfo! ) : PaginationVehicleBean
+    ##根据机构id获得 车辆信息
+    findEquipmentVehicleByOrganizationId ( organizationId : String ! ) : [EquipmentVehicleBean]
+    ##根据车辆ID查询车辆信息
+    findVehicle ( vehicleId : String! ) : EquipmentVehicleBean
+    ##根据车辆车牌号查询车辆信息
+    findVehicleNumber( vehicleNumber : String! ) : EquipmentVehicleBean
+
+
+    ##获得全部机构信息
+    findOrganizationAll ( organizationId : String ) : [OrganizationBean]
+    ##获得全部机构信息-树状
+    findTreeOrganization : [OrganizationBean]
+    ##根据机构性质 获得机构信息  0 总队 1 支队 2 大队 3救援站（中队）
+    findOrganizationNatureAll  ( squadronId : String  , nature : Int! ) : [OrganizationBean]
+    ##根据条件查询机构信息，返回结构分为列表结构信息以及树形结构信息
+    findOrganizationCondition ( inputInfo : OrganizationQueryInputInfo! ) : [OrganizationBean]
+    ##根据机构id获得机构详情
+    findOrganization ( organizationId : String! ) : OrganizationBean
+    ##根据机构id获得下级机构信息
+    findOrganizationChildren ( organizationId : String! ) : [OrganizationBean]
+    ##根据机构id获得平级机构信息
+    findOrganizationSamelevel ( organizationId : String! ) : [OrganizationBean]
+    ##根据机构id获得上级机构信息
+    findOrganizationHigherlevel ( organizationId : String! ) : OrganizationBean
+    ##根据机构id 获得 机构地方非消防机构车辆详情
+    findOrganizationLocalFullTimeUnitByOrganizationId ( organizationId : String! ) : [OrganizationLocalFullTimeUnitBean]
+    ##根据机构地方非消防机构车辆id获得机构地方非消防机构车辆详情
+    findOrganizationLocalFullTimeUnit ( organizationLocalFullTimeUnitId : String! ) : OrganizationLocalFullTimeUnitBean
+    ##根据机构id获得毗邻机构信息 (获取消防单位友缘度)
+    findAdjacentOrganization ( organizationId : String! ) : [OrganizationAdjacentPriorityBean]
+    ##根据条件获得消防装备(分页)
+    findEquipmentCondition ( inputInfo : EquipmentQueryInputInfo! ) : PaginationEquipmentBean
+    ##缓存车辆装载 设备信息
+    findEquipmentVehicleLoadCache ( organizationId  : String  ) : [EquipmentVehicleLoadBean]
+    ##根据车辆id获得 车辆装载 设备信息
+    findEquipmentVehicleLoadByVehicleId ( vehicleId  : String!  ) : [EquipmentVehicleLoadBean]
+    ##根据装备类型 获得 装载该装备的车辆id列表
+    findVehicleIdsByEquipmentTypeCode( equipmentTypeCode : String! ) : [String]
+    ##根据车辆拓展字典 查询车辆信息
+    findVehicleIdsByExpandCondition( inputInfo : EquipmentVehicleExpandQueryInputInfo! ) : [String]
+    ##根据装备关键 获得 装载该装备的车辆id列表
+    findVehicleIdsByEquipmentKeyWord( keyword : String! ) : [String]
+
+
+    ##根据联勤保障单位id 获得 联勤保障单位信息
+    findUnitJointService( unitJointServiceId : String! ) : UnitJointServiceBean
+
+    ##根据应急联动单位id  获得应急联动详情
+    findUnitEmergency( unitEmergencyId : String! ) : UnitEmergencyBean
+
+
+
+    ##根据 机构 人员名称模糊匹配 获得人员通信录
+    findPersonMailCondition ( organizationId  : String! , keyword  : String   ) : [PersonMailBean]
+    ##根据 机构 人员名称模糊匹配 获得人员信息
+    findPersonCondition ( organizationId  : String! , keyword  : String   ) : [PersonBean]
+    ##根据单位或人员编号获取单位或人员的联系方式(获取联系信息) 1单位  2人员
+    findContactNumber ( contactObjectId  : String! , contactType  : String!  ) : ContactNumberBean
+
+
+    ##查询系统配置
+    findSystemConfiguration ( configType : String ) : [SystemConfigurationBean]
+
+
+    ## acd查询
+    findAllAcd: [AcdBean]
+    ## 用户acd查询
+    getUserAcd(userId: String): [UserAcdBean]
+    ## 坐席acd查询
+    getAgentAcd(agentNumber: String ): [AgentAcdBean]
+
+    #### 警情信息  ####
+    ##全部警情状态为暂存警情信息
+    findIncidentTemp (  inputInfo : IncidentQueryInputInfo!  ) :   PaginationIncidentBean
+    ##根据接收对象id、警情地址模糊匹配、警情类型、警情等级查询未归档警情信息
+    findIncidentsReceiverObjectIdUnfinished ( inputInfo : IncidentQueryInputInfo!  ) : PaginationIncidentBean
+    ##根据辖区ID集合、警情地址模糊匹配、警情类型、警情等级查询未归档警情信息
+    findIncidentsUnfinished ( inputInfo : IncidentQueryInputInfo!  ) : PaginationIncidentBean
+    ##根据 过滤警情ids  辖区ID集合、警情地址模糊匹配、警情类型、警情等级查 询未归档警情信息
+    findIncidentsUnfinishedFilterIncident ( inputInfo : IncidentQueryInputInfo!  ) : PaginationIncidentBean
+    ##根据固定时间段 辖区ID集合、警情地址模糊匹配、警情类型、警情等级、警情状态查询警情信息(分页)  （ 昨天10点- 今日10点 ）
+    findIncidentFixedTimeCondition ( inputInfo : IncidentQueryInputInfo!  ) : PaginationIncidentBean
+    ##根据辖区ID集合、警情地址模糊匹配、警情类型、警情等级、警情状态、警情时间段查询警情信息(分页)
+    findIncidentCondition ( inputInfo : IncidentQueryInputInfo!  ) : PaginationIncidentBean
+    ##根据单据ID(变更数据id)查询最新标签 （businessTable 1为电话类型 businessDataId为businessDataId 报警人电话）
+    findTagLabel( businessDataId : String! , businessTable : String! ) :   TagLabelBean
+    ##根据条件 查询标签( businessTable必填 1为电话类型)
+    findTagLabelCondition( inputInfo : TagLabelQueryInputInfo ! ) :   PaginationTagLabelBean
+    ##获取接警处警提示 ( 根据案件类型和案件处置对象获取接警处警提示信息 or 根据案件类型和案件处置对象获取处警提示信息  )
+    findCommonTips( incidentTypeCode : String! , disposalObjectCode : String  ) : CommonTipsBean
+    ##根据案件id获取案件基础信息
+    findIncident (  incidentId  : String!  ) :   IncidentBean
+    ##根据案件id获取案件报警信息 ( 受理记录 )
+    findAcceptance (  incidentId  : String!  ) :   AcceptanceInformationBean
+    ##根据案件id获取案件非话务报警信息 ( 非话务报警 )
+    findUnTrafficAlarm (  incidentId  : String!  ) :   [UnTrafficAlarmBean]
+
+    ##根据案件id获取案件接警信息(电话报警记录)
+    findTelephone (  incidentId  : String!  ) :   TelephoneInformationBean
+
+    ##根据条件查询电话记录信息 分页
+    findTelephonePagination (  inputInfo  : TelephoneQueryInputInfo!  ) :   PaginationTelephoneBean
+
+    ##根据案件id获取案件状态信息
+    findIncidentStatusChange (  incidentId  : String!  ) :   [IncidentStatusChangeBean]
+    ##根据案件id获取案件附件
+    findAttachment (  incidentId  : String! ,  relationId  : String ) :   [AttachmentBean]
+    ##根据主案件id 获得 主案件信息  合并案件信息
+    findIncidentMerge (  incidentId  : String!  ) :  IncidentMergeBean
+    ##根据预警条件 查询预警信息
+    findEarlyWarning (  inputInfo  : EarlyWarningQueryInputInfo!  ) :  [EarlyWarningBean]
+    ##获取案件周边范围内案件
+    findScopeIncident (   longitude : String! , latitude : String!  , radius : String  ) :  [IncidentBean]
+    ##获取警情卷宗
+    findIncidentDossier (  incidentId  : String! ) : IncidentDossierBean
+    ##根据报警电话 获取固定电话信息
+    findPhoneLibraryByPhoneNumber (  phoneNumber  : String! ) : [PhoneLibraryBean]
+    ##根据报警电话 查询报警次数（报警记录个数）
+    findAlarmCount (  callingNumber  : String! ) : Long
+    ##根据条件查询黑名单
+    findBlacklistPhoneCondition( inputInfo : BlackListQueryInputInfo  ) :  PaginationBlacklistBean
+    ##根据电话号码查询 黑名单
+    findBlacklistByPhoneNumber( phoneNumber : String!  ) :  BlacklistBean
+
+
+    ##根据登录用户获得关注警情信息
+    findIncidentAttentionCondition ( inputInfo : IncidentQueryInputInfo!  ) : PaginationIncidentBean
+    ##获得重要警情信息
+    findIncidentImportantCondition ( inputInfo : IncidentQueryInputInfo!  ) : PaginationIncidentBean
+
+
+
+    #### 处警 调度  ####
+    ##根据案件编号获取接警时已经下达过预警指令的中队列表（获取预警中队）
+    findEarlyWarningOrganization (  incidentId : String! ) : [EarlyWarningBean]
+    ##根据车辆类型和数量获取具体车辆 ( 等级调派力量查询 )
+    findHierarchicalDispatchVehicle( inputInfo  : HierarchicalDispatchQueryInputInfo   ) : [HierarchicalDispatchBean]
+
+    ##根据案件id获取案件处警信息
+    findHandle (  incidentId  : String! ,   organizationId : String   ) :   [HandleBean]
+    ##根据案件id获取案件处警信息  根据首次/增援 单位分组
+    findHandleGroup (  incidentId  : String! ,   organizationId : String   ) :   [HandleGroupBean]
+
+    ##根据案件id查询出动单位信息
+    findIncidentHandleOrganization ( incidentId : String! ,   organizationId : String ) : [HandleOrganizationBean]
+
+    ##根据案件id查询出动车辆信息 根据首次/增援 单位排序
+    findIncidentHandleVehicle ( incidentId : String! ,   organizationId : String ) : [HandleOrganizationVehicleBean]
+
+    ##根据案件id查询出动装备信息
+    findIncidentHandleEquipment ( incidentId : String! ,   organizationId : String ) : [HandleOrganizationEquipmentBean]
+    ##根据案件id查询出动/返队人员信息
+    findIncidentParticipant ( incidentId : String!  ) : [ParticipantFeedbackBean]
+    ##根据案件id查询火场出入记录 ( 火场安全监控记录 )
+    findIncidentFireSafetyMonitoring ( incidentId : String! ) : [FireSafetyMonitoringBean]
+    ##根据警情id获得现场信息(文字信息)
+    findLocale ( incidentId : String!  ) : [LocaleBean]
+    ##根据警情id获得现场信息(文字信息)
+    findLocaleCondition ( inputInfo : LocaleQueryInputInfo!  ) : [LocaleBean]
+    ##查询结案反馈信息 （根据警情id获得事故信息）
+    findAccident ( incidentId : String!  ) : AccidentBean
+    ##查询文书信息 （根据警情id获得文书信息）
+    findDocument ( incidentId : String! , organizationId : String , type : String   ) : [DocumentBean]
+    ##查询文书参与单位信息
+    findDocumentOrganization ( incidentId : String!    ) : [OrganizationBean]
+    ##根据案件id 获得中队填报信息
+    findSquadronFillIn ( incidentId : String! ,  organizationId : String    ) : [SquadronFillInBean]
+    ##根据案件id查询 警情出动车辆信息（包含车载装备、出动人员）
+    findIncidentVehicle( incidentId : String!) : [HandleOrganizationVehicleBean]
+    ##根据案件id必填 查询 指令单信息
+    findInstructionCondition( inputInfo : InstructionQueryInputInfo!) : [InstructionBean]
+    ##根据案件id必填 其他条件 查询指令记录信息
+    findInstructionRecordCondition( inputInfo : InstructionRecordQueryInputInfo!) : [InstructionRecordBean]
+    ##根据案件id获得案件参与单位值班信息
+    findIncidentOrganizationOnDuty( incidentId : String!  ) : [OnDutySummaryBean]
+
+
+
+    #### 重点单位 预案  集合演练方案####
+    ##根据报警电话查询重点单位信息
+    findKeyUnitAlarmPersonPhone ( alarmPersonPhone : String! ) :  KeyUnitBean
+    ##根据查询条件获得重点单位列表
+    findKeyUnitAll(organizationId:String)   : [ KeyUnitSimpleBean  ]
+    ##根据查询条件获得重点单位列表
+    findKeyUnitCondition ( inputInfo : KeyUnitQueryInputInfo! ) : [ KeyUnitBean ]
+    ##根据预案编号查询重点单位详情
+    findKeyUnitPlanId ( planId : String! ) :  KeyUnitBean
+    ##根据重点单位编号查询重点单位详情
+    findKeyUnit ( keyUnitId : String! ) :  KeyUnitBean
+    ##根据案件id查询范围内重点单位id列表
+    findKeyUnitIncidentRange ( longitude : String! , latitude : String!  ) :  [String]
+
+    ##根据预案编号查询预案信息
+    findPlan ( planId : String! ) :  PlanBean
+    ##根据重点单位编号查询该重点单位所有预案
+    findPlanKeyUnitId ( keyUnitId : String! ) :  [ PlanBean ]
+    ##根据重点单位编号查询该重点单位所有预案 调派力量
+    findPlanDispatchKeyUnitId ( keyUnitId : String! ) :  [ PlanDispatchBean ]
+    ##根据预案id查询该预案 调派力量
+    findPlanDispatchByPlanId ( planId : String! ) :  [ PlanDispatchBean ]
+
+    ##根据重点单位id的集合 查询 预案中可调派车辆信息
+    findPlanDispatchSupplementKeyUnitId ( keyUnitId :  String ! ) :  [ PlanBean ]
+    ##等级调派方案查询
+    findHierarchicalDispatchCondition( inputInfo  : HierarchicalDispatchQueryInputInfo   ) : PaginationHierarchicalDispatchBean
+
+    ##根据id  获得集合演练方案
+    findDrillPlanById ( id : String! ) :  DrillPlanBean
+    ##根据条件查询集合演练方案列表(分页)
+    findDrillPlanCondition ( inputInfo : DrillPlanQueryInputInfo! ) :  PaginationDrillPlanBean
+
+
+    #### 统计 监控  ####
+    ##根据开始时间和结束时间查询 获得警情时间趋势图
+    findIncidentTimeTrend ( inputInfo : IncidentTrendQueryInputInfo!  ) : [TimeTrendBean]
+    ##根据辖区ID集合 警情地址模糊匹配 警情类型 警情等级 警情状态 警情时间段统计警情类型信息
+    findIncidentTypeStatistics ( inputInfo : IncidentStatisticsQueryInputInfo!  ) : DimensionAssembleStatisticsBean
+    ##根据辖区ID集合 统计处警量信息
+    findHandleStatistics ( inputInfo : HandleStatisticsQueryInputInfo!  ) : DimensionAssembleStatisticsBean
+
+    ##根据案件id 获得案件 出动力量统计结果
+    findHandlePowerStatistics( incidentId : String! ) :  IncidentPowerStatisticsBean
+    ##根据辖区ID集合 统计案件同环比（案件类型分类）
+    findIncidentTypeContrastStatistics ( scopeSquadronId : String! , scopeType : Int! ) : IncidentTypeContrastStatisticsBean
+    ##根据机构id，查询时间段内 子级机构 警情分类统计
+    findOrganizationDisasterStatistics ( inputInfo : IncidentStatisticsQueryInputInfo! ) : [OrganizationDisasterStatisticsBean]
+    ##根据时间段获得 辖区警情统计信息
+    findIncidentDistrictStatistics ( startTime : Long! , endTime : Long! , districtCode : String  ) : IncidentDistrictStatisticsBean
+
+    ##根据车辆统计参数 获得车辆状态统计信息
+    findVehicleStatusStatistics (  inputInfo : VehicleStatisticsQueryInputInfo! ) : DimensionAssembleNestingStatisticsBean
+    ##根据车辆统计参数 获得车辆类型统计信息
+    findVehicleTypeStatistics ( inputInfo : VehicleStatisticsQueryInputInfo! ) : DimensionAssembleNestingStatisticsBean
+    ##根据车辆统计参数 获得机构车辆统计信息
+    findVehicleOrganizationStatistics ( inputInfo : VehicleStatisticsQueryInputInfo! ) : DimensionAssembleNestingStatisticsBean
+
+
+    ##根据机构id 获得坐席状态统计数信息
+    findSeatStatusStatistics( organizationId : String! ) : DimensionAssembleStatisticsBean
+    ##根据时间段 辖区机构id 坐席号 人员工号 获得接警量时间趋势
+    findSeatAcceptanceTimeTrend( inputInfo : MonitorQueryInputInfo! ) :  [TimeTrendBean]
+    ##根据时间段  辖区机构id 坐席号 人员工号 获得警情量时间趋势
+    findSeatIncidentTimeTrend( inputInfo : MonitorQueryInputInfo! ) :  [TimeTrendBean]
+    ##根据时间段  辖区机构id 坐席号 人员工号 获得违规量时间趋势
+    findSeatViolationTrend( inputInfo : MonitorQueryInputInfo! ) :  [TimeTrendBean]
+    ##根据时间段 坐席号 人员工号 获得KPI信息包含(接警量、警情量、平均接警时长、平均处警时长、违规量)
+    findKPIStatistics( inputInfo : MonitorQueryInputInfo! ) :  KPIStatisticsBean
+
+
+
+
+
+    #### 值班值守  其他 ####
+    ##根据值班时间 机构id 获得本机构以及全部下级机构的值班信息
+    findAllOrganizationOnDuty (   organizationId : String! ) : [OnDutySummaryOrganizationBean]
+    ##根据值班时间 机构id 获得本机构值班信息
+    findOrganizationOnDuty (   organizationId : String! ) : [OnDutySummaryOrganizationBean]
+    ##根据值班时间 机构id 获得下级机构值班信息
+    findChildrenOrganizationOnDuty (  organizationId : String! ) : [OnDutySummaryOrganizationBean]
+    ##根据值班时间 机构id 获得机构管辖中队值班信息
+    findSquadronOrganizationOnDuty (  organizationId : String! ) : [OnDutySummaryOrganizationBean]
+
+    ##根据  行政区编码 获得天气信息 (
+    findWeather(   districtCode : String   ) : [WeatherBean]
+    ##根据机构id集合 关系类型集合 车辆id集合  车库id集合 获得车辆与车库关系
+    findVehicleGarageMapping (  inputInfo : VehicleGarageMappingQueryInputInfo  ) : [VehicleGarageMappingBean]
+
+    ##根据时间段 坐席号 人员编号 获得违规操作记录
+    findSeatViolation( inputInfo : MonitorQueryInputInfo! ) : PaginationViolationRecordBean
+    ##根据时间段 坐席号 人员编号 获得违规操作记录类型统计结果
+    findSeatViolationStatistics( inputInfo : MonitorQueryInputInfo! ) : DimensionAssembleStatisticsBean
+
+
+    ##根据条件 查询消息通知
+    findNewsCircularCondition( inputInfo : NewsCircularQueryInputInfo!) : PaginationNewsCircularBean
+    ##查询未接收的消息通知
+    findNewsCircularReceiverCondition( inputInfo : NewsCircularQueryInputInfo! ) : PaginationNewsCircularReceiverBean
+
+
+    #多条件查询审计日志(黑名单)
+    findAuditLog(condition: AuditLogParamInput,pagination: PaginationInputInfo): AuditPaginationBean
+    #智能推荐案件等级
+    recommendIncidentLevel(inputInfo:GradeJudgeQueryParamBean):GradeJudgeResultBean
+    #智能推荐案件调派力量
+    recommendHandleVehicleDetail(inputInfo:PowerTransferQueryParam):SmartRecommendVehicleBean
+    ###################################
+    ##agent
+    ###################################
+
+    # 获取所有坐席缓存
+    getAllAgentCache: [AgentBean]
+    # 根据坐席台号获取坐席
+    findAgentByAgentNumber (  agentNumber : String! ) :  AgentBean
+
+    # 获取全部座席
+    findAllAgent : [AgentBean]
+    # 获取指定类型坐席（不传返回所有）
+    findOnlineAgentByAgentType(agentTypes: [String]): [AgentBean]
+    # 获取在线的处警员和处警班长座席信息
+    findOnlineDispatchAgent  : [AgentBean]
+    #分权分域获取所有坐席
+    findAllAgentByAuthorization: [AgentBean]
+    #分权分域(向下)获取在线坐席
+    findAllOnlineAgentByAuthorization: [AgentBean]
+    ##分权分域获取所有坐席信息 以单位为条件分组
+    ##whetherOnline 是否只查询在线坐席 0 查询全部 1查询在线
+    findOrganizationGroupAgentByAuthorization( whetherOnline : Int ) : [GroupAgentBean]
+
+    #根据机构id 获得坐席信息
+    findAgentByOrganizationId( organizationId : String! ): [AgentBean]
+    #根据机构性质  查询 机构坐席信息 nature 0 总队 1 支队 2 大队 3救援站（中队）
+    findAgentByOrganizationNature ( nature : Int ) : [OrganizationAgentBean]
+
+    #根据条件查询上下岗记录
+    findSeatLogRecord ( inputInfo : MonitorQueryInputInfo ) : [LogRecordBean]
+
+    #分权分域获取所有非接警用户信息
+    findAllOnlineUserInfo   : [UserInfo]
+
+    #分权分域获取所有非接警用户信息
+    getAllUserInfoByAuthorization   : [UserInfo]
+    #分权分域获取所有非接警在线用户
+    findAllOnlineUserInfoByAuthorization  : [UserInfo]
+    #分权分域获取所有非接警用户信息 ( 不包含坐席登录用户信息 ) 以单位为条件分组
+    ##whetherOnline 是否只查询在线 0 查询全部 1查询在线
+    getOrganizationGroupUserInfoByAuthorization( whetherOnline : Int )  : [GroupUserInfo]
+
+    ###################################
+    ############   图上指挥  ##########
+    ###################################
+
+    ##时间类别查询战备信息
+    findCombatReadinessByType ( type : String ,showStartTime : Long ,showEndTime : Long ) : [CombatReadinessBean]
+    ##查询战备信息
+    findCombatReadiness ( id : String ) : CombatReadinessBean
+
+    ##文本预案条件查询
+    findPlanWordCondition ( inputInfo : PlanWordQueryInputInfo ) :  PaginationPlanWordBean
+    ##文本预案详情查看
+    findPlanWord ( id : String ) : PlanWordBean
+
+    ##查询重要警情规则
+    findIncidentImportantRuleCondition : [IncidentImportantRuleBean]
+
+    ##根據案件id查詢现场指挥员列表
+    findCommanderByIncidentId  ( incidentId : String ) : [CommanderBean]
+
+    ##集结点查询
+    findRallyPoint ( incidentId : String! ) : [RallyPointBean]
+    ##集结点详情
+    findRallyPointDetail ( rallyPointId : String! ) : RallyPointBean
+    ##集结项列表
+    findRallyItem ( incidentId : String! , rallyPowerId : String! ) : [RallyItemBean]
+
+    #根据常用短语类型 案件类型获得常用短语信息
+    findCommonPhrase(phraseType:String! ,incidentType : String ):[CommonPhraseBean]
+    #获取特别警示发布历史
+    findSecurityHistory(incidentId:String! ):  [SecurityBean]
+    #根据警情id 接收对象id 获得 安全提示信息
+    findSecurityReceiverList( incidentId : String! , receiverId : String!  ): [SecurityReceiverBean]
+
+
+
+
+    ##根据案件类型获取常用短语列表
+    getCommonPhraseList(incidentType:String!):[SecurityHintsBean]
+    #根据id获取常用短语详情
+    commonPhraseDetailsById(id:String!):SecurityHintsBean
+    #获取专家列表
+    findSmartExpertList(expertField:String,expertType:String,expertName:String):[ExpertBean]
+    #专家智能查询
+    findExpertList(keyword:String):[ExpertBean]
+    #获取专家详情
+    findExpertDetailById(id:String!):ExpertBean
+
+
+    #统计各个等级重点单位数量信息
+    countKeyUnitLevel : [KeyUnitLevelCountBean]
+    #综合展示不同时段的警情统计数据与趋势
+    countIncidentAndTrend(inputInfo:IncidentStatisticsAndTrendInputInfo):IncidentCountBean
+
+    ##重大灾害预警列表
+    findEarlyWarningImportant  ( currentTime : String ) : [EarlyWarningImportantBean]
+    ##根据id获得重大灾害预警信息
+    findEarlyWarningImportantById ( id : String ) : EarlyWarningImportantBean
+    ##战评列表
+    findActionSummary ( incidentId : String ) : [ActionSummaryBean]
+    ##根据id获得战评信息
+    findActionSummaryBeanById ( id : String ) : ActionSummaryBean
+    #领导列表
+    LeaderList(type:String):[LeaderBean]
+
+    ##警情总览
+    findIncidentSummary( incidentId : String! ) : IncidentSummaryBean
+    ##出动力量统计
+    findIncidentHandle(incidentId:String):DispatchAgencyBean
+    #查询排队电话
+    findQueueList:[ReleaseCallBean]
+
+
+    ##图上指挥卷宗
+    findIncidentDossierDrawing ( incidentId : String ) : IncidentDossierDrawingBean
+
+    ##要事提醒详情
+    importantReminderDetail(id:String):ImportantReminderBean
+    #要事提醒列表
+    listImportantReminder(inputInfo:ImportantReminderInputInfo,pageSize:Int!,pageNum:Int!):ImportantReminderBeanPageBean
+
+    #根据重点单位id查询文本预案
+    findPlanWordByKeyUnitId (keyUnitId : String ) : [PlanWordBean]
+    #通报对象列表
+    getUnitList(inputInfo:OrgUnitInfo):[QueryUnitBean]
+    #警情回溯
+    incidentReplayReady(id:String!):IncidentReplayBean
+
+    #舆情列表
+    findConsensusInformation : [ConsensusInformationBean]
+    #舆情id详情
+    findConsensusInformationById (id : String) : ConsensusInformationBean
+    #危化品列表
+    getDangerousChemicalsList(keyword:String):[DangerousChemicalsBean]
+
+
+    #值守力量
+    dutyPowerDetachment:DistrictChartOnDutyBean
+    dutyPowerBrigade(organizationId:String):DistrictChartBean
+
+    #消防栓基本信息
+    findFireHydrantBeanById(id:String):WaterBaseBean
+    #消防水池详情
+    findWaterPoolDetailsById(id:String):WaterBaseBean
+    #水鹤详情
+    findWaterCraneDetailsById(id:String):WaterBaseBean
+    #天然水源的详情
+    findNaturalWaterSourceDetailsById(id:String):WaterBaseBean
+    #取水码头的详情
+    findWaterIntakeWharfDetailsById(id:String):WaterBaseBean
+
+    #根据条件查询应急单位
+    findUnitEmergencyPage ( inputInfo:UnitEmergencyQueryInputinfo  ): PaginationUnitEmergencyBean
+    #根据坐标查范围内应急单位
+    findUnitEmergencyRange(longitude:String,latitude:String,radius:String): [UnitEmergencyBean]
+    #根据条件查询联勤保障单位
+    findUnitJointPage ( inputInfo:UnitJointServiceQueryInputinfo  ): PaginationUnitJointServiceBean
+    #根据坐标查范围内联勤保障单位
+    findUnitJointRange (longitude:String,latitude:String,radius:String): [UnitJointServiceBean]
+
+    #根据坐标查范围内的消防机构
+    findOrganizationRange (longitude:String,latitude:String,radius:String): [OrganizationBean]
+
+
+
+    #根据电话号编号查询交互记录
+    findAllInteractiveRecordByPhoneNum( phoneNum : String ): [InteractiveRecordBean]
+    ##根据报警流水 查询交互记录
+    findAllInteractiveRecordByAlarmNumber( alarmNumber : String ): [InteractiveRecordBean]
+    ##根据警情id 查询交互记录
+    findAllInteractiveRecordByIncidentId( incidentId : String ): [InteractiveRecordBean]
+
+    #根据起止时间，留言人留言内容模糊查询交接班日志
+    findHandoverRecordList(inputInfo:HandoverRecordQueryInputInfo):PaginationHandoverRecordBean
+
+    ##根据车辆id 集合字符串 逗号  获得车辆信息以及位置信息
+    findVehicleDeviceLocation( vehicleIds : String ) : [VehicleDeviceLocationBean]
+
+
+    ##消防转警 关系列表
+    findOrgRelationshipList( fireDeptId : String ) : [OrgRelationshipBean]
+    ##消防转警 关系列表
+    findOrgRelationship( fireDeptId : String! , transferType : String  ) : OrgRelationshipBean
+
+
+    #根据id查询案情自动升级提醒
+    findCaseAutoUpdateWarnById(id:String): CaseAutoUpdateWarnBean
+    #查询全部案情自动升级提醒
+    findCaseAutoUpdateWarn : [CaseAutoUpdateWarnBean]
+    #查询全部案情自动升级提醒
+    findCaseAutoUpdateWarnCondition ( inputInfo:CaseAutoUpdateWarnQueryInputInfo )  : [CaseAutoUpdateWarnBean]
+
+    #获取110警情卷宗
+    findIncidentDossier110(incidentId:String) : IncidentDossierVO
+
+
+    #根据警情ID 查询安全提示
+    findCommonTipsById(id:String):CommonTipsBean
+
+    #查询所有安全提示
+    findAllCommonTips :[CommonTipsBean]
+
+    #查询作战信息卡列表
+    listCombatInformation(organizationId:String!,whetherPage:Boolean,pagination:PaginationInputInfo):PaginationCombatInformationBean
+
+    #查询作战信息卡详情
+    detailCombatInformation(id:String!):CombatInformationBean
+
+    #查询车辆状态审批记录
+    findVehicleStatusChangeCheck(id:String!):[VehicleStatusChangeCheckBean]
+
+     ##根据坐标查范围内的微型站
+     findMiniatureStationRange (longitude:String,latitude:String,radius:String): [MiniatureStationBean]
+     #根据条件查询微站
+     findMiniatureStationCondition ( inputInfo:MiniatureStationQueryInputInfo  ): PaginationMiniatureStationBean
+     #根据id查询微站详情
+     findMiniatureStation ( miniatureStationId:String!  ) : MiniatureStationBean
+
+    ##根据警情id（必填） 调派单id 获得 微站调派信息
+    findHandleMiniatureStation( incidentId : String! , handleId : String ) : [HandleMiniatureStationBean]
+    ##根据案件id 调派微站记录id 获得微站反馈信息
+    findHandleMiniatureStationFeedback( incidentId : String! , handleMiniatureStationId : String ) : [HandleMiniatureStationFeedbackBean]
+
+    ##查询车辆人员信息
+    findVehiclePersonsByOrganizationId( organizationId : String! , commanderType : Int ) : [VehiclePersonsBean]
+
+    ##根据案件id查询 车辆人员信息 ( 条件判断 是否其他车辆指挥员显示 )
+    findVehiclePersonsByIncidentId( incidentId : String! , whetherNotCommander : Boolean ) : [ CommanderBean ]
+
+    ##查询用语规范
+    findStandard( inputInfo : StandardQueryInputInfo  ) :  [StandardBean]
+    ## 伤亡人数统计
+    findInjuriesAndDeaths( inputInfo : IncidentTrendQueryInputInfo!  ) : [InjuriesAndDeathsBean]
+    #根据条件查询重大案件判定规则
+    findMajorIncidentRule ( inputInfo:MajorIncidentRuleQueryInputInfo  ): PaginationMajorIncidentRuleBean
+
+     ##获得可接警机构信息
+    findReceiveOrganization  : [OrganizationBean]
+
+     #根据条件查询LED
+     findLedByOrgId ( inputInfo:LedQueryInputInfo  ): PaginationLedBean
+
+    ##查询非战斗状态车辆状态变动记录
+    findVehicleStateChangeRecord(inputInfo:VehicleStateChangeQueryInputInfo):PaginationVehicleStatusChangeBean
+
+    ##获取排队早释记录
+    findReleaseCalls(inputInfo:ReleaseCallQueryInputInfo):[ReleaseCallEntity]
+
+    ## 获取警情引导相关文书和附件
+    findIncidentGuidanceInfo (incidentId : String ) : [DocumentBean]
+    ##获取呼入记录
+    findCtiCallCondition(inputInfo:CtiCallQueryInputInfo):PaginationCtiCallBean
+
+    #根据警情id查询定位记录
+    getLocationRecord(incidentId:String):[LocationRecordBean]
+    #查询作战单元列表
+    findCombatUnit(inputInfo: CombatUnitQueryInputInfo): PaginationCombatUnitBean
+    #以案件处置对象、等级为维度统计调派车辆车辆类型分布情况(西咸)
+    statisticsVehicleDispatch(inputInfo: IncidentVehicleStatisticsInputInfo): [StatisticsBean]
+
+    findSmartRecommendationRecord(inputInfo: FindSmartRecommendationInfo):PaginationSmartRecommendationBean
+}
+
+##增 删 改方法
+type Mutation {
+
+
+    #### 测试 ####
+    testMutation( type : String  ) : Boolean
+
+    #### 基础数据 系统配置 ####
+    ##保存修改系统配置
+    saveSystemConfiguration ( inputInfo : SystemConfigurationSaveListInputInfo! ) : [SystemConfigurationBean]
+
+    ##根据系统配置id 是否启用 系统配置  valid 0不启用 1启用
+    enabledSystemConfig ( systemConfigId : String! , valid : Int!  ) :  SystemConfigurationBean
+
+    ##根据车辆ID修改车辆状态信息
+    updateVehicleStatus ( vehicleId : String! , vehicleStatusCode : String! , changeSource : String  ) : Boolean
+
+    ##根据车辆IDs集合修改车辆状态信息
+    updateVehicleListStatus ( vehicleIds : [String]! , vehicleStatusCode : String! , changeSource : String  ) : Boolean
+
+    ##修改车辆拓展信息
+    updateVehicleExpandInfo ( inputInfo : EquipmentVehicleExpandInputInfo! ) : EquipmentVehicleBean
+
+    ##修改车辆状态信息( 包含审核流程 )
+    updateVehicleStatusChangeCheck ( inputInfo : VehicleStatusChangeCheckSaveInputInfo  ) : Boolean
+    ##保存车辆审批结构 （ 同意/拒绝 ）
+    checkVehicleStatusChangeCheck (  inputInfo : VehicleStatusChangeCheckSaveInputInfo  ) : VehicleStatusChangeCheckBean
+
+    #### 警情信息 ####
+    ##生成警情id 受理id
+    buildIdsNoCalling (   alarmPhone : String ) : TelephoneBean
+    ##振铃时生成电话信息
+    ringSaveTelephoneRecord( callingTelephone : String! , calledTelephone : String , isCallback :  Boolean , incidentId : String  ) : TelephoneBean
+    ##摘机更新通话信息
+    pickUpUpdateTelephone( telephoneId : String! ) : TelephoneBean
+    ##上传录音号更新通话信息
+    upLoadSoundRecordUpdateTelephone( telephoneId : String! , agentCallRecordNum : String! ) : TelephoneBean
+    ##挂机更新通话信息
+    hangUpUpdateTelephone( telephoneId : String!  ) : TelephoneBean
+    ##挂机更新通话信息
+    updateTelephoneCoordinates( telephoneId : String! , longitude : String , latitude : String , height : String  ) : TelephoneBean
+    # 主动接管
+    monitorInsert(agentNum: Int): Boolean
+    # 班长插话
+    monitorBarge(agentNum: Int): Boolean
+    # 接警席收到主动接管推送警情
+    getmonitorInsertToPushCaseinfo(inputInfo: MonitotTakeOverIncidentInputInfo,agentNum: Int): Boolean
+    # 成功收到接警席主动接管推送的警情
+    getmonitorInsertToPushCaseinfoResult(inputInfo: MonitotTakeOverIncidentInputInfo,agentNum: Int): Boolean
+    #接警页面回呼操作
+    callback(inputInfo: CallBackSaveInputInfo ): TelephoneBean
+
+    # 接管警情服务
+    incidentCirculation( inputInfo:IncidentCirculationInputInfo ): Boolean
+    # 接管成功反馈
+    confirmIncidentCirculation( inputInfo :IncidentCirculationConfirmInputInfo ): Boolean
+
+    # 保存语音转写信息
+    saveVoiceTranscribe( inputInfo : VoiceTranscribeSaveInputInfo ): VoiceTranscribeBean
+
+
+    ##立案 ( 保存接警录入警单信息，通过处理类型来区分有效/无效警情 )
+    saveIncident ( inputInfo : IncidentSaveInputInfo  ) : IncidentBean
+    ##保存警情与调度
+    saveIncidentHandle( inputInfo : IncidentHandleSaveInputInfo ) : HandleIncidentBean
+    ##修改警情信息
+    updateIncident ( inputInfo : IncidentSaveInputInfo  ) : IncidentBean
+    ##警情合并
+    saveIncidentMerge ( inputInfo : IncidentMergeSaveInputInfo  ) : Boolean
+    ##警情拆分 ( 拆分过程 记录火场文书 )
+    saveIncidentSplit ( inputInfo : IncidentSplitSaveInputInfo  ) : Boolean
+    ##打标签接口
+    saveTagLabel ( inputInfo : TagLabelSaveInputInfo! ) : TagLabelBean
+    ##撤销标签接口
+    removeTagLabel ( tagLabelId : String! ) : Boolean
+    ##保存/修改 黑名单
+    saveBlacklist( inputInfo : BlacklistSaveInputInfo! ) : BlacklistBean
+    ##删除黑名单
+    removeBlacklist ( blacklistId : String! ) : Boolean
+    ##保存预警信息
+    saveEarlyWarning ( inputInfo : EarlyWarningListSaveInputInfo  ) : [EarlyWarningBean]
+    ##根据预警ids变更预警状态为1通知状态
+    changeEarlyWarningStatus ( inputInfo : IdsInputInfo!   ) : Boolean
+    ##根据预警id 预警类型 通知单位id 取消预警信息
+    removeEarlyWarning (  incidentId : String! , earlyWarningType : String  ,organizationId: String) : Boolean
+    ##警情删除
+    removeIncident ( incidentId : String!  ) : Boolean
+    ##警情控制火势
+    controlFire ( incidentId : String!  ) : Boolean
+    ##基本扑灭
+    extinguishFire ( incidentId : String!  ) : Boolean
+    ##警情结案
+    finishIncident ( incidentId : String!  ) : Boolean
+
+    ##警情取回复审
+    recheckIncident ( incidentId : String!  ) : Boolean
+
+    ##警情归档
+    archiveIncident ( incidentId : String!  ) : Boolean
+
+
+    ##警情状态变更
+    updateIncidentStatus ( incidentId : String! , statusCode : String!   ) : Boolean
+    ##虚实警转换
+    updateIncidentNature ( incidentId : String! ,incidentNature : String!  ) : Boolean
+    ##修改警情地址
+    updateIncidentAddress ( inputInfo : IncidentSaveInputInfo  ) : IncidentBean
+    # 警情关注
+    saveAlarmAttention(incidentId:String!,attentionType: Int! ,type: Int!): AttentionBean
+    # 警情取消关注
+    deleteAlarmAttention(incidentId:String!,attentionType: Int!,type: Int!): Boolean
+    # 警情保存群组信息
+    saveIncidentGroup( incidentId:String!   , incidentGroupId: String! ): Boolean  ## incidentId 警情id  incidentGroupId群组id
+
+
+
+    #### 处警 调度  ####
+
+    ##保存调派
+    saveHandle( inputInfo : HandleSaveInputInfo ) : HandleBean
+    ##处警单位 签收接口
+    updateHandleStatus( incidentId : String! , handleId : String! ,  organizationId : String! ,  handleWay : Int!    ) : HandleBean
+    ##保存通话记录( 调度日志 )
+    saveDispatchDailyRecord  ( inputInfo : DispatchDailyRecordSaveInputInfo! ) : DispatchDailyRecordBean
+    ##保存短信记录
+    saveSMS  ( inputInfo : SendSMSSaveInputInfo! ) : SendSMSBean
+    ##请求增援
+    saveReinforcementAsk  ( inputInfo : ReinforcementAskSaveInputInfo! ) : ReinforcementAskBean
+    ##设置出动/返队人员
+    saveParticipant ( inputInfo : ParticipantSaveInputInfo! ) : [ParticipantFeedbackBean]
+    ##出入火场登记( 保存火场安全监控 )
+    saveFireSafetyMonitoring ( inputInfo : FireSafetySaveInputInfo! ) : [FireSafetyMonitoringBean]
+    ##保存现场反馈信息( 指令 集结力量反馈 )
+    saveLocale ( inputInfo : LocaleSaveInputInfo! ) : LocaleBean
+    ##保存结案反馈 （保存事故情况）
+    saveAccident ( inputInfo : AccidentSaveInputInfo!  ) : AccidentBean
+    ##保存修改警情文书
+    saveDocument ( inputInfo : DocumentSaveInputInfo! ) : DocumentBean
+    ##修改案件车辆状态信息( 多车 )
+    updateIncidentVehicleStatus ( inputInfo : IncidentVehicleStatusUpdateInputInfo! ) : Boolean
+    ##修改案件车辆状态信息( 单车 )
+    buildIncidentVehicleStatus ( incidentId : String!, handleId : String , vehicleId  : String!, vehicleStatusCode : String!, changeSource : String! ) : Boolean
+    ##保存 中队填报信息（无使用场景）
+    saveSquadronFillIn ( inputInfo : SquadronFillInSaveInputInfo! ) : SquadronFillInBean
+    ##保存指令单信息
+    saveInstruction ( inputInfo : InstructionSaveInputInfo! ) : InstructionBean
+    ##保存指令单处理信息
+    saveInstructionRecordHandle ( inputInfo : InstructionRecordHandleSaveInputInfo! ) : Boolean
+
+
+    #### 重点单位 预案  集合演练方案####
+    ##等级调派方案保存
+    saveHierarchicalDispatch ( inputInfo  : HierarchicalDispatchSaveInputInfo   ) : HierarchicalDispatchBean
+    ##根据等级调度id 移除等级调度
+    removeHierarchicalDispatch ( hierarchicalDispatchId  : String!   ) : Boolean
+    ##重点单位预案保存
+    saveKeyUnitPlan ( inputInfo : PlanSaveInputInfo!   ) : PlanBean
+    ##保存  集合演练方案
+    saveDrillPlan ( inputInfo : DrillPlanSaveInputInfo!   ) : DrillPlanBean
+    ##根据id移除集合演练方案
+    removeDrillPlan ( id  : String!   ) : Boolean
+
+
+    #### 值班值守  其他 ####
+
+    ##保存修改违规记录
+    saveViolation ( inputInfo : ViolationSaveInputInfo  ) : ViolationRecordBean
+    ##保存天气信息
+    saveWeather ( inputInfo : WeatherSaveInputInfo  ) : WeatherBean
+    ##保存中队车辆与车库门对应关系
+    saveVehicleGarageMapping ( inputInfo : VehicleGarageMappingSaveListInputInfo  ) : [VehicleGarageMappingBean]
+
+    #### 调用第三方服务接口 ####
+    ##转警
+    transferOutIncident( inputInfo : OutsideInputInfo ) : Boolean
+    ##错位接警
+    dislocationIncident( inputInfo : OutsideInputInfo) : Boolean
+    ##请求协助
+    assistIncident( inputInfo : OutsideInputInfo ) : Boolean
+    ##错位接警保存录音信息
+    dislocationRelayRecordNumber( dislocationId : String! , relayRecordNumber : String ) : Boolean
+
+
+    ##保存通知信息
+    saveNewsCircular ( inputInfo : NewsCircularSaveInputInfo! ) : NewsCircularBean
+    ##根据消息接收者id 变更消息接收状态为 已接收
+    receiveNewsCircular ( inputInfo : IdsInputInfo!   ) : Boolean
+    ########保存或更新作战单元信息
+    saveOrUpdateCombatUnit(inputInfo: CombatUnitInputInfo): CombatUnitBean
+    ###################################
+    ##agent
+    ###################################
+    # 更改坐席状态
+    changeAgentState(agentNum: String,agentState: Int,phone: String): AgentBean
+    # 更改坐席操作状态
+    changeAgentOperateState(agentNum: String,agentOperateState: Int,phone: String): AgentBean
+    # 更改坐席话务状态
+    changeAgentPhoneState(agentNum: String,agentPhoneState: Int,phone: String,meetingMark: String,remotePhone: String): AgentBean
+
+    #申请休眠
+    applyChangeToSleep(reasonCode: String,reason: String): Boolean
+    #审核休眠
+    auditSleep(inputInfo: AuditAgentSleepParam): Boolean
+    #休眠/解除休眠
+    changeSleepState(operate: String,dormancyCode: String): Boolean
+    #强制退出服务
+    forceQuit(agentNum: String,account: String,userinfoNum: String): Boolean
+    #新增排队电话
+    saveQueueCall(inputInfo:ReleaseCallSaveInputInfo):Boolean
+    #删除排队电话,结束排队
+    removeQuenceCall(callNum: String):Boolean
+
+
+    ###################################
+    ############  图上指挥 ############
+    ###################################
+
+
+
+    ##值班文件等工作事项的录入
+    saveCombatReadiness ( inputInfo : CombatReadinessInputInfo ) : CombatReadinessBean
+    ##值班文件等工作事项的删除
+    removeCombatReadiness ( id : String ) : Boolean
+
+    ##文本预案详情保存
+    savePlanWord ( inputInfo : PlanWordInputInfo  ) : PlanWordBean
+    ##文本预案详情删除
+    removePlanWord ( id : String ) : Boolean
+
+
+    ##重要警情规则信息修改
+    saveIncidentImportant  ( inputInfo : IncidentImportantRuleSaveInputInfo ) : IncidentImportantRuleBean
+    ##删除重要警情规则
+    removeIncidentImportant  ( incidentImportantRuleId : String! ) : Boolean
+    ##启用重要警情规则
+    enabledIncidentImportant  ( incidentImportantRuleId : String! ) : Boolean
+    ##判断警情是否为重要警情
+    judgeIncidentImportant  ( incidentId : String! ) : Boolean
+
+
+    ##保存集结点集结项
+    saveOrUpdateRallyPoint ( inputInfo : RallyPointSaveTargetInputInfo! ) : [RallyPointBean]
+    ##移除集结点
+    removeRallyPoint ( inputInfo : RallyPointDeleteTargetInputInfo! ) : Boolean
+    ##保存集结项反馈（集结力量反馈）
+    saveRallyItemFeedback ( inputInfo : RallyItemFeedbackSaveInputInfo! ) : Boolean
+
+
+    ##救援圈设定保存修改
+    saveIncidentCircle ( inputInfo : IncidentCircleSaveInputInfo ) : IncidentCircleBean
+    ##指挥保存
+    saveCommand ( inputInfo : CommandSaveInputInfo ) : CommandBean
+    ##现场指挥员保存
+    saveCommander ( inputInfo : CommanderSaveInputInfo ) : CommanderBean
+    ##现场指挥员删除
+    removeCommander  ( id : String ) : Boolean
+    ##现场指挥员集合保存
+    saveCommanderList ( inputInfo : CommanderListSaveInputInfo ) : Boolean
+
+
+    ##根据ID删除重大灾害预警信息列表显示
+    removeEarlyWarningImportant ( id : String ) : Boolean
+
+
+    ##根据ID删除战评
+    removeActionSummary ( id : String ) : Boolean
+    ##保存战评
+    saveActionSummary ( inputInfo : ActionSummarySaveInputInfo ) : ActionSummaryBean
+
+    #保存要事提醒
+    saveImportantReminder(inputInfo:ImportantReminderInputInfo): Boolean
+    #删除要事提醒
+    deleteImportantReminder(id:String):Boolean
+
+    ##预警信息保存
+    saveEarlyWarningImportant ( inputInfo : EarlyWarningImportantSaveInputInfo  ) : EarlyWarningImportantBean
+
+    #保存常用短语
+    saveCommonPhrase(inputInfo:CommonPhraseSaveInputInfo):  CommonPhraseBean
+    #删除常用短语
+    removeCommonPhrase(commonPhraseId:String):Boolean
+    #下达特别警示
+    saveSecurity(inputInfo:SecurityInputInfo!):Boolean
+    #根据安全提示对象ids 签收安全提示信息
+    signSecurityHints(inputInfo:IdsInputInfo!):Boolean
+
+
+    #根据ajid,clid,cllx 设置头车（尾车）
+    saveHandleVehicleIdentification(incidentId:String,vehicleId:String,vehicleIdentification:String) : Boolean
+
+    #保存交互记录
+    saveInteractiveRecord( inputInfo:InteractiveRecordSaveInputInfo , alarmNumber : String ): InteractiveRecordBean
+    #保存交互记录 与警情关系
+    saveInteractiveRecordToIncident( alarmNumber:String , incidentId : String ): Boolean
+    #锁定非话务
+    lockUncallAccept( id : String ): Boolean
+    #删除非话务
+    uncallAcceptListDelete ( id : String ):Boolean
+
+    #保存交接班日志
+    saveHandoverRecord(inputInfo:HandoverRecordSaveInputInfo):HandoverRecordBean
+    #删除交接班日志
+    deleteHandoverRecord(ids:[String]!):Boolean
+
+
+     #保存 发送短信定位信息
+     saveSMSLocation( inputInfo : UserSMSLocationVO  ) : Boolean
+     ##添加消防转警关系
+     saveOrgRelationship( inputInfo : OrgRelationshipSaveInputInfo ) : OrgRelationshipBean
+     ##删除消防转警关系
+     deleteOrgRelationship( ids:[String]! ) : Boolean
+    # 删除自动升级提醒
+    removeCaseAutoUpdateWarn(id :String):Boolean
+    # 保存自动升级提醒
+    saveCaseAutoUpdateWarn(inputInfo:CaseAutoUpdateWarnInputInfo):CaseAutoUpdateWarnBean
+
+
+    # 保存安全提醒
+    saveCommonTips(inputInfo:CommonTipsInputInfo) : CommonTipsBean
+    #删除安全提示
+    removeCommonTips(ids:[String]!) : Boolean
+    #保存作战信息卡
+    saveCombatInformation(inputInfo:CombatInformationInputInfo):CombatInformationBean
+
+    #删除作战信息卡
+    deleteCombatInformation(id:String!):Boolean
+    #删除预案
+    deletePlan(ids:[String]):Boolean
+    #保存重点单位
+    saveKeyUnit ( inputInfo : KeyUnitSaveInputInfo ) : KeyUnitBean
+    #删除重点单位
+    deleteKeyUnit(ids:[String]):Boolean
+
+     #保存微站调派
+     saveHandleMiniatureStation ( inputInfo : HandleSaveInputInfo  ): HandleBean
+     #保存微站调派反馈
+     saveHandleMiniatureStationFeedback ( inputInfo : HandleMiniatureStationFeedbackSaveInputInfo  ): HandleMiniatureStationFeedbackBean
+
+     #保存修改微型消防站信息
+     saveMiniatureStation ( inputInfo : MiniatureStationSaveInputInfo  ): MiniatureStationBean
+     #根据 id 集合移除机构信息
+     removeMiniatureStation ( ids:[String] ): Boolean
+     #微型消防站 更新经纬度 地址信息
+     saveMiniatureStationLocation ( inputInfo : MiniatureStationSaveInputInfo  ): MiniatureStationBean
+
+
+     ##保存车辆人员信息
+     saveVehiclePersons( inputInfo : VehiclePersonsSaveInputInfo! ) : Boolean
+
+      ##维护LED
+      saveLed( inputInfo : LedSaveInputInfo ) : Boolean
+
+      ##更新 值班信息 （ 主要更新 联系人 联系方式 ）
+      updateOnDuty( inputInfo : OnDutySummarySaveInputInfo ) : Boolean
+
+     ##保存重大案件规则
+     saveMajorIncidentRule( inputInfo : MajorIncidentRuleInputInfo ) : MajorIncidentRuleBean
+     ##修改重大案件规则
+     updateMajorIncidentRule( inputInfo : MajorIncidentRuleInputInfo ) : MajorIncidentRuleBean
+     deleteMajorIncidentRule( ids:[String]! ) : Boolean
+
+    ##保存排队早释记录
+    saveReleaseCall(inputInfo : ReleaseCallSaveInputInfo):Boolean
+    ## 保存警情引导文书
+    saveIncidentGuidance (inputInfo : IncidentGuidanceInputInfo ) : DocumentBean
+
+    #保存定位记录
+    saveLocationRecord(inputInfo:LocationRecordInputInfo):LocationRecordBean
+    #保存调派方案记录
+    saveDispatchPlanUsageRecord(inputInfo: DispachPlanUsageRecordInputInfo): Boolean
+
+    #修改，新增，删除 警情提示
+    savaOrRemoveStandard(inputInfo:UpdateStandardInfo):UpdateStandardBean
+    # 确认智能推荐结果、差异原因
+    confirmSmartRecommend(inputInfo:ConfirmSmartRecommendInputInfo):Boolean
+
+}
+
+
+enum OperateType {
+    SAVE, DELETE, REGISTRY
+}
+

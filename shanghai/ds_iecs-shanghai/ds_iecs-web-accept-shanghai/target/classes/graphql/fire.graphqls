@@ -1,0 +1,963 @@
+## 图上指挥 input  type 管理
+
+##图上指挥宗卷
+type IncidentDossierDrawingBean{
+    incidentId : String ##事件id
+    incidentBean : IncidentBean ##警情详情
+    acceptanceInformationBean  : AcceptanceInformationBean ##受理单记录
+    handleOrganizationVehicleBeanList :  [HandleOrganizationVehicleBean]    ##根据案件id获得车辆信息
+    securityHintsBeanList : [SecurityHintsBean] ##特别警示
+    rallyPoint :  [RallyPointBean]   ##任务部署记录
+    attachmentBeanList : [AttachmentBean]  ##附件
+    telephoneInformationBean : TelephoneInformationBean ##电话报警信息
+    commanderBeanList : [CommanderBean]  ##指挥员信息
+    keyUnitBean : KeyUnitBean  ##重点单位信息
+    approvals : [InstructionBean] ##批示
+    askExpertBeanList : [InstructionBean] ##咨询专家
+    askAndReportBeanList : [InstructionBean] ##请示汇报
+    instructionBeanList : [InstructionBean]  ##下达指令
+    notifiedBeanList : [InstructionBean]  ##通报
+    contactBeanList : [InstructionBean]   ##联系
+    documentBeanList : [DocumentBean] ##火场文书列表
+}
+
+
+##警情总览
+type IncidentSummaryBean{
+    incidentId : String  ##案件id
+    incidentBean : IncidentBean     ##案件基础信息
+    keyUnitBean : KeyUnitBean ##重点单位
+    commanderBeanList : [CommanderBean] ##指挥员
+    handleOrganizationVehicleBeanList :  [HandleOrganizationVehicleBean]     ## 警情出动车辆信息（包含车载装备、出动人员)
+}
+
+
+##预案信息记录 ( 预案文本信息 )
+type PlanWordBean{
+    id : String  ##主键
+    planTypeCode : String ## 预案统计分类
+    incidentTypeCode : String ##案件类型编码
+    planName : String  ##预案名称
+    organizationCode : String ##预案使用机构编码
+    whetherKeyUnit : Int ##是否重点单位预案
+    keyUnitId : String ##重点单位id
+    remarks : String ##备注
+    attachmentBean :  [AttachmentBean]  ##附件信息集合
+}
+
+##预案信息记录 ( 预案文本信息 )
+input PlanWordInputInfo{
+    id : String  ##主键
+    planTypeCode : String ## 预案统计分类
+    incidentTypeCode : String ##案件类型编码
+    planName : String  ##预案名称
+    organizationCode : String ##预案使用机构编码
+    whetherKeyUnit : Int ##是否重点单位预案
+    keyUnitId : String ##重点单位id
+    remarks : String ##备注
+    attachmentSaveInputInfo :  [AttachmentSaveInputInfo] ##附件信息集合
+}
+
+
+##预案信息记录 ( 预案文本信息 )
+input PlanWordQueryInputInfo{
+    whetherPage : Boolean ##是否分页(默认分页)
+    pagination : PaginationInputInfo     ##分页条件
+}
+
+##预案分页
+type PaginationPlanWordBean{
+    pagination : Pagination    ##分页
+    list : [PlanWordBean]    ##数据集合
+}
+
+
+
+
+
+##战备信息等工作事项的录入
+input CombatReadinessInputInfo{
+    id : String ##主键
+    type : String ## 事项类型 1 会议通知 2 待办事项 3领导批示 4工作状态 5 值班文件
+    title : String ## 事项标题
+    content : String ##事项内容
+    showStartTime : Long  ##事项显示开始时间 如未传如时间 默认保存开始时间
+    showEndTime : Long ## 事项显示开始时间 如未传如时间 默认保存当天结束时间
+    expand1 : String ## 拓展根据事项类型自行决定
+    expand2 : String ## 拓展根据事项类型自行决定
+    expand3 : String ## 拓展根据事项类型自行决定
+    remarks : String ##备注
+}
+
+##战备信息等工作事项的bean
+type CombatReadinessBean{
+    id : String  ##主键
+    type : String ## 事项类型 1 会议通知 2 待办事项 3领导批示 4工作状态 5 值班文件
+    title : String ## 事项标题
+    content : String ##事项内容
+    showStartTime : Long  ##事项显示开始时间 如未传如时间 默认保存开始时间
+    showEndTime : Long ## 事项显示开始时间 如未传如时间 默认保存当天结束时间
+    expand1 : String ## 拓展根据事项类型自行决定
+    expand2 : String ## 拓展根据事项类型自行决定
+    expand3 : String ## 拓展根据事项类型自行决定
+    remarks : String ##备注
+}
+
+##救援圈设定录入
+input IncidentCircleSaveInputInfo{
+    id : String ##主键
+    incidentId : String ##案件ID
+    radius : String ##半径
+}
+
+##救援圈设定bean
+type IncidentCircleBean{
+    id : String ##主键
+    incidentId : String ##案件ID
+    radius : String ##半径
+
+}
+##指挥录入
+input CommandSaveInputInfo{
+    id : String     ##主键
+    incidentId : String ##案件ID
+    startOrganizationId : String       ##启动单位ID
+    startOrganizationName : String   ##启动单位名称
+    initiatorId  : String       ##启动人ID
+    initiatorName : String    ##启动人名字
+    startTime   : Long  ##启动时间
+    endTime : Long           ##结束时间
+    typicalIncident : String   ##是否典型案例
+}
+
+##指挥bean
+type CommandBean{
+    id : String     ##主键
+    incidentId : String ##案件ID
+    startOrganizationId : String       ##启动单位ID
+    startOrganizationName : String   ##启动单位名称
+    initiatorId  : String       ##启动人ID
+    initiatorName : String    ##启动人名字
+    startTime   : Long  ##启动时间
+    endTime : Long           ##结束时间
+    typicalIncident : String  ##是否典型案例
+}
+##现场指挥员录入
+input CommanderListSaveInputInfo{
+    incidentId : String ##案件id
+    commanderList : [ CommanderSaveInputInfo ]
+}
+
+##现场指挥员录入
+input CommanderSaveInputInfo{
+    id : String   ##主键
+    incidentId  : String ##案件id
+    commandId  : String ##指挥id
+    commanderType : String ##指挥员现场类型 (1:总指挥,2:副指挥,3:指挥长)
+    vehicleId  : String ##车辆id
+    personNum : Int ## 车辆指挥员  车载人员数 （ 包含指挥员 ） 默认 0
+    commanderId : String ##指挥员id
+    commanderName : String ##指挥员名称
+    commanderDuty : String ##指挥员职务
+    commanderDutyName : String ##指挥员职务
+    driver  :   String ##驾驶员
+    correspondent  :   String ##通讯员
+    mobilePhone : String ##指挥员联系电话
+    telephone : String ##指挥员联系 固定电话
+    organizationId : String ##指挥员所在机构id
+    organizationName : String ##指挥员所在机构名称
+    arriveTime : Long ##指挥员到达时间
+    backTime : Long ##指挥员返回时间
+}
+
+##现场指挥员Bean
+type CommanderBean{
+    id : String ##主键
+    incidentId  : String ##案件id
+    commandId  : String ##指挥id
+    commanderType : String ##指挥员现场类型 (1:总指挥,2:副指挥,3:指挥长 4 指挥员 5车辆指挥员 )
+    vehicleId  : String ##车辆id
+    vehicleName  : String ##车辆名称
+    vehicleNumber  : String ##车牌号码
+    personNum : Int ## 车辆指挥员  车载人员数 （ 包含指挥员 ） 默认 0
+    commanderId : String ##指挥员id
+    commanderName : String ##指挥员名称
+    commanderDuty : String ##指挥员职务
+    commanderDutyName : String ##指挥员职务
+    driver  :   String ##驾驶员
+    correspondent  :   String ##通讯员
+    mobilePhone : String ##指挥员联系电话
+    telephone : String ##指挥员联系 固定电话
+    organizationId : String ##指挥员所在机构id
+    organizationName : String ##指挥员所在机构名称
+    arriveTime : Long ##指挥员到达时间
+    backTime : Long ##指挥员返回时间
+}
+
+##重大灾害预警信息录入
+input EarlyWarningImportantInputInfo{
+    type : String          ##预警类型
+    title : String           ##预警标题
+    content : String         ##预警内容
+    publishTime : Long     ##发布时间
+    effectiveTime : String         ##有效时间
+    publisherid : String       ##发布人id
+    publisher : String       ##发布人姓名
+    publishUnitid : String     ##发布单位id
+    publishUnit : String    ##发布单位名称
+    remarks : String     ##备注
+}
+##重大灾害预警信息录入
+input EarlyWarningImportantSaveInputInfo{
+    id : String  ##主键
+    type : String          ##预警类型
+    title : String           ##预警标题
+    content : String         ##预警内容
+    publishTime : Long     ##发布时间
+    effectiveTime : String         ##有效时间
+    publisherId : String       ##发布人id
+    publisher : String       ##发布人姓名
+    publishUnitId : String     ##发布单位id
+    publishUnit : String    ##发布单位名称
+    remarks : String     ##备注
+}
+
+
+##重大灾害预警信息bean
+type EarlyWarningImportantBean{
+    id : String     ##主键
+    type : String          ##预警类型
+    title : String           ##预警标题
+    content : String         ##预警内容
+    publishTime : Long     ##发布时间
+    effectiveTime : String         ##有效时间
+    publisherId : String       ##发布人id
+    publisher : String       ##发布人姓名
+    publishUnitId : String     ##发布单位id
+    publishUnit : String    ##发布单位名称
+    remarks : String     ##备注
+}
+
+##战评总结保存
+input ActionSummarySaveInputInfo{
+    id : String ##主键
+    incidentId : String ##事件ID
+    commandId : String ##指挥ID
+    evaluatorOrganizationId : String ##战评人所属机构ID
+    evaluatorOrganizatioName : String ##战评人所属机构名称
+    evaluatorPersonId : String ##战评人ID
+    evaluatorPersonIName : String ##战评人姓名
+    evaluationTime : Long ##战评时间
+    score : String ##战评分数
+    content : String ##战评内容
+    procedure : String ##表示评价的是那个战斗环节
+    procedureTime : Long ##战评事件环节时间
+    experience : String ##经验总结
+    lesson : String ##教训总结
+    label : String ##标签
+    remarks : String ##备注
+}
+
+##战评总结Bean
+type ActionSummaryBean{
+    id : String ##主键
+    incidentId : String ##事件ID
+    commandId : String ##指挥ID
+    evaluatorOrganizationId : String ##战评人所属机构ID
+    evaluatorOrganizatioName : String ##战评人所属机构名称
+    evaluatorPersonId : String ##战评人ID
+    evaluatorPersonIName : String ##战评人姓名
+    evaluationTime : Long ##战评时间
+    score : String ##战评分数
+    content : String ##战评内容
+    procedure : String ##表示评价的是那个战斗环节
+    procedureTime : Long ##战评事件环节时间
+    experience : String ##经验总结
+    lesson : String ##教训总结
+    label : String ##标签
+    remarks : String ##备注
+}
+
+
+
+##指挥过程记录bean
+type CommandProcessBean{
+    instructionRecordBeanList : [InstructionRecordBean]
+}
+
+
+
+
+
+
+##重大警情规则参数
+input IncidentImportantSaveInputInfo{
+    id : String     ##主键
+    combatVehicleNum : Int     ##出动车辆数量维度
+    deathsNumber : Int      ##死亡人数
+    deathsState : Int      ##死亡人数标
+    disposalObject : String     ## 处置对象维度
+    incidentLevelCode : String     ##案件等级维度
+    incidentTypeCode : String     ##案件类型维度
+    injuredNumber : Int      ##受伤人数
+    injuredState : Int     ## 受伤标识
+    keyword : [String]      ##规则关键字
+    overtime : Long       ##超时时间 毫秒为计量单位
+    title : String     ## 模板标题
+    trappedCount : Int     ## 人员被困数
+    trappedState : Int      ##人员被困标识
+}
+
+##重要警情保存参数
+input IncidentImportantRuleSaveInputInfo{
+    id : String     ##主键
+    title  : String    ##模板标题
+    incidentTypeCode  : String   ##案件类型维度
+    incidentLevelCode : String   ##案件等级维度
+    disposalObject  : String    ##处置对象
+    trappedEnable : Int    ##人员被困启用标识 0不启用 1 启用
+    trappedNumber  : Int   ## 人员被困数
+    injuredEnable  : Int   ## 人员受伤启用标识  0不启用 1 启用
+    injuredNumber  : Int    ##受伤人数
+    deathsEnable  : Int    ##人员死亡启用标识  0不启用 1 启用
+    deathsNumber : Int    ##死亡人数
+    combatVehicleNum  : Int   ##出动车辆数量维度
+    keyword : String   ##关键字维度 逗号分隔
+    overtime      : Long     ##超时时间 毫秒为计量单位
+}
+
+
+##重大警情规则Bean
+type IncidentImportantRuleBean{
+    id : String     ##主键
+    title  : String    ##模板标题
+    whetherEnable : Int     ##是否启用模板 0 不启用  1启用
+    incidentTypeCode  : String   ##案件类型维度
+    incidentLevelCode : String   ##案件等级维度
+    disposalObject  : String    ##处置对象
+    trappedEnable : Int    ##人员被困启用标识 0不启用 1 启用
+    trappedNumber  : Int   ## 人员被困数
+    injuredEnable  : Int   ## 人员受伤启用标识  0不启用 1 启用
+    injuredNumber  : Int    ##受伤人数
+    deathsEnable  : Int    ##人员死亡启用标识  0不启用 1 启用
+    deathsNumber : Int    ##死亡人数
+    combatVehicleNum  : Int   ##出动车辆数量维度
+    keyword : String   ##关键字维度
+    overtime      : Long     ##超时时间 毫秒为计量单位
+}
+
+##集结点Bean
+type RallyPointBean{
+    id  : String    ##主键
+    incidentId  : String   ## 事件ID
+    commandId : String   ## 指挥ID
+    rallyPointCode  : String   ##集结点编号
+    rallyPointType : String   ## 集结点类型   SCENE_HEADQUARTERS( 现场指挥部 )  OPERATIONAL_TASK( 作战任务点 )  VEHICLE_AGGREGATION( 车辆集结点 )   EQUIPMENT_AGGREGATION( 器材集结点 ) LOGISTIC_SERVICE( 后勤保障点 )
+    rallyPointName : String   ## 集结点名称
+    rallyPointDesc : String   ## 集结点描述
+    rallyPointStatus : String   ##集结点状态 SAVED 保存  SENT下达
+    rallyPointTime  : Long   ##集结时间
+    rallyPointContacts  : String   ## 联系人
+    rallyPointPhone  : String   ## 联系人电话
+    longitude  : String   ## 经度
+    latitude : String   ## 纬度
+    customcredit1 : String   ## 保留字段1
+    customcredit2  : String   ## 保留字段2
+    remarks  : String   ## 备注
+    rallyItemBeans  : [RallyItemBean]   ##集结项信息
+}
+
+##集结项实体信息Bean
+type RallyItemBean{
+    id : String    ##主键
+    incidentId : String   ## 事件ID
+    commandId : String   ## 指挥ID
+    rallyPointId : String   ## 集结点ID
+    rallyPowerType : String   ## 集结力量类型 VEHICLE ( 车辆 ) ORGANIZATION 机构 可拓展
+    rallyPowerId : String   ##   集结力量ID
+    rallyPowerName : String   ## 集结力量名称
+    organizationId : String   ## 所属消防机构ID
+    organizationName : String   ## 所属消防机构名称
+    customcredit1 : String   ## 保留字段1
+    customcredit2 : String   ## 保留字段2
+    remarks : String   ## 备注
+    rallyPointBean : RallyPointBean ## 集结点信息
+}
+
+##集结反馈信息Bean
+type RallyItemFeedbackBean{
+    id : String    ##主键
+    incidentId : String   ## 事件ID
+    commandId : String   ## 指挥ID
+    rallyPointId : String   ## 集结点ID
+    rallyItemId : String   ## 集结项ID
+    feedbackObjectId : String   ## 反馈对象id
+    feedbackObjectName : String   ## 反馈对象名称
+    feedbackOrganizationId : String   ## 反馈单位编码
+    feedbackOrganizationName : String    ## 反馈单位名称
+    writerName : String   ## 填写人
+    feedbackContent : String   ## 反馈内容
+    feedbackTime : Long   ## 反馈时间
+    customcredit1 : String   ## 保留字段1
+    customcredit2 : String   ## 保留字段2
+    remarks : String   ## 备注
+}
+##集结反馈查询参数
+input RallyItemFeedbackQueryInputInfo{
+    incidentId : String   ## 事件ID
+    commandId : String   ## 指挥ID
+    rallyPointId : String   ## 集结点ID
+    rallyItemId : String   ## 集结项ID
+    feedbackObjectId : String   ## 反馈对象id
+    keyword : String    ##关键字
+}
+##集结点目标保存参数
+input RallyPointSaveTargetInputInfo{
+    incidentId : String   ## 事件ID
+    commandId : String   ## 指挥ID
+    organizationId : String   ## 部署机构ID
+    organizationName  : String   ## 部署机构名称
+    personId : String   ## 部署人Id
+    personName : String   ## 部署人名称
+    rallyPoints : [RallyPointSaveInputInfo]   ## 集结点集合
+}
+
+##集结点保存修改参数
+input RallyPointSaveInputInfo{
+    id : String   ## 主键
+    rallyPointCode : String   ##集结点编号
+    rallyPointType : String   ## 集结点类型 SCENE_HEADQUARTERS( 现场指挥部 )  OPERATIONAL_TASK( 作战任务点 )  VEHICLE_AGGREGATION( 车辆集结点 )   EQUIPMENT_AGGREGATION( 器材集结点 ) LOGISTIC_SERVICE( 后勤保障点 )
+    rallyPointName : String   ## 集结点名称
+    rallyPointDesc : String   ## 集结点描述
+    rallyPointStatus : String   ##集结点状态 SAVED 保存  SENT下达
+    rallyPointTime : Long   ##集结时间
+    rallyPointContacts : String   ## 联系人
+    rallyPointPhone : String   ## 联系人电话
+    longitude : String   ## 经度
+    latitude : String   ## 纬度
+    customcredit1 : String   ## 保留字段1
+    customcredit2 : String   ## 保留字段2
+    remarks : String   ## 备注
+    rallyItems : [RallyItemSaveInputInfo]    ## 集结项（集结力量）
+}
+
+##集结项保存修改参数
+input RallyItemSaveInputInfo{
+    id : String   ## 主键
+    rallyPowerId : String   ## 集结项Id
+    rallyPowerType : String   ## 集结项类型   VEHICLE( 车辆 ) PERSON( 人员 ) EQUIPMENT( 装备 ) ORGANIZATION( 机构 )
+    rallyPowerName : String   ## 集结项名称
+    organizationId : String   ## 所属消防机构ID
+    organizationName : String   ## 所属消防机构名称
+    customcredit1 : String   ## 保留字段1
+    customcredit2 : String   ## 保留字段2
+    remarks : String   ## 备注
+}
+
+##集结点删除参数
+input RallyPointDeleteTargetInputInfo{
+    rallyPointId : String     ##任务点id
+    organizationId : String   ## 部署机构ID
+    organizationName : String   ## 启动机构名称
+    personId : String   ## 部署人Id
+    personName : String   ## 部署人名称
+}
+
+##集结反馈保存修改参数
+input RallyItemFeedbackSaveInputInfo{
+    id : String   ## 主键
+    incidentId : String   ## 事件ID
+    commandId : String   ## 指挥ID
+    rallyPointId : String   ## 集结点ID
+    rallyItemId : String   ## 集结项ID
+    feedbackObjectId : String   ## 反馈对象id
+    feedbackObjectName : String   ## 反馈对象名称
+    feedbackOrganizationId : String   ## 反馈单位编码
+    feedbackOrganizationName : String    ## 反馈单位名称
+    writerName : String   ## 填写人
+    feedbackContent : String   ## 反馈内容
+    customcredit1 : String   ## 保留字段1
+    customcredit2 : String   ## 保留字段2
+    remarks : String   ## 备注
+}
+#特别警示
+type SecurityHintsBean{
+    incidentType:String #事件类型
+    phraseTitle:String #短语标题
+    phraseContent:String #短语内容
+    organizationId:String #所属单位ID
+    remarks:String #备注
+    phraseType:String #短语类型
+    id:String
+}
+
+
+##要事提醒输入信息
+input ImportantReminderInputInfo{
+
+    id:String    #要事提醒id
+    title: String    #要事标题
+    context: String    #要事内容
+    personid: String    #填写人id
+    personUnitId: String    #填写人单位id
+    personName: String    #填写人姓名
+    releaseTime: Long    #发布时间
+    personUnitName: String    #填写人单位名称
+    remarks: String     #备注
+    beginTime: Long    #开始时间
+    endTime: Long    #结束时间
+
+}
+
+##要事提醒显示信息
+type ImportantReminderBean{
+    id:String    #要事提醒id
+    title: String    #要事标题
+    context: String    #要事内容
+    personid: String    #填写人id
+    personUnitId: String    #填写人单位id
+    personName: String    #填写人姓名
+    releaseTime: Long    #发布时间
+    personUnitName: String    #填写人单位名称
+    remarks: String     #备注
+}
+
+
+#要事提醒分页
+type ImportantReminderBeanPageBean{
+    pagination:Pagination
+    list:[ImportantReminderBean]
+}
+
+#涉消舆情
+input ConsensusInformationInputInfo{
+    id : String ##主键
+    title : String  ##舆情标题
+    content : String  ##舆情内容
+    publishedTime : Long  ##发布时间
+    publishedUnit : String  ##发布单位名称
+    publisher : String  ##发布人名称
+    remarks : String ##备注
+}
+#涉消舆情记录
+type ConsensusInformationBean{
+    id : String ##主键
+    title : String  ##舆情标题
+    content : String  ##舆情内容
+    publishedTime : Long  ##发布时间
+    publishedUnit : String  ##发布单位名称
+    publisher : String  ##发布人名称
+    remarks : String ##备注
+}
+
+
+#常用短语 输入
+input CommonPhraseSaveInputInfo{
+    id:String  #id
+    phraseType : String   ##短语类型
+    incidentType : String   ##事件类型
+    phraseTitle : String   ##短语标题
+    phraseContent : String   ##短语内容
+    organizationId : String   ##所属单位ID
+    remarks : String  ##备注
+}
+
+
+#常用短语 输入
+type CommonPhraseBean{
+    id:String  #id
+    phraseType : String   ##短语类型
+    incidentType : String   ##事件类型
+    phraseTitle : String   ##短语标题
+    phraseContent : String   ##短语内容
+    organizationId : String   ##所属单位ID
+    organizationName  : String   ##所属单位名称
+    remarks : String  ##备注
+}
+
+#特别警示信息输入
+input SecurityInputInfo{
+
+    incidentId:String  #事件ID
+    commandId:String  #指挥ID
+    title:String  #标题
+    content:String  #安全提示内容
+    effectiveTime:Long  #有效时间
+    senderName:String  #发送人姓名
+    writerId:String  #填写人ID
+    remark:String  #备注
+    receivers:[SecurityReceiverInputInfo]  #接收者
+}
+
+#特别警示记录输入信息
+input SecurityReceiverInputInfo{
+    receiverId:String #接收者ID
+    receiverType:String #接收者类型（单位、终端、人）
+    remark:String #备注
+}
+
+
+#特别警示信息
+type SecurityBean{
+    id:String  #特别警示id
+    incidentId:String ##事件ID
+    commandId:String ##指挥ID
+    remark:String ##备注
+    notificationTime:Long  #通知时间
+    effectiveTime:Long  #有效时间
+    title:String  #标题
+    content:String  #安全提示内容
+    senderName:String  #发送人姓名
+    writerId:String  #填写人ID
+    receivers:[SecurityReceiverBean]  #受令对象列表
+}
+
+#特别提示接收者历史记录
+type SecurityReceiverBean{
+    id:String #特别提示记录ID
+    incidentId:String ##事件ID
+    commandId:String ##指挥ID
+    securityHintsId:String #安全提示ID
+    receiverId:String #接收者ID
+    receiverType:String #接收者类型
+    #
+    #    ORGANIZATION("ORGANIZATION","机构"),
+    #    VEHICLE("VEHICLE","车辆"),
+    #    PERSON("PERSON","人员"),
+    #    SAFEGUARDUNIT("SAFEGUARDUNIT","联勤单位"),
+    #    EMERGENCYUNIT("EMERGENCYUNIT","联动单位"),
+    #    TERMINAL_EQUIPMENT("TERMINAL_EQUIPMENT","终端设备"),
+    #
+    notificationTime:Long #通知时间
+    signTime :Long #签收时间
+    remarks :String #备注
+    securityBean : SecurityBean ##安全提示内容
+}
+
+
+#通报对象查询输入
+#联勤联动单位查询
+input OrgUnitInfo{
+    type: String
+    incidentId: String
+    ##分页
+    pageBean: pageBeanInput
+}
+input pageBeanInput{
+    ## 是否分页查询
+    isByPage : Boolean
+    ## 分页开始
+    page : Int
+    ##分页条数
+    size : Int
+    ##总条数
+    total : Int
+}
+#单位查询
+type QueryUnitBean{
+    #ID
+    id: String
+    #单位名称
+    unitName: String
+    #单位地址
+    unitAddr: String
+    #联系人
+    contacts: String
+    #联系电话
+    mobilePhone: String
+    #emergencyunit（应急联动）或safeguardunit（联勤保障）
+    unitType: String
+    #单位描述
+    context: String
+    supportability:String #保障能力
+    longitude:String #经度
+    latitude:String #纬度
+    distance:String #距离
+}
+type pageBean{
+    ## 是否分页查询
+    isByPage : Boolean
+    ## 分页开始
+    page : Int
+    ##分页条数
+    size : Int
+    ##总条数
+    total : Int
+}
+type PageQueryUnitBean{
+    data:[QueryUnitBean]
+    page:pageBean
+}
+#警情回溯结果
+type IncidentReplayBean {
+    #警情基本信息
+    baseInformation: IncidentInfoBaseInfoBean
+    #警情指挥序列
+    commands: [CommandSequenceBean]
+}
+#警情回溯 警情基本信息
+type IncidentInfoBaseInfoBean {
+    #警情ID
+    incidentId: String
+    #警情类型
+    incidentType: String
+    #立案时间
+    registerEventTime: Long
+    #案发地址
+    address: String
+    #警情状态名称
+    incidentStatus: String
+    #案发时间
+    occur: Long
+    #事件来源（立案方式）
+    incidentSource: String
+    #警情等级
+    incidentLevel: String
+    #报警方式类型
+    alarmMode: String
+    #报警人
+    alarmPerson: String
+    #联系方式
+    alarmPersonPhone: String
+    #录音号
+    alarmTapeNo: String
+    #灾害场所
+    disasterSites: String
+    #烟雾情况
+    smogSituation: String
+    #建筑结构
+    buildingStructure: String
+    #被困人数
+    trappedPersonsNumber: String
+    #伤亡情况
+    #casualties: String
+    deathCount:String #死亡人数
+    injuredCount:String #受伤人数
+    #燃烧面积
+    burningArea: String
+    #燃烧楼层
+    burnFloor: String
+    #楼房层数
+    storeysOfBuildings: String
+    #主管中队ID
+    fireSquadronId: String
+    #主管中队名称
+    fireSquadronName: String
+    #燃烧物 处置对象名称
+    disposalObject: String
+    #危险性
+    risk: String
+    #注意事项
+    notes: String
+    #事故主要情况
+    majorSituation: String
+    #经度
+    longitude: String
+    #纬度
+    latitude: String
+    #行政区
+    district: String
+    #描述，补充信息
+    description: String
+    #重点单位
+    keyUnitBean: KeyUnitBean
+    #是否启动指挥
+    isStartCommand: Boolean
+    #指挥姓名
+    commanderName: String
+    #指挥电话
+    commanderPhone: String
+    #案件结束时间
+    endTime: Long
+    #战评总结
+    actionSummarys: [ActionSummaryBean]
+}
+#警情回溯 指挥序列
+type CommandSequenceBean {
+    #指挥ID
+    commandId: String
+    #启动指挥时间
+    startCommandTime: Long
+    #结束指挥时间
+    endCommandTime: Long
+    #环节异常信息
+    errorInfo: [ErrorInfoBean]
+    #警情环节集合
+    processSteps: IncidentProcessStepBean
+}
+#警情回溯 环节异常信息
+type ErrorInfoBean {
+    #异常类型
+    errorType: String
+    #异常信息
+    errorDescribe: String
+}
+#警情回溯 警情环节集合
+type IncidentProcessStepBean {
+    #警情状态代码
+    statusCode: String
+    #警情状态名称
+    statusName: String
+    #环节开始时间
+    startTime: Long
+    #环节结束时间
+    endTime: Long
+    #持续时间
+    duration: Long
+    timeNodes: [TimeNodeBean]
+}
+#警情回溯 时间节点集合
+type TimeNodeBean {
+    #时间
+    time: Long
+    #包围圈半径
+    surroundingCircleRadius: Float
+    #出动力量
+    dispatchPower: [VehiclePowerBean]
+    #任务部署，集结点
+    taskDeployment: [RallyPointBean]
+}
+#警情回溯 出动力量
+type VehiclePowerBean {
+    #车辆ID
+    vehicleId: String
+    #状态代码
+    statusCode: Int
+    #状态名称 如出动，到场，出水等等
+    status: String
+    #车辆名称
+    vehicleName: String
+    #车牌号
+    vehicleNumber: String
+    #定位编号
+    locationNumber: String
+}
+
+
+###危化品
+type DangerousChemicalsBean{
+    whpBhyqy:String ##饱和蒸汽压
+    whpBmjctj: String ##避免接触的条件
+    whpBzbz: String ## 危险货物包装标志
+    whpBzlx: String ##包装类别
+    whpBzsx: String ## 爆炸下限
+    whpBzxx: String ## 爆炸上限
+    whpCas :String ##CAS号
+    whpCyzysx: String ##储运注意事项
+    whpDlxlbtssbj: String ## 大量泄漏白天疏散半径
+    whpSlxlyjssbj: String # 少量泄漏夜间疏散半径
+    whpDlxlglbj: String ## 大量泄漏隔离半径
+    whpDlxlyjssbj: String ## 大量泄漏夜间疏散半径
+    whpDx: String ## 毒性
+    whpFd: String ## 沸点
+    whpFhf: String ## 防护服
+    whpFzl: String ## 分子量
+    whpFzs: String ##分子式
+    whpGckz: String ## 工程控制
+    whpHxxtfh: String ## 呼吸系统防护
+    whpImdg: String ## IMDG规则页码
+    whpJcxz: String ## 接触限值
+    whpJghyfj: String ##建规火险分级
+    whpJhwh: String ## 聚合危害
+    whpJjw: String ## 禁忌物
+    whpJkwh: String ## 健康危害
+    whpLjwd: String ##临界温度
+    whpLjyl: String ## 临界压力
+    whpMhff: String ## 灭火方法
+    whpNm: String ##危险品内码
+    whppfjcwh: String ##皮肤接触危害
+    whpQrtj: String ##侵入途径
+    whpRd: String ##熔点
+    whpRjx: String ## 溶解性
+    whpRsfjcw: String ##燃烧分解产物
+    whpRsr: String ## 燃烧热
+    whpRtecs: String ##RTECS号
+    whpSd: String ## 闪点
+    whpSlxlbtssbj: String ## 少量泄漏白天疏散半径
+    whpSlxlglbj: String ##少量泄漏隔离半径
+    whpSrwh: String ## 食入危害
+    whpSsx: String ##燃烧性
+    whpUn: String ##UN编号
+    whpWdx: String ## 稳定性
+    whpWgh: String ##危险货物编号
+    whpWgxz: String ## 外观与性状
+    whpWxtx: String ##危险特性
+    whpWxxlb: String ##危险性类别
+    whpXdmds: String ## 相对密度水
+    whpXdmdkq: String ##相对密度空气
+    whpXlcz: String ## 泄漏处置
+    whpxrwh: String ##吸入危害
+    whpYjfh: String ## 眼睛防护
+    whpYjjcwh: String ## 眼睛接触危害
+    whpYwmc: String ##英文名
+    whpZrwd: String ##自燃温度
+    whpZwmc: String ## 中文名
+    whpZysx: String ## 注意事项
+    whpZyyt: String ## 主要用途
+    whpsfh: String ##手防护
+    id:String
+}
+
+## 保存案件等级提醒
+input CaseAutoUpdateWarnInputInfo{
+    # id
+    id :String
+    #案件类型
+    caseType:String
+    #提醒类型
+    warnType:String
+    #最小值
+    minimum:String
+    #最大值
+    maximum:String
+    #对象字典值
+    disposalObjectCode:String
+    #案件等级
+    incidentLevelCode:String
+    #描述
+    describe:String
+}
+## 案件等级提醒Bean
+type CaseAutoUpdateWarnBean{
+    # id
+    id :String
+    #案件类型
+    caseType:String
+    #提醒类型
+    warnType:String
+    #最小值
+    minimum:String
+    #最大值
+    maximum:String
+    #对象字典值
+    disposalObjectCode:String
+    #案件等级
+    incidentLevelCode:String
+    #案件类型名称
+    caseTypeName:String
+    #提醒类型名称
+    warnTypeName:String
+    #对象字典值名称
+    disposalObjectCodeName:String
+    #案件等级
+    incidentLevelCodeName:String
+    #创建时间
+    createdTime:Long
+    #更新时间
+    updatedTime:Long
+    #描述
+    describe:String
+}
+
+
+## 案件等级提醒查询条件
+input CaseAutoUpdateWarnQueryInputInfo{
+    #案件类型
+    caseType:String
+    #提醒类型
+    warnType:String
+    #案件等级
+    incidentLevelCode:String
+    #关键字 模糊匹配 最小值 最大值  对象字典名称 描述
+    keyword:String
+}

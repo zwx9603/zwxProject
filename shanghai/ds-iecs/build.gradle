@@ -1,0 +1,256 @@
+apply from: './dependencies.gradle'
+
+apply from: './allprojects.gradle'
+
+project(':ds_iecs-accept') {
+    version = '3.0.0-RELEASE'
+
+    dependencies {
+        compile(
+                project(':ds_iecs-agent')
+        )
+
+        testCompile(
+                libs.'junit'
+        )
+    }
+}
+project(':ds_iecs-accept-web') {
+    //version = '3.0.0-RELEASE'
+    description = 'ecs accept'
+
+    apply plugin: 'war'
+    webAppDirName = 'src/main/webapp'
+    buildDir = 'build'
+    war {
+        baseName = "ds-ecs-accept-web"
+    }
+    dependencies {
+        compile(
+                project(':ds_iecs-accept')
+        ){
+            exclude group: 'org.eclipse.jetty'
+            exclude group: 'org.eclipse.jetty.websocket'
+        }
+
+        testCompile(
+                libs.'junit'
+        )
+    }
+}
+
+project(':ds_iecs-agent') {
+    version = '3.0.0-RELEASE'
+
+    dependencies {
+        compile(
+                project(':ds_iecs-websocket'),
+                project(':ds_iecs-keydata'),
+                project(':ds_iecs-basedata')
+
+        )
+
+        testCompile(
+                libs.'junit'
+        )
+    }
+}
+
+project(':ds_iecs-state') {
+    version = '3.0.0-RELEASE'
+
+    dependencies {
+        compile(
+                project(':ds_iecs-keydata'),
+                project(':ds_iecs-websocket')
+
+        )
+
+        testCompile(
+                libs.'junit'
+        )
+    }
+}
+
+project(':ds_iecs-state-impl') {
+    version = '3.0.0-RELEASE'
+
+    dependencies {
+        compile(
+                project(':ds_iecs-websocket'),
+                project(':ds_iecs-state')
+
+        )
+
+        testCompile(
+                libs.'junit'
+        )
+    }
+}
+
+project(':ds_iecs-intelligence') {
+    version = '3.0.0-RELEASE'
+
+    dependencies {
+        compile(
+                project(':ds_iecs-websocket')
+        )
+
+        testCompile(
+                libs.'junit'
+        )
+    }
+}
+
+project(':ds_iecs-intelligence-impl') {
+    version = '3.0.0-RELEASE'
+
+    dependencies {
+        compile(
+                project(':ds_iecs-intelligence')
+
+        )
+
+        testCompile(
+                libs.'junit'
+        )
+    }
+}
+
+project(':ds_iecs-distribute') {
+    version = '3.0.0-RELEASE'
+
+    dependencies {
+        compile(
+                project(':ds_iecs-websocket')
+
+        )
+
+        testCompile(
+                libs.'junit'
+        )
+    }
+}
+
+project(':ds_iecs-distribute-impl') {
+    version = '3.0.0-RELEASE'
+
+    dependencies {
+        compile(
+                project(':ds_iecs-distribute')
+
+        )
+
+        testCompile(
+                libs.'junit'
+        )
+    }
+}
+
+project(':ds_iecs-keydata') {
+    version = '3.0.0-RELEASE'
+
+    dependencies {
+        compile(
+                project(':ds_iecs-websocket')
+        )
+
+        testCompile(
+                libs.'junit'
+        )
+    }
+}
+
+project(':ds_iecs-basedata') {
+    version = '3.0.0-RELEASE'
+
+    dependencies {
+        compile(
+                project(':ds_iecs-keydata')
+        )
+
+        testCompile(
+                libs.'junit'
+        )
+    }
+}
+
+project(':ds_iecs-mdc') {
+    version = '3.0.0-RELEASE'
+
+    dependencies {
+        compile(
+                project(':ds_iecs-agent')
+
+        )
+
+        testCompile(
+                libs.'junit'
+        )
+    }
+}
+project(':ds_iecs-mdc-web') {
+    //version = '3.0.0-RELEASE'
+    description = 'ecs mdc'
+
+    apply plugin: 'war'
+    webAppDirName = 'src/main/webapp'
+    buildDir = 'build'
+    war {
+        baseName = "ds-ecs-mdc-web"
+    }
+    dependencies {
+        compile(
+                project(':ds_iecs-mdc')
+        ){
+            exclude group: 'org.eclipse.jetty'
+            exclude group: 'org.eclipse.jetty.websocket'
+        }
+
+        testCompile(
+                libs.'junit'
+        )
+    }
+}
+
+
+project(':ds_iecs-notify') {
+    version = '1.0.0-RELEASE'
+
+    dependencies {
+        compile fileTree(dir: 'libs', include: ['*.jar'])
+        compile(
+                libs.'mx-utils',
+                libs.'mx-spring',
+                libs.'mx-hanlp-utils',
+                libs.'mx-dal',
+                libs.'mx-dal-hibernate',
+                libs.'mx-service-utils',
+                libs.'bcprov-jdk15',
+                libs.'commons-collections4',
+                libs.'ds-cas-client-core',
+                libs.'servlet',
+                libs.'spring-mvc',
+                'javax.el:javax.el-api:3.0.0',
+                'commons-net:commons-net:3.6',
+                'org.apache.poi:poi: 3.16',
+                'org.apache.poi:poi-ooxml:3.16',
+                'org.java-websocket:Java-WebSocket:1.3.0',
+                'com.ctrip.framework.apollo:ds-apollo-client:1.5.2',
+                'com.ctrip.framework.apollo:ds-apollo-core:1.5.0'
+
+
+        )
+        testCompile(
+                libs.'junit'
+        )
+    }
+}
+
+
+
+
+
+
+
+apply from: './subproject.gradle'

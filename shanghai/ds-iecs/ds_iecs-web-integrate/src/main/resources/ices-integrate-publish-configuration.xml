@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<project>
+  <info> 
+    <name content="产品名称">ds-integrate-web</name>
+    <version content="产品版本号">1.1.0.13.07</version>
+    <code content="产品编码">ds-integrate-web</code>
+	<appid content="产品发布编码默认:产品名称.app.id">dsicesintegratewebserver.app.id</appid>
+  </info>
+
+  <install-info>
+    <linuxpath content="linuxpath">/opt/apache-tomcat-8.5.51-integrate/webapps/</linuxpath>
+    <windowspath content="windowspath">d:/dssystem/apache-tomcat-8.5.51-integrate/webapps/</windowspath>
+  </install-info>
+
+  <cfg-files> 
+    <file name="changeability" type="properties">
+
+
+      <!-- accept 请求路径 -->
+      <acceptUrl content="iecs警情请求accept路径">http://192.168.92.63:8280/ds-iecs-web</acceptUrl>
+      <!-- dataReportUrl 请求路径 -->
+      <dataReportUrl content="一体化上报dataReport路径">http://41.253.39.244:10051</dataReportUrl>
+      <!-- coc 请求路径 -->
+      <cocUrl content="实战指挥coc路径">http://41.253.39.183:8982/ds-iecs</cocUrl>
+
+    </file>
+
+    <file name="tomcat" type="properties">
+      <port content="Tomcat access port">8380</port>
+      <serverport content="Shutdown port for Tomcat listening">8382</serverport>
+    </file>
+
+  </cfg-files> 
+</project>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>ds_iecs</artifactId>
+        <groupId>com.dscomm</groupId>
+        <version>${iecs.version}</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+
+
+    <artifactId>ds_iecs-schedule</artifactId>
+
+
+    <!-- di 工具  -->
+    <dependencies>
+
+        <dependency>
+            <groupId>com.dscomm</groupId>
+            <artifactId>ds_iecs-basedata</artifactId>
+            <version>${iecs.version}</version>
+        </dependency>
+
+
+        <!-- kafka 依赖 -->
+        <dependency>
+            <groupId>org.springframework.kafka</groupId>
+            <artifactId>spring-kafka</artifactId>
+            <version>2.2.8.RELEASE</version>
+        </dependency>
+
+
+        <!-- mqtt 依赖 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-integration</artifactId>
+            <version>2.1.5.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-stream</artifactId>
+            <version>5.1.1.RELEASE</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.integration</groupId>
+            <artifactId>spring-integration-mqtt</artifactId>
+            <version>5.1.5.RELEASE</version>
+        </dependency>
+
+
+
+    </dependencies>
+
+
+
+</project>

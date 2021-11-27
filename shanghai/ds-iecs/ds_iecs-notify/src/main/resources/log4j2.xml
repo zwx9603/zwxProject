@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="off" packages="com.dscomm.comp.logs.appender.db.jdbc">
+	<Properties>
+		<Property name="baseDir">logs</Property>
+	</Properties>
+
+
+	<Appenders>
+
+		<Console name="console" target="SYSTEM_OUT">
+			<PatternLayout charset="UTF-8"
+				pattern="%d{yyyy/MM/dd HH24:mm:ss.SSS} [%thread] %-5level %logger{10}(%line) - %msg%exception{full}%n" />
+		</Console>
+
+
+		<RollingRandomAccessFile name="rollingRandomAccessFile"
+								 fileName="${baseDir}/iceslog.log" filePattern="${baseDir}/history/iecslog-%d{yyyy-MM-dd}-%i.log.gz">
+			<PatternLayout charset="UTF-8"
+						   pattern="%d{yyyy/MM/dd HH24:mm:ss.SSS} [%thread] %-5level %logger{10}(%line) - %msg%exception{full}%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="4" />
+				<SizeBasedTriggeringPolicy size="10 M" />
+			</Policies>
+			<DefaultRolloverStrategy max="50">
+				<Delete basePath="${baseDir}/" maxDepth="1">
+					<IfFileName glob="history/*.log.gz" />
+					<IfLastModified age="15d" />
+				</Delete>
+			</DefaultRolloverStrategy>
+		</RollingRandomAccessFile>
+
+
+        <RollingRandomAccessFile name="auditRollingRandomAccessFile"
+                                 fileName="${baseDir}/audit.log" filePattern="${baseDir}/history/audit-%d{MM-dd}-%i.log.gz">
+            <PatternLayout charset="UTF-8"
+                           pattern="[%d{yyyy/MM/dd HH24:mm:ssS}][IECS]%m%n" />
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="2" />
+                <SizeBasedTriggeringPolicy size="10 M" />
+            </Policies>
+            <DefaultRolloverStrategy max="50">
+                <Delete basePath="${baseDir}/" maxDepth="1">
+                    <IfFileName glob="history/*.log.gz" />
+                    <IfLastModified age="30d" />
+                </Delete>
+            </DefaultRolloverStrategy>
+        </RollingRandomAccessFile>
+
+
+		<Async name="async">
+
+			<AppenderRef ref="console" />
+			<AppenderRef ref="rollingRandomAccessFile" />
+
+		</Async>
+
+	</Appenders>
+	<Loggers>
+
+		<root level="error">
+			<appender-ref ref="console" />
+		</root>
+
+		<logger name="org.mx" level="error" additivity="false">
+			<appender-ref ref="async" />
+		</logger>
+
+	</Loggers>
+</configuration>  

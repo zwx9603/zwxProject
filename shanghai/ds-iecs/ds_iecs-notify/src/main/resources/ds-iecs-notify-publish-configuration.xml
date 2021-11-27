@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<project>
+
+    <info>
+        <name content="productName">ds-iecs-notify</name>
+        <version content="productVersion">1.1.0.13.35</version>
+        <code content="productCode">ds-iecs-notify</code>
+        <appid content="product.app.id">javaproject.dsiecsnotify.app.id</appid>
+    </info>
+
+    <install-info>
+        <linuxpath content="linuxpath">/opt/</linuxpath>
+        <windowspath content="windowspath">d:/dssystem/</windowspath>
+    </install-info>
+
+
+  <cfg-files> 
+
+      <file name="server" type="properties">
+          <restful.port content="server access port">9999</restful.port>
+          <websocket.port content="websocket port for  listening">9997</websocket.port>
+      </file>
+
+  </cfg-files>
+</project>

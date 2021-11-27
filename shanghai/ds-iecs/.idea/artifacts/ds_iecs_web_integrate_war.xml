@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="ds_iecs-web-integrate:war">
+    <output-path>$PROJECT_DIR$/ds_iecs-web-integrate/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>ds_iecs-web-integrate</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="ds-integrate-web.war">
+      <element id="artifact" artifact-name="ds_iecs-web-integrate:war exploded" />
+    </root>
+  </artifact>
+</component>

@@ -6,6 +6,10 @@ import com.zwx.basedata.entity.StudentEntity;
 import com.zwx.basedata.service.TestService;
 import com.zwx.basedata.typeBean.StudentBean;
 import com.zwx.basedata.until.FunctionUtil;
+import jxl.Cell;
+import jxl.Sheet;
+import jxl.Workbook;
+import jxl.read.biff.BiffException;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -13,16 +17,23 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Service
+@PropertySource(value = "classpath:config/test.properties")
 public class TestServiceImpl implements TestService {
+
+    @Value("${creatFileUrl}")
+    public String creatFileUrl;
+
     @Override
     public String testStream() {
         List<Integer> integerList = new ArrayList<>();
@@ -324,6 +335,40 @@ public class TestServiceImpl implements TestService {
         System.out.println(functionEntities.toString());
 
     }
+
+    @Override
+    public void readColumn(File file, int index,int cloumn) {
+        InputStream inputStream = null;
+        Workbook workbook = null;
+        try {
+            inputStream = new FileInputStream(file.getAbsoluteFile());
+            workbook = Workbook.getWorkbook(inputStream);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (BiffException e) {
+            e.printStackTrace();
+        }
+        Sheet sheet = workbook.getSheet(0);
+            int rows = sheet.getRows();
+            List<String> paramList = new ArrayList<>();
+            for (int i = cloumn; i < rows; i++) {
+                Cell cell = sheet.getCell(index, i);
+                paramList.add(cell.getContents());
+            }
+            System.out.println(paramList.toString());
+            paramList.forEach(ele -> {
+                FileOutputStream fos = null;
+                File file1 = new File(creatFileUrl + ele + ".xls");
+                try {
+                    fos = new FileOutputStream(file1);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            });
+        }
+
 
     public static void main(String[] args) {
         TestService testService = new TestServiceImpl();

@@ -9,7 +9,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="92e6b003-e8e6-49de-8af9-1c3cfdbccb68" name="Default Changelist" comment="增加同一地址库id" />
+    <list default="true" id="92e6b003-e8e6-49de-8af9-1c3cfdbccb68" name="Default Changelist" comment="增加同一地址库id">
+      <change beforePath="$PROJECT_DIR$/../../demos/demo-basedata/src/main/java/com/zwx/basedata/Test.java" beforeDir="false" afterPath="$PROJECT_DIR$/../../demos/demo-basedata/src/main/java/com/zwx/basedata/Test.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../demos/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../demos/pom.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -37,39 +40,8 @@
       </list>
     </option>
   </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>jcj_zzqk</find>
-      <find>jcj_ajxx</find>
-      <find>jcj_dh</find>
-      <find>jcj_yj</find>
-      <find>wl_clxx</find>
-      <find>websock</find>
-      <find>CPHM</find>
-      <find>jcj_ts</find>
-      <find>1000</find>
-      <find>jcj_cxsj</find>
-      <find>lxdh</find>
-      <find>pl</find>
-      <find>led</find>
-      <find>sfdy</find>
-      <find>车辆</find>
-      <find>WLZZGN</find>
-      <find>IncidentBrieflyBean</find>
-      <find>报警记录</find>
-      <find>录音号</find>
-      <find>电话</find>
-      <find>立案</find>
-      <find>accessor.save</find>
-      <find>请求增援</find>
-      <find>saveInstruction</find>
-      <find>findAssistanceInfoSH</find>
-      <find>findDo</find>
-      <find>saveD</find>
-      <find>WebsocketCodeEnum</find>
-      <find>findDocument</find>
-      <find>basic_dictionary</find>
-    </findStrings>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="LogFilters">
     <option name="FILTER_ERRORS" value="false" />
@@ -89,7 +61,7 @@
     </option>
   </component>
   <component name="ProjectId" id="1rZI1vxIBGfpimROh4GWzWww0KD" />
-  <component name="ProjectLevelVcsManager">
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <OptionsSetting value="false" id="Update" />
   </component>
   <component name="ProjectViewState">
@@ -440,6 +412,7 @@
       <workItem from="1632047353345" duration="1287000" />
       <workItem from="1635854334419" duration="32000" />
       <workItem from="1636725979735" duration="201000" />
+      <workItem from="1638449918455" duration="101000" />
     </task>
     <task id="LOCAL-00001">
       <created>1619177131597</created>
@@ -617,6 +590,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="270" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1636726085999" />
+    <state x="467" y="146" width="688" height="532" key="find.popup" timestamp="1638450008941">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="467" y="146" width="688" height="532" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1638450008941" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

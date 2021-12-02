@@ -185,6 +185,12 @@
             <artifactId>pinyin4j</artifactId>
             <version>2.5.1</version>
         </dependency>
+        <!--对excel表格操作-->
+        <dependency>
+            <groupId>net.sourceforge.jexcelapi</groupId>
+            <artifactId>jxl</artifactId>
+            <version>2.6.12</version>
+        </dependency>
         <dependency>
             <groupId>org.mx</groupId>
             <artifactId>mx-spring</artifactId>

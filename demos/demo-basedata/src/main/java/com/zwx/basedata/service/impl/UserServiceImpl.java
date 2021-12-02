@@ -4,14 +4,15 @@ import com.zwx.basedata.entity.UserEntity;
 import com.zwx.basedata.mapper.UserMapper;
 import com.zwx.basedata.service.UserService;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
 @Service
-/*@PropertySource(value = {"classpath:config/data.properties",
+@PropertySource(value = {"classpath:config/data.properties",
         "classpath:application-dev.yml",
-        "classpath:config/test.properties"})*/
+        "classpath:config/test.properties"})
 public class UserServiceImpl implements UserService {
 
     @Value("${spring.profiles.active}")

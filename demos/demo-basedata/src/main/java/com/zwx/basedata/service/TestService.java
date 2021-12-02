@@ -3,6 +3,7 @@ package com.zwx.basedata.service;
 
 import com.zwx.basedata.typeBean.StudentBean;
 
+import java.io.File;
 import java.util.List;
 
 public interface TestService {
@@ -23,4 +24,6 @@ public interface TestService {
     void test2();
 
     void test3();
+
+    void readColumn(File file, int index, int cloumn);
 }

@@ -8,9 +8,9 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="ds_iecs-garage" />
-        <module name="ds_iecs-web-distribute" />
         <module name="ds_iecs-base" />
         <module name="ds_iecs-accept-shanghai" />
+        <module name="ds_iecs-integrate" />
         <module name="ds_iecs-notify" />
         <module name="ds_iecs-hangzhou-tools" />
         <module name="ds_iecs-basedata" />
@@ -24,7 +24,7 @@
         <module name="ds_iecs-schedule" />
         <module name="ds_iecs-web-accept-hangzhou" />
         <module name="ds_iecs-dsnetcommon" />
-        <module name="ds_iecs-integrate" />
+        <module name="ds_iecs-web-distribute" />
         <module name="ds_iecs-web-schedule" />
         <module name="ds_iecs-out" />
         <module name="ds_iecs-web-accept-shanghai" />
